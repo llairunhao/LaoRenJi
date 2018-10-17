@@ -1,0 +1,30 @@
+//
+//  PrefixHeader.pch
+//  LaoRenJi
+//
+//  Created by RunHao on 2018/10/13.
+//  Copyright © 2018年 西汉科技. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "XHJSON.h"
+#import "UIView+Space.h"
+#import "UIColor+Style.h"
+
+typedef void(^VoidHandler)(void);
+typedef void(^TextHandler)(NSString *text);
+typedef void(^BOOLHandler)(BOOL result);
+typedef void(^IntegerHandler)(NSInteger i);
+
+#define WEAKSELF __weak typeof(self) weakSelf = self
+#define UNSAFESELF __unsafe_unretained typeof(self)unsafeSelf = self
+#define STRONGSELF __strong typeof(self) strongSelf = weakSelf
+
+#define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+#define RGB(r,g,b) RGBA(r,g,b,1.0f)
+
+#define IS_IPHONEX (([[UIScreen mainScreen] bounds].size.height - 812) ? NO : YES)
+
+#endif /* PrefixHeader_pch */
