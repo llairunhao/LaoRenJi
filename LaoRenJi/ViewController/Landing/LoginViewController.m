@@ -17,6 +17,9 @@
 #import "ResetPassworViewController.h"
 
 #import "XHAPI+API.h"
+#import "XHUser.h"
+#import "XHDevice.h"
+
 
 @interface LoginViewController ()<UITextFieldDelegate>
 {
@@ -30,8 +33,41 @@
 @implementation LoginViewController
 
 - (void)loginWithAccount: (NSString *)account password: (NSString *)password {
-    NSLog(@"%@||%@",account, password);
-    [self dismissViewControllerAnimated:true completion:nil];
+   
+    [XHUser currentUser].account = account;
+    [XHUser currentUser].password = password;
+    [self showLoadingHUD: @"登录中..."];
+    WEAKSELF;
+    [XHAPI loginWithAccount:account password:password xgToken:@"token" handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+        if (result.isSuccess) {
+            [[XHUser currentUser] setupWithJSON:JSON];
+            [weakSelf listOfDevices];
+        }else {
+            [weakSelf hideAllHUD];
+            [weakSelf toast:result.message];
+        }
+    }];
+}
+
+- (void)listOfDevices {
+    [self showLoadingHUD: @"获取设备列表..."];
+    WEAKSELF;
+    [XHAPI listOfDevicesByToken:[XHUser currentUser].token handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+        [weakSelf hideAllHUD];
+        if (result.isSuccess) {
+            NSArray *array1 = JSON.JSONArrayValue;
+            NSMutableArray *array2 = [NSMutableArray arrayWithCapacity:array1.count];
+            for (XHJSON *json in array1) {
+                XHDevice *device = [[XHDevice alloc] initWithJSON:json];
+                [array2 addObject:device];
+            }
+            [XHUser currentUser].devices = [array2 copy];
+            [[NSNotificationCenter defaultCenter] postNotificationName:XHUserDidLoginNotification object:nil];
+            [weakSelf dismissViewControllerAnimated:true completion:nil];
+        }else {
+            [weakSelf toast:result.message];
+        }
+    }];
 }
 
 
@@ -114,12 +150,14 @@
     rect.size = size2;
     
     UITextField *textField = [self textFieldWithPlaceholder:@"请输入账号"];
+    textField.text = @"17665368506";
     _accountTF = textField;
     rect.origin.y = originY;
     textField.frame = rect;
     
     textField = [self textFieldWithPlaceholder:@"请输入密码"];
     textField.secureTextEntry = true;
+    textField.text = @"86452";
     _passwordTF = textField;
     rect.origin.y = CGRectGetMaxY(rect) + padding;
     textField.frame = rect;

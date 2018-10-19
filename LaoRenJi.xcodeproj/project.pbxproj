@@ -33,6 +33,17 @@
 		385C540A2177780B000B4A00 /* LeftViewDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C54092177780B000B4A00 /* LeftViewDeviceCell.m */; };
 		385C540D2177783C000B4A00 /* LeftViewBindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C540C2177783C000B4A00 /* LeftViewBindCell.m */; };
 		385C541021777C8A000B4A00 /* LeftViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C540F21777C8A000B4A00 /* LeftViewCell.m */; };
+		A533B2952179A7FB00C790F9 /* XHDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2942179A7FB00C790F9 /* XHDevice.m */; };
+		A533B2982179ACFE00C790F9 /* DevicePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2972179ACFE00C790F9 /* DevicePhoneViewController.m */; };
+		A533B29B2179AD3B00C790F9 /* SeviceTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B29A2179AD3B00C790F9 /* SeviceTextField.m */; };
+		A533B29E2179BDCD00C790F9 /* XHGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B29D2179BDCD00C790F9 /* XHGlobal.m */; };
+		A533B2A12179C0E400C790F9 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2A02179C0E400C790F9 /* UIViewController+HUD.m */; };
+		A533B2A42179C55A00C790F9 /* DeviceSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2A32179C55A00C790F9 /* DeviceSettingViewController.m */; };
+		A533B2A72179C7B900C790F9 /* DeviceSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2A62179C7B900C790F9 /* DeviceSettingCell.m */; };
+		A533B2AA2179CCD400C790F9 /* DeviceLiveSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2A92179CCD400C790F9 /* DeviceLiveSelectController.m */; };
+		A533B2AD2179D3BC00C790F9 /* DeviceLiveSelectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2AC2179D3BC00C790F9 /* DeviceLiveSelectButton.m */; };
+		A533B2B02179DB4100C790F9 /* LocusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2AF2179DB4100C790F9 /* LocusViewController.m */; };
+		A5353AA3217825D200D8A6B9 /* XHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A5353AA2217825D200D8A6B9 /* XHUser.m */; };
 		A5E1F817216B30CD007F398E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E1F816216B30CD007F398E /* AppDelegate.m */; };
 		A5E1F81F216B30D8007F398E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E1F81E216B30D8007F398E /* Assets.xcassets */; };
 		A5E1F822216B30D8007F398E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1F820216B30D8007F398E /* LaunchScreen.storyboard */; };
@@ -96,6 +107,28 @@
 		385C540F21777C8A000B4A00 /* LeftViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftViewCell.m; sourceTree = "<group>"; };
 		5A5EA02D0F9606AB53E3E352 /* Pods-LaoRenJi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaoRenJi.release.xcconfig"; path = "Pods/Target Support Files/Pods-LaoRenJi/Pods-LaoRenJi.release.xcconfig"; sourceTree = "<group>"; };
 		73A3D4BB73DDFD25E392F70B /* Pods-LaoRenJi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaoRenJi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LaoRenJi/Pods-LaoRenJi.debug.xcconfig"; sourceTree = "<group>"; };
+		A533B2932179A7FB00C790F9 /* XHDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHDevice.h; sourceTree = "<group>"; };
+		A533B2942179A7FB00C790F9 /* XHDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHDevice.m; sourceTree = "<group>"; };
+		A533B2962179ACFE00C790F9 /* DevicePhoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevicePhoneViewController.h; sourceTree = "<group>"; };
+		A533B2972179ACFE00C790F9 /* DevicePhoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevicePhoneViewController.m; sourceTree = "<group>"; };
+		A533B2992179AD3B00C790F9 /* SeviceTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeviceTextField.h; sourceTree = "<group>"; };
+		A533B29A2179AD3B00C790F9 /* SeviceTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeviceTextField.m; sourceTree = "<group>"; };
+		A533B29C2179BDCD00C790F9 /* XHGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHGlobal.h; sourceTree = "<group>"; };
+		A533B29D2179BDCD00C790F9 /* XHGlobal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHGlobal.m; sourceTree = "<group>"; };
+		A533B29F2179C0E400C790F9 /* UIViewController+HUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
+		A533B2A02179C0E400C790F9 /* UIViewController+HUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
+		A533B2A22179C55A00C790F9 /* DeviceSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceSettingViewController.h; sourceTree = "<group>"; };
+		A533B2A32179C55A00C790F9 /* DeviceSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceSettingViewController.m; sourceTree = "<group>"; };
+		A533B2A52179C7B900C790F9 /* DeviceSettingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceSettingCell.h; sourceTree = "<group>"; };
+		A533B2A62179C7B900C790F9 /* DeviceSettingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceSettingCell.m; sourceTree = "<group>"; };
+		A533B2A82179CCD400C790F9 /* DeviceLiveSelectController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceLiveSelectController.h; sourceTree = "<group>"; };
+		A533B2A92179CCD400C790F9 /* DeviceLiveSelectController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceLiveSelectController.m; sourceTree = "<group>"; };
+		A533B2AB2179D3BC00C790F9 /* DeviceLiveSelectButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceLiveSelectButton.h; sourceTree = "<group>"; };
+		A533B2AC2179D3BC00C790F9 /* DeviceLiveSelectButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceLiveSelectButton.m; sourceTree = "<group>"; };
+		A533B2AE2179DB4100C790F9 /* LocusViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocusViewController.h; sourceTree = "<group>"; };
+		A533B2AF2179DB4100C790F9 /* LocusViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocusViewController.m; sourceTree = "<group>"; };
+		A5353AA1217825D200D8A6B9 /* XHUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHUser.h; sourceTree = "<group>"; };
+		A5353AA2217825D200D8A6B9 /* XHUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHUser.m; sourceTree = "<group>"; };
 		A5E1F812216B30CD007F398E /* LaoRenJi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaoRenJi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5E1F815216B30CD007F398E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A5E1F816216B30CD007F398E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -171,6 +204,8 @@
 				385C53C121730197000B4A00 /* XHJSON.m */,
 				385C53EF21733231000B4A00 /* XHKeyboardObserver.h */,
 				385C53F021733231000B4A00 /* XHKeyboardObserver.m */,
+				A533B29C2179BDCD00C790F9 /* XHGlobal.h */,
+				A533B29D2179BDCD00C790F9 /* XHGlobal.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -196,6 +231,8 @@
 				385C53D2217318C9000B4A00 /* UIView+Space.m */,
 				385C53CE2173167D000B4A00 /* UIViewController+ChildController.h */,
 				385C53CF2173167D000B4A00 /* UIViewController+ChildController.m */,
+				A533B29F2179C0E400C790F9 /* UIViewController+HUD.h */,
+				A533B2A02179C0E400C790F9 /* UIViewController+HUD.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -243,6 +280,14 @@
 				385C53FA21776CC8000B4A00 /* MainViewController.m */,
 				385C54002177764E000B4A00 /* LeftViewController.h */,
 				385C54012177764E000B4A00 /* LeftViewController.m */,
+				A533B2962179ACFE00C790F9 /* DevicePhoneViewController.h */,
+				A533B2972179ACFE00C790F9 /* DevicePhoneViewController.m */,
+				A533B2A22179C55A00C790F9 /* DeviceSettingViewController.h */,
+				A533B2A32179C55A00C790F9 /* DeviceSettingViewController.m */,
+				A533B2A82179CCD400C790F9 /* DeviceLiveSelectController.h */,
+				A533B2A92179CCD400C790F9 /* DeviceLiveSelectController.m */,
+				A533B2AE2179DB4100C790F9 /* LocusViewController.h */,
+				A533B2AF2179DB4100C790F9 /* LocusViewController.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -261,6 +306,10 @@
 			children = (
 				385C54042177767E000B4A00 /* LeftHeaderView.h */,
 				385C54052177767E000B4A00 /* LeftHeaderView.m */,
+				A533B2992179AD3B00C790F9 /* SeviceTextField.h */,
+				A533B29A2179AD3B00C790F9 /* SeviceTextField.m */,
+				A533B2AB2179D3BC00C790F9 /* DeviceLiveSelectButton.h */,
+				A533B2AC2179D3BC00C790F9 /* DeviceLiveSelectButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -274,6 +323,8 @@
 				385C54092177780B000B4A00 /* LeftViewDeviceCell.m */,
 				385C540B2177783C000B4A00 /* LeftViewBindCell.h */,
 				385C540C2177783C000B4A00 /* LeftViewBindCell.m */,
+				A533B2A52179C7B900C790F9 /* DeviceSettingCell.h */,
+				A533B2A62179C7B900C790F9 /* DeviceSettingCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -285,6 +336,25 @@
 				5A5EA02D0F9606AB53E3E352 /* Pods-LaoRenJi.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A533B2922179A7E700C790F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A533B2932179A7FB00C790F9 /* XHDevice.h */,
+				A533B2942179A7FB00C790F9 /* XHDevice.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A5353AA0217825AA00D8A6B9 /* MemoryDB */ = {
+			isa = PBXGroup;
+			children = (
+				A533B2922179A7E700C790F9 /* Model */,
+				A5353AA1217825D200D8A6B9 /* XHUser.h */,
+				A5353AA2217825D200D8A6B9 /* XHUser.m */,
+			);
+			path = MemoryDB;
 			sourceTree = "<group>";
 		};
 		A5E1F809216B30CD007F398E = {
@@ -308,6 +378,7 @@
 		A5E1F814216B30CD007F398E /* LaoRenJi */ = {
 			isa = PBXGroup;
 			children = (
+				A5353AA0217825AA00D8A6B9 /* MemoryDB */,
 				385C53FC21776CD9000B4A00 /* Style */,
 				385C53BA2171EC95000B4A00 /* Util */,
 				385C53B82171E966000B4A00 /* API */,
@@ -433,6 +504,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A533B2A12179C0E400C790F9 /* UIViewController+HUD.m in Sources */,
+				A533B2AD2179D3BC00C790F9 /* DeviceLiveSelectButton.m in Sources */,
 				385C53E42173270D000B4A00 /* XHSafeNavigationBar.m in Sources */,
 				385C53BF2171EDA5000B4A00 /* XHAPI.m in Sources */,
 				385C53E1217325A2000B4A00 /* XHNavigationBar.m in Sources */,
@@ -440,17 +513,26 @@
 				385C53B22171E68F000B4A00 /* XHLiveEvent.mm in Sources */,
 				385C53D02173167D000B4A00 /* UIViewController+ChildController.m in Sources */,
 				385C540D2177783C000B4A00 /* LeftViewBindCell.m in Sources */,
+				A533B2A72179C7B900C790F9 /* DeviceSettingCell.m in Sources */,
 				385C541021777C8A000B4A00 /* LeftViewCell.m in Sources */,
 				385C53C221730197000B4A00 /* XHJSON.m in Sources */,
+				A533B2B02179DB4100C790F9 /* LocusViewController.m in Sources */,
 				385C53DA2173254C000B4A00 /* XHNavigationController.m in Sources */,
 				385C53F121733231000B4A00 /* XHKeyboardObserver.m in Sources */,
 				385C540A2177780B000B4A00 /* LeftViewDeviceCell.m in Sources */,
+				A533B2A42179C55A00C790F9 /* DeviceSettingViewController.m in Sources */,
+				A533B2982179ACFE00C790F9 /* DevicePhoneViewController.m in Sources */,
 				385C54022177764E000B4A00 /* LeftViewController.m in Sources */,
+				A533B2952179A7FB00C790F9 /* XHDevice.m in Sources */,
 				385C53CC217313ED000B4A00 /* LoginViewController.m in Sources */,
 				385C53AF2171E5F1000B4A00 /* XHLiveViewController.mm in Sources */,
 				385C53FB21776CC8000B4A00 /* MainViewController.m in Sources */,
 				385C53B72171E867000B4A00 /* FHTRootContainer.m in Sources */,
 				A5E1F825216B30D8007F398E /* main.m in Sources */,
+				A533B29B2179AD3B00C790F9 /* SeviceTextField.m in Sources */,
+				A5353AA3217825D200D8A6B9 /* XHUser.m in Sources */,
+				A533B29E2179BDCD00C790F9 /* XHGlobal.m in Sources */,
+				A533B2AA2179CCD400C790F9 /* DeviceLiveSelectController.m in Sources */,
 				385C53D621732515000B4A00 /* RegisterViewController.m in Sources */,
 				385C53FF21776CEF000B4A00 /* UIColor+Style.m in Sources */,
 				385C53E821732A40000B4A00 /* UITextField+Landing.m in Sources */,
@@ -529,7 +611,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -582,7 +664,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

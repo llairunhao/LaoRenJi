@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM (NSInteger, XHAPIResultCode)   {
-    XHAPIResultCodeSuccess         = 200,
+    XHAPIResultCodeSuccess         = 1,
     XHAPIResultCodeEmpty           = 1001,
     XHAPIResultCodeReturnNull      = 9000,
     XHAPIResultCodeLogout          = 10001,

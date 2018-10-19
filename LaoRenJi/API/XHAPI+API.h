@@ -17,6 +17,16 @@ NS_ASSUME_NONNULL_BEGIN
                                    xgToken: (NSString *)xgToken
                                    handler: (nullable XHAPIResultHandler)handler;
 
++ (NSURLSessionDataTask *)listOfDevicesByToken: (NSString *)token
+                                       handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)getCurrentDeviceStateByToken: (NSString *)token
+                                               handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)setCurrentDeviceByToken: (NSString *)token
+                                    deviceSimMark: (NSString *)simMark
+                                          handler: (XHAPIResultHandler)handler;
+
 @end
 
 NS_ASSUME_NONNULL_END

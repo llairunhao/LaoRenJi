@@ -12,11 +12,9 @@
 #import "XHJSON.h"
 #import "UIView+Space.h"
 #import "UIColor+Style.h"
+#import "XHGlobal.h"
+#import "UIViewController+HUD.h"
 
-typedef void(^VoidHandler)(void);
-typedef void(^TextHandler)(NSString *text);
-typedef void(^BOOLHandler)(BOOL result);
-typedef void(^IntegerHandler)(NSInteger i);
 
 #define WEAKSELF __weak typeof(self) weakSelf = self
 #define UNSAFESELF __unsafe_unretained typeof(self)unsafeSelf = self

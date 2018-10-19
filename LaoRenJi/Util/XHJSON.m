@@ -204,4 +204,8 @@
 
 
 
+- (id)value {
+    return _value;
+}
+
 @end

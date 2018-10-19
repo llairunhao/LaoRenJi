@@ -9,13 +9,18 @@
 #import "LeftViewController.h"
 #import "LeftViewDeviceCell.h"
 #import "LeftViewBindCell.h"
+#import "LeftHeaderView.h"
+
+#import "XHUser.h"
+#import "XHDevice.h"
+#import "XHAPI+API.h"
 
 
 @interface LeftViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, weak) UIView *bgView;
 @property (nonatomic, weak) UIView *tableBgView;
-
+@property (nonatomic, weak) LeftHeaderView *headerView;
 @property (nonatomic, assign) NSInteger selectedIndex;
 
 @end
@@ -25,6 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupSubviews];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvLoginNoti:) name:XHUserDidLoginNotification object:nil];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)setupSubviews {
@@ -53,6 +65,12 @@
     tableView.dataSource = self;
     [self.view addSubview:tableView];
     _tableView = tableView;
+    
+    rect = CGRectMake(0, 0, CGRectGetWidth(rect), CGRectGetWidth(rect) * 1.618);
+    LeftHeaderView *headerView = [[LeftHeaderView alloc] initWithFrame:rect];
+    tableView.tableHeaderView = headerView;
+     [headerView reloadData];
+    _headerView = headerView;
 }
 
 - (void)hideAnimation {
@@ -84,7 +102,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 4;
+        return [XHUser currentUser].devices.count;
     }
     return 1;
 }
@@ -96,7 +114,7 @@
             cell = [[LeftViewDeviceCell alloc] initWithReuseIdentifier:@"device"];
         }
         cell.ticked = self.selectedIndex == indexPath.row;
-        cell.textLabel.text = @"31231";
+        cell.textLabel.text = [XHUser currentUser].devices[indexPath.row].name;
         return cell;
     }
     LeftViewBindCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bind"];
@@ -108,11 +126,35 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        self.selectedIndex = indexPath.row;
-        [tableView reloadData];
+    if (indexPath.section == 1) {
+        return;
     }
     
+    
+    WEAKSELF;
+    [self showLoadingHUD];
+    XHDevice *device = [XHUser currentUser].devices[indexPath.row];
+    XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+        [weakSelf hideAllHUD];
+        if (result.isSuccess) {
+            weakSelf.selectedIndex = indexPath.row;
+            [XHUser currentUser].currentDevice = device;
+            [tableView reloadData];
+        }else {
+            [weakSelf toast:result.message];
+        }
+    };
+    [XHAPI setCurrentDeviceByToken:[XHUser currentUser].token
+                     deviceSimMark:device.simMark
+                           handler:handler];
+    
+    
+}
+
+- (void)recvLoginNoti: (NSNotification *)noti {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.headerView reloadData];
+    });
 }
 
 @end

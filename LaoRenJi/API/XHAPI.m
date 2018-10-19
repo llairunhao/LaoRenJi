@@ -32,7 +32,7 @@ typedef void(^AFFailureHandler)(NSURLSessionDataTask * _Nullable task, NSError *
 }
 
 + (nonnull NSString *)urlStringByPath: (nonnull NSString *)path {
-    return [NSString stringWithFormat:@"%@%@", @"", path];
+    return [NSString stringWithFormat:@"%@%@", @"https://mobile.jipaopao.cn/", path];
 }
 
 
@@ -50,8 +50,7 @@ typedef void(^AFFailureHandler)(NSURLSessionDataTask * _Nullable task, NSError *
 + (nonnull AFSuccessHandler )successHandler: (nullable XHAPIResultHandler) handler {
     AFSuccessHandler success = ^(NSURLSessionDataTask * _Nullable task , id _Nullable responseObject) {
         
-        NSLog(@"%@",responseObject);
-        
+        NSLog(@"%@", responseObject);
         if (!handler) {
             return;
         }
@@ -77,7 +76,7 @@ typedef void(^AFFailureHandler)(NSURLSessionDataTask * _Nullable task, NSError *
         if (result.message.length == 0) {
             result.message = [NSString stringWithFormat:@"未知错误:%@", @(result.code)];
         }
-         handler(result, [JSON JSONForKey:@"object"]);
+         handler(result, [JSON JSONForKey:@"obj"]);
         
     };
     return success;

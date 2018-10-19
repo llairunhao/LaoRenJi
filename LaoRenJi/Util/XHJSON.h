@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithValue: (nullable id)value;
 
+@property (readonly, nullable) id value;
+
 @property (readonly) BOOL isNull;
 @property (readonly) BOOL isNumber;
 @property (readonly) BOOL isDictionary;

@@ -9,13 +9,18 @@
 #import "MainViewController.h"
 #import "LeftViewController.h"
 #import "UIViewController+ChildController.h"
+#import "DeviceLiveSelectController.h"
+
+#import "XHAPI+API.h"
+#import "XHUser.h"
+#import "XHDevice.h"
 
 @interface MainViewController ()
-{
-    NSArray <UIButton *> *_buttons;
-    __weak UIButton *_groupButton;
-    __weak LeftViewController *_leftViewController;
-}
+
+@property (nonatomic, weak) UIButton *groupButton;
+@property (nonatomic, weak) LeftViewController *leftViewController;
+@property (nonatomic, strong) NSArray <UIButton *> *buttons;
+@property (nonatomic, assign) NSTimeInterval lastUpdateTime;
 @end
 
 @implementation MainViewController
@@ -25,7 +30,16 @@
     
     self.view.backgroundColor = [UIColor EC1];
     [self setupSubviews];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:XHDeviceDidChangeNotification object:nil];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self refreshDataIfNeed];
+}
+
+
 
 - (void)setupSubviews {
     UIButton *groupButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -42,6 +56,7 @@
     for (NSInteger i = 0; i < titles.count; i++) {
         NSString *text = titles[i];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.tag = i;
         button.titleLabel.font = [UIFont systemFontOfSize:17];
         [button setTitleColor:[UIColor lightGrayColor] forState: UIControlStateNormal];
         [button setTitle:text forState:UIControlStateNormal];
@@ -51,6 +66,7 @@
         [button setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
         [self.view addSubview:button];
         [buttons addObject:button];
+        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     _buttons = [buttons copy];
 }
@@ -59,7 +75,6 @@
     if (_buttons.count == 0) {
         return;
     }
-    
     
     CGSize size = [_buttons[0] sizeThatFits:CGSizeZero];
     CGFloat hPadding = (CGRectGetWidth(self.view.bounds) - size.width * 2) / 3;
@@ -96,6 +111,23 @@
     
 }
 
+- (void)buttonClick: (UIButton *)button {
+
+    NSArray *classes = @[@"DevicePhoneViewController",
+                         @"DeviceLiveSelectController",
+                         @"LocusViewController",
+                         @"",
+                         @"DeviceSettingViewController",
+                         @""];
+    UIViewController *controller = [[NSClassFromString(classes[button.tag]) alloc] init];
+    if (button.tag == 1) {
+        [self addController:controller];
+    }else if (controller) {
+        [self.navigationController pushViewController:controller animated:true];
+    }
+    
+}
+
 - (void)groupButtonClick: (UIButton *)button {
 
     if (!_leftViewController) {
@@ -104,6 +136,37 @@
         _leftViewController = controller;
     }
     [_leftViewController showAnimation];
+}
+
+- (void)refreshDataIfNeed {
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    if (now - self.lastUpdateTime > 60) {
+        [self refreshData];
+    }
+}
+
+- (void)refreshData {
+    NSString *token = [XHUser currentUser].token;
+    if (token.length == 0) {
+        return;
+    }
+
+    
+    
+    WEAKSELF;
+    [XHAPI getCurrentDeviceStateByToken:token handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+        if (result.isSuccess) {
+            [XHUser currentUser].currentDevice.online = JSON.boolValue;
+            XHDevice *device = [XHUser currentUser].currentDevice;
+            NSString *text = [NSString stringWithFormat:@"%@（%@）", device.name, device.online ? @"在线": @"离线"];
+            [weakSelf.groupButton setTitle:text forState: UIControlStateNormal];
+            self.lastUpdateTime = [[NSDate date] timeIntervalSince1970];
+        }else {
+            [weakSelf toast:result.message];
+        }
+    }];
+
+   
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
