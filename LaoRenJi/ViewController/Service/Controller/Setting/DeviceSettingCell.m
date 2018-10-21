@@ -46,5 +46,9 @@
     self.textLabel.frame = rect;
 }
 
+- (UIImageView *)arrowView {
+    return _arrowView;
+}
+
 @end
 

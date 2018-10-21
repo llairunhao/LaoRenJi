@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LeftViewCell : UITableViewCell
 
-- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
+- (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier;
 
 @property (nonatomic, assign) BOOL ticked;
 

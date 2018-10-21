@@ -1,5 +1,5 @@
 //
-//  SeviceTextField.h
+//  DeviceSettingCell.h
 //  LaoRenJi
 //
 //  Created by 菲凡数据科技-iOS开发 on 2018/10/19.
@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SeviceTextField : UIView
+@interface DeviceSettingCell : UITableViewCell
+
+- (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier;
+
+@property (nonatomic, readonly) UIImageView *arrowView;
 
 @end
 

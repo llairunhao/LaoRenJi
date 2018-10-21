@@ -25,8 +25,70 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSURLSessionDataTask *)setCurrentDeviceByToken: (NSString *)token
                                     deviceSimMark: (NSString *)simMark
-                                          handler: (XHAPIResultHandler)handler;
+                                          handler: (nullable XHAPIResultHandler)handler;
 
+
++ (NSURLSessionDataTask *)listOfContactsByToken: (NSString *)token
+                                        handler: (nullable XHAPIResultHandler)handler;
+
+
++ (NSURLSessionDataTask *)updateContactByToken: (NSString *)token
+                                     contactId: (NSUInteger)contactId
+                                          name: (NSString *)name
+                                         phone: (NSString *)phone
+                                      isUrgent: (BOOL)isUrgent
+                                   urgentLevel: (NSInteger)urgentLevel
+                                  isAutoAnswer: (BOOL)isAutoAnswer
+                                       handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)saveContactByToken: (NSString *)token
+                                        name: (NSString *)name
+                                       phone: (NSString *)phone
+                                    isUrgent: (BOOL)isUrgent
+                                 urgentLevel: (NSInteger)urgentLevel
+                                isAutoAnswer: (BOOL)isAutoAnswer
+                                     handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)removeContactByToken: (NSString *)token
+                                     contactId: (NSUInteger)contactId
+                                       handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)saveDeviceWifiByToken: (NSString *)token
+                                       wifiName: (NSString *)wifiName
+                                           type: (NSInteger)type
+                                       password: (NSString *)password
+                                        handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)listOfAlarmClocksByToken: (NSString *)token
+                                           handler:(nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)getAlarmClockById: (NSUInteger )clockId
+                                      token: (NSString *)token
+                                    handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)saveAlarmClockByToken: (NSString *)token
+                                      eventName: (NSString *)eventName
+                                   eventContent: (NSString *)eventContent
+                                      eventTime: (NSString *)eventTime
+                                   timeInterval: (NSString *)timeInterval
+                                         enable: (BOOL)enable
+                                        simMark: (NSString *)simMark
+                                        handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)updateAlarmClockById: (NSUInteger )clockId
+                                         token: (NSString *)token
+                                     eventName: (NSString *)eventName
+                                  eventContent: (NSString *)eventContent
+                                     eventTime: (NSString *)eventTime
+                                  timeInterval: (NSString *)timeInterval
+                                        enable: (BOOL)enable
+                                       simMark: (NSString *)simMark
+                                       handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)removeAlarmClockById: (NSUInteger )clockId
+                                         token: (NSString *)token
+                                       handler: (nullable XHAPIResultHandler)handler;
 @end
 
 NS_ASSUME_NONNULL_END
+

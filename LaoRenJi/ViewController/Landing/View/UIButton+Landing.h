@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
                               target:(nullable id)target
                               action:(SEL)action;
 
++ (UIButton *)grayButtonWithTitle:(NSString *)title
+                           target:(nullable id)target
+                           action:(SEL)action;
+
 @end
 
 NS_ASSUME_NONNULL_END

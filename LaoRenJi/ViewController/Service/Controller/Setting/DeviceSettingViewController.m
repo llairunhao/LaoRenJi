@@ -61,7 +61,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView  deselectRowAtIndexPath:indexPath animated:true];
+    NSArray *classes = @[@"ContactViewController",
+                         @"AlarmViewController",
+                         @"WiFiViewController",
+                         @"AboutViewController"];
+    UIViewController *controller = [[NSClassFromString(classes[indexPath.row]) alloc] init];
+    [self.navigationController pushViewController:controller animated:true];
 }
 
 

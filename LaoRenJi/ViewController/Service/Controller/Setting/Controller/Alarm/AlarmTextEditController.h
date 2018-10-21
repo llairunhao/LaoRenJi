@@ -1,0 +1,20 @@
+//
+//  AlarmTextEditController.h
+//  LaoRenJi
+//
+//  Created by RunHao on 2018/10/21.
+//  Copyright © 2018年 西汉科技. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface AlarmTextEditController : UIViewController
+
+@property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy) TextHandler textHandler;
+
+@end
+
+NS_ASSUME_NONNULL_END

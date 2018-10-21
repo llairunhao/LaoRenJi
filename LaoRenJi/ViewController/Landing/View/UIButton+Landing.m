@@ -20,4 +20,16 @@
     return button;
 }
 
+
++ (UIButton *)grayButtonWithTitle:(NSString *)title
+                           target:(id)target
+                           action:(SEL)action {
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"RoundedRectangle7"] forState:UIControlStateNormal];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
 @end

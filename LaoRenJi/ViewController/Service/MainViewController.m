@@ -14,6 +14,7 @@
 #import "XHAPI+API.h"
 #import "XHUser.h"
 #import "XHDevice.h"
+#import "DBManager.h"
 
 @interface MainViewController ()
 
@@ -119,6 +120,7 @@
                          @"",
                          @"DeviceSettingViewController",
                          @""];
+    
     UIViewController *controller = [[NSClassFromString(classes[button.tag]) alloc] init];
     if (button.tag == 1) {
         [self addController:controller];

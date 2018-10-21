@@ -60,6 +60,61 @@
     return [self GET:urlString parameters:parameters handler:handler];
 }
 
++ (NSURLSessionDataTask *)removeAlarmClockById: (NSUInteger )clockId
+                                         token: (NSString *)token
+                                       handler: (nullable XHAPIResultHandler)handler {
+    
+    NSString *urlString = [self urlStringByPath:@"delAlarmClockInterface"];
+    NSDictionary *parameters = @{ @"token" : token, @"id": @(clockId) };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)updateAlarmClockById: (NSUInteger )clockId
+                                         token: (NSString *)token
+                                     eventName: (NSString *)eventName
+                                  eventContent: (NSString *)eventContent
+                                     eventTime: (NSString *)eventTime
+                                  timeInterval: (NSString *)timeInterval
+                                        enable: (BOOL)enable
+                                       simMark: (NSString *)simMark
+                                       handler: (nullable XHAPIResultHandler)handler {
+    
+    NSString *urlString = [self urlStringByPath:@"saveAlarmClockAllInterface"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"id": @(clockId),
+                                 @"eventName" : eventName,
+                                 @"eventContent" : eventContent,
+                                 @"eventTime" : eventTime,
+                                 @"timeInterval" : timeInterval,
+                                 @"status" : @(enable ? 1 : 0),
+                                 @"simMark" : simMark
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)saveAlarmClockByToken: (NSString *)token
+                                     eventName: (NSString *)eventName
+                                  eventContent: (NSString *)eventContent
+                                     eventTime: (NSString *)eventTime
+                                  timeInterval: (NSString *)timeInterval
+                                        enable: (BOOL)enable
+                                       simMark: (NSString *)simMark
+                                        handler: (nullable XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"saveAlarmClockAllInterface"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"eventName" : eventName,
+                                 @"eventContent" : eventContent,
+                                 @"eventTime" : eventTime,
+                                 @"timeInterval" : timeInterval,
+                                 @"status" : @(enable ? 1 : 0),
+                                 @"simMark" : simMark
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
+
 
 + (NSURLSessionDataTask *)listOfDevicesByToken: (NSString *)token
                                        handler: (nullable XHAPIResultHandler)handler {
@@ -80,6 +135,82 @@
                                           handler: (XHAPIResultHandler)handler {
     NSString *urlString = [self urlStringByPath:@"getOnlineStateInterface"];
     NSDictionary *parameters = @{ @"token" : token, @"simMark" : simMark };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)listOfContactsByToken: (NSString *)token
+                                        handler: (nullable XHAPIResultHandler)handler {
+    
+    NSString *urlString = [self urlStringByPath:@"getContactsAllInterface"];
+    NSDictionary *parameters = @{ @"token" : token };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)saveContactByToken: (NSString *)token
+                                        name: (NSString *)name
+                                       phone: (NSString *)phone
+                                    isUrgent: (BOOL)isUrgent
+                                 urgentLevel: (NSInteger)urgentLevel
+                                isAutoAnswer: (BOOL)isAutoAnswer
+                                     handler: (nullable XHAPIResultHandler)handler {
+    
+    NSString *urlString = [self urlStringByPath:@"saveContactsAllInterface"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"contactName" : name,
+                                 @"contactPhone" : phone,
+                                 @"isUrgent" : isUrgent ? @(1) : @(0),
+                                 @"urgentLevel" : @(urgentLevel),
+                                 @"IsAutoAnswer" : isAutoAnswer ? @(1) : @(0)
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)updateContactByToken: (NSString *)token
+                                     contactId: (NSUInteger)contactId
+                                        name: (NSString *)name
+                                       phone: (NSString *)phone
+                                    isUrgent: (BOOL)isUrgent
+                                 urgentLevel: (NSInteger)urgentLevel
+                                isAutoAnswer: (BOOL)isAutoAnswer
+                                     handler: (nullable XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"saveContactsAllInterface"];
+    NSDictionary *parameters = @{
+                                 @"id" : @(contactId),
+                                 @"token" : token,
+                                 @"contactName" : name,
+                                 @"contactPhone" : phone,
+                                 @"isUrgent" : isUrgent ? @(1) : @(0),
+                                 @"urgentLevel" : @(urgentLevel),
+                                 @"IsAutoAnswer" : isAutoAnswer ? @(1) : @(0)
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)removeContactByToken: (NSString *)token
+                                     contactId: (NSUInteger)contactId
+                                       handler: (nullable XHAPIResultHandler)handler {
+    
+    NSString *urlString = [self urlStringByPath:@"delContactsInterface"];
+    NSDictionary *parameters = @{
+                                 @"id" : @(contactId),
+                                 @"token" : token
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)saveDeviceWifiByToken: (NSString *)token
+                                       wifiName: (NSString *)wifiName
+                                           type: (NSInteger)type
+                                       password: (NSString *)password
+                                        handler: (nullable XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"addWifiInterface"];
+    NSDictionary *parameters = @{
+                                 @"type" : @(type),
+                                 @"token" : token,
+                                 @"name" : wifiName,
+                                 @"password" : password
+                                 };
     return [self GET:urlString parameters:parameters handler:handler];
 }
 
