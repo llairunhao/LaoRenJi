@@ -117,7 +117,7 @@
     NSArray *classes = @[@"DevicePhoneViewController",
                          @"DeviceLiveSelectController",
                          @"LocusViewController",
-                         @"",
+                         @"ChatViewController",
                          @"DeviceSettingViewController",
                          @""];
     

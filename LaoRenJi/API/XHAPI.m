@@ -10,9 +10,6 @@
 #import "AFNetworking.h"
 
 
-typedef void(^AFSuccessHandler)(NSURLSessionDataTask * _Nullable task, id _Nullable responseObject);
-typedef void(^AFFailureHandler)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error);
-
 
 @implementation XHAPI
 
@@ -44,6 +41,38 @@ typedef void(^AFFailureHandler)(NSURLSessionDataTask * _Nullable task, NSError *
     AFSuccessHandler success = [self successHandler:handler];
     AFFailureHandler failure = [self failureHandler:handler];
     return [manager GET:urlString parameters:parameters progress:nil success:success failure:failure];
+}
+
++ (NSURLSessionDownloadTask *)downloadFileFromUrlString: (NSString *)urlString
+                                             toFilePath: (NSString *)filePath
+                                                handler: (nullable XHAPIResultHandler)handler {
+
+    AFHTTPSessionManager *manager = [self sharedSessionManager];
+    NSURL *URL = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        NSLog(@"%@", filePath);
+        return [NSURL fileURLWithPath:filePath];
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        if (!handler) {
+            return;
+        }
+        XHAPIResult *result = [[XHAPIResult alloc] init];
+        result.code = 1;
+        XHJSON *JSON = [[XHJSON alloc] initWithValue:filePath];;
+        if (error) {
+            NSHTTPURLResponse *httpResponse =  (NSHTTPURLResponse *)response;
+            result.code = httpResponse.statusCode;
+            result.message = error.localizedDescription;
+
+        }else {
+            result.message = @"下载成功";
+        }
+        handler(result, JSON);
+    }];
+    [task resume];
+    return task;
 }
 
 

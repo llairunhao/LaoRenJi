@@ -60,6 +60,12 @@
 		A533B2952179A7FB00C790F9 /* XHDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2942179A7FB00C790F9 /* XHDevice.m */; };
 		A533B29E2179BDCD00C790F9 /* XHGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B29D2179BDCD00C790F9 /* XHGlobal.m */; };
 		A533B2A12179C0E400C790F9 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2A02179C0E400C790F9 /* UIViewController+HUD.m */; };
+		A533B2B4217D6FAE00C790F9 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2B3217D6FAE00C790F9 /* ChatViewController.m */; };
+		A533B2C4217D862F00C790F9 /* AudioConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A533B2B9217D862F00C790F9 /* AudioConverter.mm */; };
+		A533B2C5217D862F00C790F9 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A533B2BB217D862F00C790F9 /* libopencore-amrwb.a */; };
+		A533B2C6217D863000C790F9 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A533B2BC217D862F00C790F9 /* libopencore-amrnb.a */; };
+		A533B2C7217D863000C790F9 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = A533B2C1217D862F00C790F9 /* amrFileCodec.mm */; };
+		A533B2CA217DA1A700C790F9 /* AudioMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2C9217DA1A700C790F9 /* AudioMananger.m */; };
 		A5353AA3217825D200D8A6B9 /* XHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A5353AA2217825D200D8A6B9 /* XHUser.m */; };
 		A5E1F817216B30CD007F398E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E1F816216B30CD007F398E /* AppDelegate.m */; };
 		A5E1F81F216B30D8007F398E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E1F81E216B30D8007F398E /* Assets.xcassets */; };
@@ -178,6 +184,20 @@
 		A533B29D2179BDCD00C790F9 /* XHGlobal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHGlobal.m; sourceTree = "<group>"; };
 		A533B29F2179C0E400C790F9 /* UIViewController+HUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
 		A533B2A02179C0E400C790F9 /* UIViewController+HUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
+		A533B2B2217D6FAE00C790F9 /* ChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		A533B2B3217D6FAE00C790F9 /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		A533B2B7217D862F00C790F9 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		A533B2B8217D862F00C790F9 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		A533B2B9217D862F00C790F9 /* AudioConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioConverter.mm; sourceTree = "<group>"; };
+		A533B2BB217D862F00C790F9 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		A533B2BC217D862F00C790F9 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		A533B2BE217D862F00C790F9 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		A533B2BF217D862F00C790F9 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		A533B2C1217D862F00C790F9 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
+		A533B2C2217D862F00C790F9 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		A533B2C3217D862F00C790F9 /* AudioConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioConverter.h; sourceTree = "<group>"; };
+		A533B2C8217DA1A700C790F9 /* AudioMananger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioMananger.h; sourceTree = "<group>"; };
+		A533B2C9217DA1A700C790F9 /* AudioMananger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioMananger.m; sourceTree = "<group>"; };
 		A5353AA1217825D200D8A6B9 /* XHUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHUser.h; sourceTree = "<group>"; };
 		A5353AA2217825D200D8A6B9 /* XHUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHUser.m; sourceTree = "<group>"; };
 		A5E1F812216B30CD007F398E /* LaoRenJi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaoRenJi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +215,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A533B2C5217D862F00C790F9 /* libopencore-amrwb.a in Frameworks */,
+				A533B2C6217D863000C790F9 /* libopencore-amrnb.a in Frameworks */,
 				F1506B918B40F8A332AECDA1 /* libPods-LaoRenJi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +259,7 @@
 		385C53BA2171EC95000B4A00 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				A533B2B5217D862F00C790F9 /* AudioConverter */,
 				385C53CD21731637000B4A00 /* Extension */,
 				385C53BC2171ED74000B4A00 /* PrefixHeader.pch */,
 				385C53C021730197000B4A00 /* XHJSON.h */,
@@ -322,10 +345,10 @@
 		385C5499217B40D5000B4A00 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				385C549A217B40D5000B4A00 /* XHNavigationController.h */,
-				385C549B217B40D5000B4A00 /* XHNavigationBarController.m */,
-				385C549C217B40D5000B4A00 /* XHNavigationController.m */,
 				385C549D217B40D5000B4A00 /* View */,
+				385C549A217B40D5000B4A00 /* XHNavigationController.h */,
+				385C549C217B40D5000B4A00 /* XHNavigationController.m */,
+				385C549B217B40D5000B4A00 /* XHNavigationBarController.m */,
 				385C54A2217B40D5000B4A00 /* XHNavigationBarController.h */,
 			);
 			path = Navigation;
@@ -335,8 +358,8 @@
 			isa = PBXGroup;
 			children = (
 				385C549E217B40D5000B4A00 /* XHNavigationBar.h */,
-				385C549F217B40D5000B4A00 /* XHSafeNavigationBar.h */,
 				385C54A0217B40D5000B4A00 /* XHNavigationBar.m */,
+				385C549F217B40D5000B4A00 /* XHSafeNavigationBar.h */,
 				385C54A1217B40D5000B4A00 /* XHSafeNavigationBar.m */,
 			);
 			path = View;
@@ -359,6 +382,7 @@
 		385C54EE217B4125000B4A00 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A533B2B1217D6F9A00C790F9 /* Chat */,
 				385C54EF217B4125000B4A00 /* Live */,
 				385C54F2217B4125000B4A00 /* Locus */,
 				385C54F5217B4125000B4A00 /* Phone */,
@@ -444,10 +468,10 @@
 			children = (
 				385C550C217B4125000B4A00 /* LeftViewCell.h */,
 				385C5509217B4125000B4A00 /* LeftViewCell.m */,
-				385C550A217B4125000B4A00 /* LeftViewBindCell.m */,
-				385C550B217B4125000B4A00 /* LeftViewDeviceCell.h */,
 				385C550D217B4125000B4A00 /* LeftViewBindCell.h */,
+				385C550A217B4125000B4A00 /* LeftViewBindCell.m */,
 				385C550E217B4125000B4A00 /* LeftViewDeviceCell.m */,
+				385C550B217B4125000B4A00 /* LeftViewDeviceCell.h */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -517,6 +541,66 @@
 				385C5535217C381A000B4A00 /* XHAlarm.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A533B2B1217D6F9A00C790F9 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				A533B2C8217DA1A700C790F9 /* AudioMananger.h */,
+				A533B2C9217DA1A700C790F9 /* AudioMananger.m */,
+				A533B2B2217D6FAE00C790F9 /* ChatViewController.h */,
+				A533B2B3217D6FAE00C790F9 /* ChatViewController.m */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		A533B2B5217D862F00C790F9 /* AudioConverter */ = {
+			isa = PBXGroup;
+			children = (
+				A533B2C3217D862F00C790F9 /* AudioConverter.h */,
+				A533B2B9217D862F00C790F9 /* AudioConverter.mm */,
+				A533B2B6217D862F00C790F9 /* opencore-amrwb */,
+				A533B2BA217D862F00C790F9 /* lib */,
+				A533B2BD217D862F00C790F9 /* opencore-amrnb */,
+				A533B2C0217D862F00C790F9 /* amrwapper */,
+			);
+			path = AudioConverter;
+			sourceTree = "<group>";
+		};
+		A533B2B6217D862F00C790F9 /* opencore-amrwb */ = {
+			isa = PBXGroup;
+			children = (
+				A533B2B7217D862F00C790F9 /* if_rom.h */,
+				A533B2B8217D862F00C790F9 /* dec_if.h */,
+			);
+			path = "opencore-amrwb";
+			sourceTree = "<group>";
+		};
+		A533B2BA217D862F00C790F9 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				A533B2BB217D862F00C790F9 /* libopencore-amrwb.a */,
+				A533B2BC217D862F00C790F9 /* libopencore-amrnb.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		A533B2BD217D862F00C790F9 /* opencore-amrnb */ = {
+			isa = PBXGroup;
+			children = (
+				A533B2BE217D862F00C790F9 /* interf_dec.h */,
+				A533B2BF217D862F00C790F9 /* interf_enc.h */,
+			);
+			path = "opencore-amrnb";
+			sourceTree = "<group>";
+		};
+		A533B2C0217D862F00C790F9 /* amrwapper */ = {
+			isa = PBXGroup;
+			children = (
+				A533B2C1217D862F00C790F9 /* amrFileCodec.mm */,
+				A533B2C2217D862F00C790F9 /* amrFileCodec.h */,
+			);
+			path = amrwapper;
 			sourceTree = "<group>";
 		};
 		A5353AA0217825AA00D8A6B9 /* MemoryDB */ = {
@@ -706,9 +790,12 @@
 				A5E1F825216B30D8007F398E /* main.m in Sources */,
 				385C551D217B4125000B4A00 /* WiFiViewController.m in Sources */,
 				385C5522217B4125000B4A00 /* LeftViewCell.m in Sources */,
+				A533B2C4217D862F00C790F9 /* AudioConverter.mm in Sources */,
 				A5353AA3217825D200D8A6B9 /* XHUser.m in Sources */,
+				A533B2C7217D863000C790F9 /* amrFileCodec.mm in Sources */,
 				A533B29E2179BDCD00C790F9 /* XHGlobal.m in Sources */,
 				385C551A217B4125000B4A00 /* LocusViewController.m in Sources */,
+				A533B2B4217D6FAE00C790F9 /* ChatViewController.m in Sources */,
 				385C53FF21776CEF000B4A00 /* UIColor+Style.m in Sources */,
 				385C551C217B4125000B4A00 /* DeviceSettingViewController.m in Sources */,
 				385C53D3217318C9000B4A00 /* UIView+Space.m in Sources */,
@@ -719,6 +806,7 @@
 				385C5526217B4125000B4A00 /* DeviceLiveSelectButton.m in Sources */,
 				385C54D1217B40D5000B4A00 /* ResetPassworViewController.m in Sources */,
 				385C54D5217B40D5000B4A00 /* XHNavigationBarController.m in Sources */,
+				A533B2CA217DA1A700C790F9 /* AudioMananger.m in Sources */,
 				385C54D3217B40D5000B4A00 /* UIButton+Landing.m in Sources */,
 				385C5519217B4125000B4A00 /* DeviceLiveSelectController.m in Sources */,
 				385C551B217B4125000B4A00 /* DevicePhoneViewController.m in Sources */,
@@ -878,6 +966,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LaoRenJi/Util/AudioConverter/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xh.LaoRenJi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -899,6 +991,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LaoRenJi/Util/AudioConverter/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xh.LaoRenJi;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -7,6 +7,7 @@
 //
 
 #import "XHAPI+API.h"
+#import "AFNetworking.h"
 
 @implementation XHAPI (API)
 
@@ -213,5 +214,45 @@
                                  };
     return [self GET:urlString parameters:parameters handler:handler];
 }
+
++ (NSURLSessionDataTask *)uploadAudioData: (NSData *)data
+                                   suffix: (NSString *)suffix
+                                    token: (NSString *)token
+                                  handler: (nullable XHAPIResultHandler)handler {
+ 
+    NSString *urlString = [self urlStringByPath:@"uploadMessageApp"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"suffix" : suffix
+                                 };
+    
+    void (^block)(id <AFMultipartFormData> formData) = ^(id<AFMultipartFormData>  _Nonnull formData) {
+        NSString *name = @"file";
+        [formData appendPartWithFileData:data name:name fileName:name mimeType:@"file"];
+    };
+    return [[self sharedSessionManager] POST:urlString
+                                  parameters:parameters
+                   constructingBodyWithBlock:block
+                                    progress:nil
+                                     success:[self successHandler:handler]
+                                     failure:[self failureHandler:handler]];
+}
+
++ (NSURLSessionDataTask *)listOfAudiosByToken:(NSString *)token
+                                      handler:(nullable XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"getMessageBoardAllByAppInterface"];
+    NSDictionary *parameters = @{ @"token" : token };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)updateAudioReadStateById: (NSUInteger)audioId
+                                           handler: (nullable XHAPIResultHandler)handler {
+    
+    NSString *urlString = [self urlStringByPath:@"messageBoardByidInterface"];
+    NSDictionary *parameters = @{ @"id" : @(audioId) };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
+
 
 @end

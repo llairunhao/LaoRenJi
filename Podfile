@@ -12,6 +12,6 @@ target 'LaoRenJi' do
    pod 'AFNetworking'
    pod 'MBProgressHUD'
    pod 'PGDybLiveMulti'
-   pod 'AudioConverter'
+   # pod 'AudioConverter' 
    pod 'SDWebImage'
 end

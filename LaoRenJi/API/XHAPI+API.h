@@ -88,6 +88,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSURLSessionDataTask *)removeAlarmClockById: (NSUInteger )clockId
                                          token: (NSString *)token
                                        handler: (nullable XHAPIResultHandler)handler;
+
+
++ (NSURLSessionDataTask *)uploadAudioData: (NSData *)data
+                                   suffix: (NSString *)suffix
+                                    token: (NSString *)token
+                                  handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)listOfAudiosByToken: (NSString *)token
+                                      handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)updateAudioReadStateById: (NSUInteger)audioId
+                                           handler: (nullable XHAPIResultHandler)handler;
 @end
 
 NS_ASSUME_NONNULL_END

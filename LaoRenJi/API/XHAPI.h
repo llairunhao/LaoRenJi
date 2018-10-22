@@ -14,8 +14,14 @@ typedef void(^XHAPIResultHandler)(XHAPIResult * _Nonnull result, XHJSON * _Nonnu
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class AFHTTPSessionManager;
+
 @interface XHAPI : NSObject
 
+typedef void(^AFSuccessHandler)(NSURLSessionDataTask * _Nullable task, id _Nullable responseObject);
+typedef void(^AFFailureHandler)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error);
+
++ (nonnull AFHTTPSessionManager * )sharedSessionManager;
 
 + (NSString *)urlStringByPath: (NSString *)path;
 
@@ -23,6 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
                    parameters: (NSDictionary *) parameters
                       handler: (nullable XHAPIResultHandler) handler;
 
++ (NSURLSessionDownloadTask *)downloadFileFromUrlString: (NSString *)urlString
+                                             toFilePath: (NSString *)filePath
+                                                handler: (nullable XHAPIResultHandler)handler;
+
++ (AFSuccessHandler)successHandler: (nullable XHAPIResultHandler) handler;
++ (AFFailureHandler)failureHandler: (nullable XHAPIResultHandler) handler;
 @end
 
 NS_ASSUME_NONNULL_END
