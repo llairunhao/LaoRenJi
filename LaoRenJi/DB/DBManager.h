@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class XHChat;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DBManager : NSObject
@@ -17,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSString *)getCurrentDevicePhone;
 - (void)setCurrentDevicePhone: (NSString *)phone;
+
+- (void)saveChats: (NSArray<XHChat *> *)chats;
+- (NSArray<XHChat *>*)listOfChats;
+
 
 @end
 

@@ -29,10 +29,14 @@
     
     CGSize size = [self.imageView sizeThatFits:CGSizeZero];
     CGRect rect = self.bounds;
-    rect.origin.x = 12.f;
-    rect.origin.y = (CGRectGetHeight(self.bounds) - size.height) / 2;
+    if (size.width > 0) {
+        rect.origin.x = 12.f;
+        rect.origin.y = (CGRectGetHeight(self.bounds) - size.height) / 2;
+    }else {
+        rect.origin.x = 0;
+    }
     rect.size = size;
-    self.imageView.frame = rect;
+     self.imageView.frame = rect;
     
     size = [_arrowView sizeThatFits:CGSizeZero];
     rect.origin.x = CGRectGetWidth(self.bounds) - 12.f - size.width;

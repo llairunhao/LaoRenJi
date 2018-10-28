@@ -67,7 +67,7 @@
     
     UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont systemFontOfSize:20];
-    label.text = @"修改说明";
+    label.text = self.title;
     label.textAlignment = NSTextAlignmentCenter;
     CGSize size = [label sizeThatFits:CGSizeZero];
     rect.size.width -= 24.f;
@@ -84,7 +84,7 @@
     textField.delegate = self;
     textField.borderStyle = UITextBorderStyleRoundedRect;
     textField.font = [UIFont systemFontOfSize:16];
-    textField.placeholder = @"请输入说明";
+    textField.placeholder = self.placeholder;
     [contentView addSubview:textField];
     textField.text = self.text;
     _textField = textField;
@@ -147,5 +147,7 @@
     }
     [self hideSelf];
 }
+
+
 
 @end

@@ -40,7 +40,7 @@
     CGSize size = [containter.textLabel sizeThatFits:CGSizeZero];
     CGFloat labelWidth = size.width + 8;
     containter.labelWidth = labelWidth;
-    containter.textField.placeholder = @"请输入WIFI名称：";
+    containter.textField.placeholder = @"请输入WIFI名称";
     _nameTF = containter.textField;
     [self.view addSubview:containter];
     
@@ -57,7 +57,7 @@
     rect.origin.y = CGRectGetMaxY(rect);
     containter = [[ServiceTextFieldContainer alloc] initWithFrame:rect];
     containter.textLabel.text = @"密      码：";
-    containter.textField.placeholder = @"请输入WIFI密码：";
+    containter.textField.placeholder = @"请输入WIFI密码";
     containter.labelWidth = labelWidth;
     _passwordTF = containter.textField;
     containter.textField.secureTextEntry = true;
@@ -65,6 +65,7 @@
     
     UIButton *button = [UIButton landingButtonWithTitle:@"保存" target:self action:@selector(buttonClick:)];
     size = [button sizeThatFits:CGSizeZero];
+     size.width = MIN(size.width, CGRectGetWidth(self.view.bounds) - 24.f);
     rect.origin.x = (CGRectGetWidth(self.view.bounds) - size.width ) / 2;
     rect.origin.y = CGRectGetMaxY(containter.frame) + 24.f;
     rect.size = size;

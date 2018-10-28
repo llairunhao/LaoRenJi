@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LeftHeaderView : UIView
 
+@property (nonatomic, copy) VoidHandler clickHandler;
 - (void)reloadData;
 
 @end

@@ -49,7 +49,7 @@
         LoginViewController *loginViewController = [[LoginViewController alloc] init];
         XHNavigationController *nav = [[XHNavigationController alloc] initWithRootViewController:loginViewController];
         nav.navigationBarHidden = true;
-        [self presentViewController:nav animated:nil completion:nil];
+        [self presentViewController:nav animated:false completion:nil];
         login = true;
     }
    

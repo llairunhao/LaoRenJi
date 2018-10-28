@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) NSArray <NSString *> *placeholders;
 
+@property (readonly) NSArray <UITextField *> *textFields;
+
 - (BOOL)secureTextEntryAtIndex: (NSInteger)index;
 
 - (void)actionButtonClick: (UIButton *)button;

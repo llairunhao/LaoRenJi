@@ -32,7 +32,8 @@
     self.view.backgroundColor = [UIColor EC1];
     [self setupSubviews];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:XHDeviceDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:XHCurrentDeviceDidChangeNotification object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDevices:) name:XHDevicesDidChangeNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,7 +46,7 @@
 - (void)setupSubviews {
     UIButton *groupButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [groupButton setImage:[UIImage imageNamed:@"Group"] forState:UIControlStateNormal];
-    [groupButton setTitle:@"31231（离线）" forState:UIControlStateNormal];
+    [groupButton setTitle:@"请先绑定设备" forState:UIControlStateNormal];
     groupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     groupButton.titleEdgeInsets = UIEdgeInsetsMake(0, 12.f, 0, 0);
     [groupButton addTarget:self action:@selector(groupButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -78,13 +79,16 @@
     }
     
     CGSize size = [_buttons[0] sizeThatFits:CGSizeZero];
-    CGFloat hPadding = (CGRectGetWidth(self.view.bounds) - size.width * 2) / 3;
-    CGFloat vPadding = (CGRectGetHeight(self.view.bounds) - size.height * 3 - [UIView topSafeAreaHeight]) / 4;
-    
-    CGFloat leftOriginX = hPadding * 2 + size.width;
+    CGFloat hPadding = 12;//(CGRectGetWidth(self.view.bounds) - size.width * 2) / 3;
+    CGFloat vPadding = 12;//(CGRectGetHeight(self.view.bounds) - size.height * 3 - [UIView topSafeAreaHeight]) / 4;
+    CGFloat width = (CGRectGetWidth(self.view.bounds) - hPadding * 3) / 2;
+    CGFloat height = size.height / size.width * width;
+    size = CGSizeMake(width, height);
+    CGFloat leftOriginX = hPadding * 2 + width;
+    CGFloat topPadding = (CGRectGetHeight(self.view.bounds) - [UIView safeAreaHeight]- (size.height * 3 + hPadding * 2)) / 2;
     
     CGRect rect = self.view.bounds;
-    rect.origin.y = [UIView topSafeAreaHeight] + vPadding;
+    rect.origin.y = topPadding + [UIView topSafeAreaHeight];
     rect.origin.x = hPadding;
     rect.size = size;
     _buttons[0].frame = rect;
@@ -107,19 +111,24 @@
     _buttons[5].frame = rect;
     
     
-    CGFloat width = CGRectGetWidth(self.view.bounds) - hPadding * 2;
+    width = CGRectGetWidth(self.view.bounds) - hPadding * 2;
     _groupButton.frame = CGRectMake(hPadding, [UIView statusBarHeight], width, [UIView navigationBarHeight]);
     
 }
 
 - (void)buttonClick: (UIButton *)button {
+    
+    if ([XHUser currentUser].currentDevice == nil) {
+        [self toast:@"请先绑定设备"];
+        return;
+    }
 
     NSArray *classes = @[@"DevicePhoneViewController",
                          @"DeviceLiveSelectController",
                          @"LocusViewController",
                          @"ChatViewController",
                          @"DeviceSettingViewController",
-                         @""];
+                         @"HistoryViewController"];
     
     UIViewController *controller = [[NSClassFromString(classes[button.tag]) alloc] init];
     if (button.tag == 1) {
@@ -150,11 +159,10 @@
 - (void)refreshData {
     NSString *token = [XHUser currentUser].token;
     if (token.length == 0) {
+        [_groupButton setTitle:@"请先绑定设备" forState:UIControlStateNormal];
         return;
     }
 
-    
-    
     WEAKSELF;
     [XHAPI getCurrentDeviceStateByToken:token handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
         if (result.isSuccess) {
@@ -169,6 +177,48 @@
     }];
 
    
+}
+
+- (void)refreshDevices: (NSNotification *)noti {
+    if ([XHUser currentUser].token.length == 0) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showLoadingHUD: @"更新设备列表..."];
+    });
+    
+    WEAKSELF;
+    [XHAPI listOfDevicesByToken:[XHUser currentUser].token handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+    
+        if (result.isSuccess) {
+            NSArray *array1 = JSON.JSONArrayValue;
+            NSMutableArray *array2 = [NSMutableArray arrayWithCapacity:array1.count];
+            for (XHJSON *json in array1) {
+                XHDevice *device = [[XHDevice alloc] initWithJSON:json];
+                [array2 addObject:device];
+            }
+            [XHUser currentUser].devices = [array2 copy];
+            [weakSelf resetCurrentDevice:array2.lastObject];
+        }else {
+            [weakSelf hideAllHUD];
+            [weakSelf toast:result.message];
+        }
+    }];
+}
+
+- (void)resetCurrentDevice: (XHDevice *)device {
+    WEAKSELF;
+    XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+        [weakSelf hideAllHUD];
+        if (result.isSuccess) {
+            [XHUser currentUser].currentDevice = device;
+        }else {
+            [weakSelf toast:result.message];
+        }
+    };
+    [XHAPI setCurrentDeviceByToken:[XHUser currentUser].token
+                     deviceSimMark:device.simMark
+                           handler:handler];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

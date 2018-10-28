@@ -15,6 +15,9 @@
 #import "XHDevice.h"
 #import "XHAPI+API.h"
 
+#import "QRScanningViewController.h"
+#import "ProfileViewController.h"
+
 
 @interface LeftViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, weak) UITableView *tableView;
@@ -31,6 +34,7 @@
     [super viewDidLoad];
     [self setupSubviews];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvLoginNoti:) name:XHUserDidLoginNotification object:nil];
+  
     
 }
 
@@ -71,6 +75,11 @@
     tableView.tableHeaderView = headerView;
      [headerView reloadData];
     _headerView = headerView;
+    UNSAFESELF;
+    headerView.clickHandler = ^{
+        ProfileViewController *controller = [[ProfileViewController alloc] init];
+        [unsafeSelf.navigationController pushViewController:controller animated:true];
+    };
 }
 
 - (void)hideAnimation {
@@ -127,6 +136,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
+        QRScanningViewController *controller = [[QRScanningViewController alloc] init];
+        [self.navigationController pushViewController:controller animated:true];
         return;
     }
     
@@ -153,6 +164,7 @@
 
 - (void)recvLoginNoti: (NSNotification *)noti {
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.selectedIndex = 0;
         [self.headerView reloadData];
     });
 }

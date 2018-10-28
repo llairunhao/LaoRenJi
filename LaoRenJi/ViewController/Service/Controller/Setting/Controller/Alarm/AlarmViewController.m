@@ -36,6 +36,7 @@
 }
 
 - (void)refreshData {
+    
     [self showLoadingHUD];
     WEAKSELF;
     XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
@@ -63,6 +64,7 @@
     
     UIButton *button = [UIButton landingButtonWithTitle:@"新增" target:self action:@selector(buttonClick:)];
     CGSize size = [button sizeThatFits:CGSizeZero];
+     size.width = MIN(size.width, CGRectGetWidth(self.view.bounds) - 24.f);
     rect.origin.y = CGRectGetHeight(rect) - size.height - 12.f - [UIView bottomSafeAreaHeight];
     rect.origin.x = (CGRectGetWidth(rect) - size.width ) / 2;
     rect.size = size;

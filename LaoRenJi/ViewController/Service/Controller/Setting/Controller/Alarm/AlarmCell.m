@@ -26,9 +26,8 @@
         _switchButton = button;
         
         self.textLabel.textColor = [UIColor C1];
-        self.textLabel.font = [UIFont systemFontOfSize:20];
+//        self.textLabel.font = [UIFont systemFontOfSize:20];
         self.detailTextLabel.textColor = [UIColor C3];
-        self.detailTextLabel.font = [UIFont systemFontOfSize:16];
     }
     return self;
 }

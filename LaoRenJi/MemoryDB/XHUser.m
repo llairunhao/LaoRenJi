@@ -40,11 +40,20 @@
 
 - (void)setCurrentDevice:(XHDevice *)currentDevice {
     _currentDevice = currentDevice;
-    [[NSNotificationCenter defaultCenter] postNotificationName:XHDeviceDidChangeNotification object:currentDevice];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XHCurrentDeviceDidChangeNotification object:currentDevice];
 }
 
 - (NSURL *)avatarURL {
     return [NSURL URLWithString:_avatarURLString];
+}
+
+- (void)logout {
+    self.password           =   @"";
+    self.token              =   @"";
+    self.nickname           =   @"";
+    self.avatarURLString    =   @"";
+    self.devices            =   @[];
+    self.currentDevice      =   nil;
 }
 
 @end

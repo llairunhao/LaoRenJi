@@ -142,6 +142,7 @@
     
     CGSize size1 = [forgetButton sizeThatFits:CGSizeZero];
     CGSize size2 = [button sizeThatFits:CGSizeZero];
+    size2.width = MIN(size2.width, CGRectGetWidth(self.view.bounds) - 24.f);
     CGFloat originY = 904.f / 1920.f * CGRectGetHeight(bounds) + 24.f;
     CGFloat remainHeight = CGRectGetHeight(bounds) - originY - [UIView bottomSafeAreaHeight];
     CGFloat padding = (remainHeight - (size2.height) * 4 - size1.height) / 5.f;

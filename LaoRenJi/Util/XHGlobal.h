@@ -8,10 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NSString *XHLocationStatus;
+
 extern NSString * const XHUserDidLoginNotification;
 extern NSString * const XHUserDidLogoutNotification;
 
-extern NSString * const XHDeviceDidChangeNotification;
+extern NSString * const XHCurrentDeviceDidChangeNotification;
+extern NSString * const XHDevicesDidChangeNotification;
+
+extern XHLocationStatus const XHLocationOpen;
+extern XHLocationStatus const XHLocationStop;
+
+typedef NS_ENUM(NSInteger, XHLocationAccuracy) {
+    XHLocationAccuracyBest,
+    XHLocationAccuracyLowPower,
+    XHLocationAccuracyGPS
+};
 
 
 typedef void(^VoidHandler)(void);

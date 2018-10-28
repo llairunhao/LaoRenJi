@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "FHTRootContainer.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 @interface AppDelegate ()
 
@@ -22,6 +23,8 @@
     self.window.rootViewController = [FHTRootContainer rootContainer];
     [self.window makeKeyAndVisible];
     
+    [AMapServices sharedServices].apiKey = @"c8f3f6f0dc8606ed66aee6b9686e6a68";
+    [AMapServices sharedServices].enableHTTPS = YES;
     return YES;
 }
 

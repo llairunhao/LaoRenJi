@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) TextHandler textHandler;
-
+@property (nonatomic, copy) NSString *placeholder;
 @end
 
 NS_ASSUME_NONNULL_END

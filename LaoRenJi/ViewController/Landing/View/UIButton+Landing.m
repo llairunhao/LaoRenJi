@@ -15,6 +15,7 @@
                               action:(SEL)action {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[UIImage imageNamed:@"RoundedRectangle3"] forState:UIControlStateNormal];
+     [button setBackgroundImage:[UIImage imageNamed:@"RoundedRectangle7"] forState:UIControlStateDisabled];
     [button setTitle:title forState:UIControlStateNormal];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     return button;

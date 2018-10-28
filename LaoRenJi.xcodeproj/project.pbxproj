@@ -57,6 +57,25 @@
 		385C5542217C6DD7000B4A00 /* AlarmPickerFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C5541217C6DD7000B4A00 /* AlarmPickerFlowLayout.m */; };
 		385C5545217C72EC000B4A00 /* AlarmTextEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C5544217C72EC000B4A00 /* AlarmTextEditController.m */; };
 		385C5548217C7A71000B4A00 /* AlarmRepeatDayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C5547217C7A71000B4A00 /* AlarmRepeatDayController.m */; };
+		385C554F21834F5C000B4A00 /* QRScanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C554E21834F5C000B4A00 /* QRScanningViewController.m */; };
+		385C555221834F7E000B4A00 /* DeviceCodeInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C555121834F7E000B4A00 /* DeviceCodeInputViewController.m */; };
+		385C555921844414000B4A00 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C555821844414000B4A00 /* HistoryViewController.m */; };
+		385C555C21844431000B4A00 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C555B21844431000B4A00 /* HistoryCell.m */; };
+		385C556021844A22000B4A00 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C555F21844A22000B4A00 /* ProfileViewController.m */; };
+		385C556321844A71000B4A00 /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C556221844A71000B4A00 /* ProfileCell.m */; };
+		385C556621844C7B000B4A00 /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C556521844C7B000B4A00 /* ProfileHeaderView.m */; };
+		385C5570218456A5000B4A00 /* ChatHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C556E218456A5000B4A00 /* ChatHUD.m */; };
+		385C5574218456AC000B4A00 /* ChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C5573218456AC000B4A00 /* ChatCell.m */; };
+		385C5578218456DC000B4A00 /* XHChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C5577218456DC000B4A00 /* XHChat.m */; };
+		385C557B21846230000B4A00 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C557A21846230000B4A00 /* LocationViewController.m */; };
+		385C557E21846649000B4A00 /* FenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C557D21846649000B4A00 /* FenceViewController.m */; };
+		385C558121846997000B4A00 /* SerchPositionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C558021846997000B4A00 /* SerchPositionController.m */; };
+		385C558421846AB4000B4A00 /* XHSearchTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C558221846AB4000B4A00 /* XHSearchTextField.m */; };
+		385C558721846ABC000B4A00 /* XHNavigationSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C558521846ABB000B4A00 /* XHNavigationSearchBar.m */; };
+		385C558A21846C23000B4A00 /* TraceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C558921846C23000B4A00 /* TraceViewController.m */; };
+		385C558E21858DBB000B4A00 /* FenceRadiusSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C558D21858DBB000B4A00 /* FenceRadiusSlider.m */; };
+		385C559121858E04000B4A00 /* FenceRadiusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C559021858E04000B4A00 /* FenceRadiusLabel.m */; };
+		385C559521859E8D000B4A00 /* XHFence.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C559421859E8D000B4A00 /* XHFence.m */; };
 		A533B2952179A7FB00C790F9 /* XHDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2942179A7FB00C790F9 /* XHDevice.m */; };
 		A533B29E2179BDCD00C790F9 /* XHGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B29D2179BDCD00C790F9 /* XHGlobal.m */; };
 		A533B2A12179C0E400C790F9 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2A02179C0E400C790F9 /* UIViewController+HUD.m */; };
@@ -176,6 +195,44 @@
 		385C5544217C72EC000B4A00 /* AlarmTextEditController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmTextEditController.m; sourceTree = "<group>"; };
 		385C5546217C7A71000B4A00 /* AlarmRepeatDayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmRepeatDayController.h; sourceTree = "<group>"; };
 		385C5547217C7A71000B4A00 /* AlarmRepeatDayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmRepeatDayController.m; sourceTree = "<group>"; };
+		385C554D21834F5C000B4A00 /* QRScanningViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRScanningViewController.h; sourceTree = "<group>"; };
+		385C554E21834F5C000B4A00 /* QRScanningViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRScanningViewController.m; sourceTree = "<group>"; };
+		385C555021834F7E000B4A00 /* DeviceCodeInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceCodeInputViewController.h; sourceTree = "<group>"; };
+		385C555121834F7E000B4A00 /* DeviceCodeInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceCodeInputViewController.m; sourceTree = "<group>"; };
+		385C555721844414000B4A00 /* HistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		385C555821844414000B4A00 /* HistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		385C555A21844431000B4A00 /* HistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
+		385C555B21844431000B4A00 /* HistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
+		385C555E21844A22000B4A00 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		385C555F21844A22000B4A00 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		385C556121844A71000B4A00 /* ProfileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
+		385C556221844A71000B4A00 /* ProfileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
+		385C556421844C7B000B4A00 /* ProfileHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileHeaderView.h; sourceTree = "<group>"; };
+		385C556521844C7B000B4A00 /* ProfileHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileHeaderView.m; sourceTree = "<group>"; };
+		385C556E218456A5000B4A00 /* ChatHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatHUD.m; sourceTree = "<group>"; };
+		385C556F218456A5000B4A00 /* ChatHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHUD.h; sourceTree = "<group>"; };
+		385C5572218456AC000B4A00 /* ChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatCell.h; sourceTree = "<group>"; };
+		385C5573218456AC000B4A00 /* ChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatCell.m; sourceTree = "<group>"; };
+		385C5576218456DC000B4A00 /* XHChat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHChat.h; sourceTree = "<group>"; };
+		385C5577218456DC000B4A00 /* XHChat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHChat.m; sourceTree = "<group>"; };
+		385C557921846230000B4A00 /* LocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		385C557A21846230000B4A00 /* LocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
+		385C557C21846649000B4A00 /* FenceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FenceViewController.h; sourceTree = "<group>"; };
+		385C557D21846649000B4A00 /* FenceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FenceViewController.m; sourceTree = "<group>"; };
+		385C557F21846997000B4A00 /* SerchPositionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SerchPositionController.h; sourceTree = "<group>"; };
+		385C558021846997000B4A00 /* SerchPositionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SerchPositionController.m; sourceTree = "<group>"; };
+		385C558221846AB4000B4A00 /* XHSearchTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHSearchTextField.m; sourceTree = "<group>"; };
+		385C558321846AB4000B4A00 /* XHSearchTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHSearchTextField.h; sourceTree = "<group>"; };
+		385C558521846ABB000B4A00 /* XHNavigationSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHNavigationSearchBar.m; sourceTree = "<group>"; };
+		385C558621846ABB000B4A00 /* XHNavigationSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHNavigationSearchBar.h; sourceTree = "<group>"; };
+		385C558821846C23000B4A00 /* TraceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TraceViewController.h; sourceTree = "<group>"; };
+		385C558921846C23000B4A00 /* TraceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TraceViewController.m; sourceTree = "<group>"; };
+		385C558C21858DBB000B4A00 /* FenceRadiusSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FenceRadiusSlider.h; sourceTree = "<group>"; };
+		385C558D21858DBB000B4A00 /* FenceRadiusSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FenceRadiusSlider.m; sourceTree = "<group>"; };
+		385C558F21858E04000B4A00 /* FenceRadiusLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FenceRadiusLabel.h; sourceTree = "<group>"; };
+		385C559021858E04000B4A00 /* FenceRadiusLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FenceRadiusLabel.m; sourceTree = "<group>"; };
+		385C559321859E8D000B4A00 /* XHFence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHFence.h; sourceTree = "<group>"; };
+		385C559421859E8D000B4A00 /* XHFence.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHFence.m; sourceTree = "<group>"; };
 		5A5EA02D0F9606AB53E3E352 /* Pods-LaoRenJi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaoRenJi.release.xcconfig"; path = "Pods/Target Support Files/Pods-LaoRenJi/Pods-LaoRenJi.release.xcconfig"; sourceTree = "<group>"; };
 		73A3D4BB73DDFD25E392F70B /* Pods-LaoRenJi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaoRenJi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LaoRenJi/Pods-LaoRenJi.debug.xcconfig"; sourceTree = "<group>"; };
 		A533B2932179A7FB00C790F9 /* XHDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHDevice.h; sourceTree = "<group>"; };
@@ -357,6 +414,10 @@
 		385C549D217B40D5000B4A00 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				385C558621846ABB000B4A00 /* XHNavigationSearchBar.h */,
+				385C558521846ABB000B4A00 /* XHNavigationSearchBar.m */,
+				385C558321846AB4000B4A00 /* XHSearchTextField.h */,
+				385C558221846AB4000B4A00 /* XHSearchTextField.m */,
 				385C549E217B40D5000B4A00 /* XHNavigationBar.h */,
 				385C54A0217B40D5000B4A00 /* XHNavigationBar.m */,
 				385C549F217B40D5000B4A00 /* XHSafeNavigationBar.h */,
@@ -382,6 +443,9 @@
 		385C54EE217B4125000B4A00 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				385C555D218449BC000B4A00 /* Profile */,
+				385C555621844404000B4A00 /* History */,
+				385C554C21834F3F000B4A00 /* Bind */,
 				A533B2B1217D6F9A00C790F9 /* Chat */,
 				385C54EF217B4125000B4A00 /* Live */,
 				385C54F2217B4125000B4A00 /* Locus */,
@@ -403,8 +467,18 @@
 		385C54F2217B4125000B4A00 /* Locus */ = {
 			isa = PBXGroup;
 			children = (
+				385C559221859E7D000B4A00 /* Model */,
+				385C558B21858DA0000B4A00 /* View */,
 				385C54F3217B4125000B4A00 /* LocusViewController.h */,
 				385C54F4217B4125000B4A00 /* LocusViewController.m */,
+				385C557921846230000B4A00 /* LocationViewController.h */,
+				385C557A21846230000B4A00 /* LocationViewController.m */,
+				385C557C21846649000B4A00 /* FenceViewController.h */,
+				385C557D21846649000B4A00 /* FenceViewController.m */,
+				385C557F21846997000B4A00 /* SerchPositionController.h */,
+				385C558021846997000B4A00 /* SerchPositionController.m */,
+				385C558821846C23000B4A00 /* TraceViewController.h */,
+				385C558921846C23000B4A00 /* TraceViewController.m */,
 			);
 			path = Locus;
 			sourceTree = "<group>";
@@ -521,6 +595,88 @@
 			path = About;
 			sourceTree = "<group>";
 		};
+		385C554C21834F3F000B4A00 /* Bind */ = {
+			isa = PBXGroup;
+			children = (
+				385C554D21834F5C000B4A00 /* QRScanningViewController.h */,
+				385C554E21834F5C000B4A00 /* QRScanningViewController.m */,
+				385C555021834F7E000B4A00 /* DeviceCodeInputViewController.h */,
+				385C555121834F7E000B4A00 /* DeviceCodeInputViewController.m */,
+			);
+			path = Bind;
+			sourceTree = "<group>";
+		};
+		385C555621844404000B4A00 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				385C555721844414000B4A00 /* HistoryViewController.h */,
+				385C555821844414000B4A00 /* HistoryViewController.m */,
+				385C555A21844431000B4A00 /* HistoryCell.h */,
+				385C555B21844431000B4A00 /* HistoryCell.m */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		385C555D218449BC000B4A00 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				385C555E21844A22000B4A00 /* ProfileViewController.h */,
+				385C555F21844A22000B4A00 /* ProfileViewController.m */,
+				385C556121844A71000B4A00 /* ProfileCell.h */,
+				385C556221844A71000B4A00 /* ProfileCell.m */,
+				385C556421844C7B000B4A00 /* ProfileHeaderView.h */,
+				385C556521844C7B000B4A00 /* ProfileHeaderView.m */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		385C556D218456A5000B4A00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				385C556F218456A5000B4A00 /* ChatHUD.h */,
+				385C556E218456A5000B4A00 /* ChatHUD.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		385C5571218456AC000B4A00 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				385C5572218456AC000B4A00 /* ChatCell.h */,
+				385C5573218456AC000B4A00 /* ChatCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		385C5575218456CC000B4A00 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				385C5576218456DC000B4A00 /* XHChat.h */,
+				385C5577218456DC000B4A00 /* XHChat.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		385C558B21858DA0000B4A00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				385C558C21858DBB000B4A00 /* FenceRadiusSlider.h */,
+				385C558D21858DBB000B4A00 /* FenceRadiusSlider.m */,
+				385C558F21858E04000B4A00 /* FenceRadiusLabel.h */,
+				385C559021858E04000B4A00 /* FenceRadiusLabel.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		385C559221859E7D000B4A00 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				385C559321859E8D000B4A00 /* XHFence.h */,
+				385C559421859E8D000B4A00 /* XHFence.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		6919D69A537A4906DD19AB14 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -546,6 +702,9 @@
 		A533B2B1217D6F9A00C790F9 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				385C5575218456CC000B4A00 /* Model */,
+				385C5571218456AC000B4A00 /* Cell */,
+				385C556D218456A5000B4A00 /* View */,
 				A533B2C8217DA1A700C790F9 /* AudioMananger.h */,
 				A533B2C9217DA1A700C790F9 /* AudioMananger.m */,
 				A533B2B2217D6FAE00C790F9 /* ChatViewController.h */,
@@ -663,6 +822,7 @@
 				A5E1F80F216B30CD007F398E /* Frameworks */,
 				A5E1F810216B30CD007F398E /* Resources */,
 				48CA4F6487F64DEA606BA126 /* [CP] Embed Pods Frameworks */,
+				CE042003A62BA54B2D4A7AA0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -754,6 +914,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CE042003A62BA54B2D4A7AA0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LaoRenJi/Pods-LaoRenJi-resources.sh",
+				"${PODS_ROOT}/AMap3DMap/MAMapKit.framework/AMap.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LaoRenJi/Pods-LaoRenJi-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -767,18 +945,26 @@
 				385C53C521730258000B4A00 /* XHAPIResult.m in Sources */,
 				385C53B22171E68F000B4A00 /* XHLiveEvent.mm in Sources */,
 				385C54D0217B40D5000B4A00 /* LoginViewController.m in Sources */,
+				385C558A21846C23000B4A00 /* TraceViewController.m in Sources */,
 				385C5521217B4125000B4A00 /* DeviceSettingCell.m in Sources */,
+				385C558721846ABC000B4A00 /* XHNavigationSearchBar.m in Sources */,
+				385C555221834F7E000B4A00 /* DeviceCodeInputViewController.m in Sources */,
 				385C53D02173167D000B4A00 /* UIViewController+ChildController.m in Sources */,
 				385C5520217B4125000B4A00 /* ContactEditController.m in Sources */,
 				385C53C221730197000B4A00 /* XHJSON.m in Sources */,
 				385C54D4217B40D5000B4A00 /* UITextField+Landing.m in Sources */,
 				385C53F121733231000B4A00 /* XHKeyboardObserver.m in Sources */,
+				385C554F21834F5C000B4A00 /* QRScanningViewController.m in Sources */,
+				385C559121858E04000B4A00 /* FenceRadiusLabel.m in Sources */,
 				A533B2952179A7FB00C790F9 /* XHDevice.m in Sources */,
+				385C556621844C7B000B4A00 /* ProfileHeaderView.m in Sources */,
 				385C5417217AF771000B4A00 /* NSString+Valid.m in Sources */,
 				385C54D7217B40D5000B4A00 /* XHNavigationBar.m in Sources */,
 				385C54D8217B40D5000B4A00 /* XHSafeNavigationBar.m in Sources */,
 				385C5523217B4125000B4A00 /* LeftViewBindCell.m in Sources */,
 				385C5536217C381B000B4A00 /* XHAlarm.m in Sources */,
+				385C5578218456DC000B4A00 /* XHChat.m in Sources */,
+				385C5574218456AC000B4A00 /* ChatCell.m in Sources */,
 				385C551E217B4125000B4A00 /* ContactViewController.m in Sources */,
 				385C5542217C6DD7000B4A00 /* AlarmPickerFlowLayout.m in Sources */,
 				385C5539217C480B000B4A00 /* AlarmEditController.m in Sources */,
@@ -788,35 +974,46 @@
 				385C54D9217B40D5000B4A00 /* FHTRootContainer.m in Sources */,
 				385C54D2217B40D5000B4A00 /* RegisterViewController.m in Sources */,
 				A5E1F825216B30D8007F398E /* main.m in Sources */,
+				385C557E21846649000B4A00 /* FenceViewController.m in Sources */,
 				385C551D217B4125000B4A00 /* WiFiViewController.m in Sources */,
+				385C556321844A71000B4A00 /* ProfileCell.m in Sources */,
 				385C5522217B4125000B4A00 /* LeftViewCell.m in Sources */,
+				385C5570218456A5000B4A00 /* ChatHUD.m in Sources */,
 				A533B2C4217D862F00C790F9 /* AudioConverter.mm in Sources */,
 				A5353AA3217825D200D8A6B9 /* XHUser.m in Sources */,
 				A533B2C7217D863000C790F9 /* amrFileCodec.mm in Sources */,
+				385C555921844414000B4A00 /* HistoryViewController.m in Sources */,
 				A533B29E2179BDCD00C790F9 /* XHGlobal.m in Sources */,
 				385C551A217B4125000B4A00 /* LocusViewController.m in Sources */,
 				A533B2B4217D6FAE00C790F9 /* ChatViewController.m in Sources */,
 				385C53FF21776CEF000B4A00 /* UIColor+Style.m in Sources */,
 				385C551C217B4125000B4A00 /* DeviceSettingViewController.m in Sources */,
 				385C53D3217318C9000B4A00 /* UIView+Space.m in Sources */,
+				385C555C21844431000B4A00 /* HistoryCell.m in Sources */,
+				385C559521859E8D000B4A00 /* XHFence.m in Sources */,
 				385C553C217C4A5D000B4A00 /* AlarmTimeCell.m in Sources */,
 				385C552C217B419E000B4A00 /* AlarmViewController.m in Sources */,
 				385C5548217C7A71000B4A00 /* AlarmRepeatDayController.m in Sources */,
 				385C5527217B4125000B4A00 /* ServiceTextFieldContainer.m in Sources */,
 				385C5526217B4125000B4A00 /* DeviceLiveSelectButton.m in Sources */,
+				385C557B21846230000B4A00 /* LocationViewController.m in Sources */,
 				385C54D1217B40D5000B4A00 /* ResetPassworViewController.m in Sources */,
 				385C54D5217B40D5000B4A00 /* XHNavigationBarController.m in Sources */,
 				A533B2CA217DA1A700C790F9 /* AudioMananger.m in Sources */,
 				385C54D3217B40D5000B4A00 /* UIButton+Landing.m in Sources */,
+				385C556021844A22000B4A00 /* ProfileViewController.m in Sources */,
 				385C5519217B4125000B4A00 /* DeviceLiveSelectController.m in Sources */,
 				385C551B217B4125000B4A00 /* DevicePhoneViewController.m in Sources */,
 				385C553F217C543D000B4A00 /* AlarmButton.m in Sources */,
 				385C5528217B4125000B4A00 /* LeftHeaderView.m in Sources */,
 				385C53C821730619000B4A00 /* XHAPI+API.m in Sources */,
 				385C5524217B4125000B4A00 /* LeftViewDeviceCell.m in Sources */,
+				385C558421846AB4000B4A00 /* XHSearchTextField.m in Sources */,
 				385C5545217C72EC000B4A00 /* AlarmTextEditController.m in Sources */,
 				385C5530217B41AF000B4A00 /* AboutViewController.m in Sources */,
+				385C558E21858DBB000B4A00 /* FenceRadiusSlider.m in Sources */,
 				A5E1F817216B30CD007F398E /* AppDelegate.m in Sources */,
+				385C558121846997000B4A00 /* SerchPositionController.m in Sources */,
 				385C5525217B4125000B4A00 /* LeftViewController.m in Sources */,
 				385C5423217B16CA000B4A00 /* XHContact.m in Sources */,
 				385C551F217B4125000B4A00 /* ContactCell.m in Sources */,

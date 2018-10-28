@@ -1,8 +1,8 @@
 //
-//  ChatHUD.h
+//  FenceRadiusLabel.h
 //  LaoRenJi
 //
-//  Created by RunHao on 2018/10/25.
+//  Created by RunHao on 2018/10/28.
 //  Copyright © 2018年 西汉科技. All rights reserved.
 //
 
@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChatHUD : UIView
+@interface FenceRadiusLabel : UIView
+
+@property (nonatomic, copy)NSString *text;
 
 @end
 

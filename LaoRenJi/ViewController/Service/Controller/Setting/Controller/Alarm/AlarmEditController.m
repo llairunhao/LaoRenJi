@@ -173,6 +173,8 @@
     if (button.tag == 1) {
         AlarmTextEditController *controller = [[AlarmTextEditController alloc] init];
         controller.text = self.alarm.eventContent;
+        controller.placeholder = @"请输入说明";
+        controller.title = @"修改说明";
         UNSAFESELF;
         controller.textHandler = ^(NSString *text) {
             unsafeSelf.alarm.eventContent = text;

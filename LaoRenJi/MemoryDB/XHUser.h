@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSURL *avatarURL;
 
+- (void)logout;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -39,6 +39,7 @@
     
     UIButton *button = [UIButton landingButtonWithTitle:@"保存" target:self action:@selector(buttonClick:)];
     CGSize size = [button sizeThatFits:CGSizeZero];
+     size.width = MIN(size.width, CGRectGetWidth(self.view.bounds) - 24.f);
     rect.origin.x = (CGRectGetWidth(self.view.bounds) - size.width ) / 2;
     rect.origin.y = CGRectGetMaxY(containter.frame) + 24.f;
     rect.size = size;

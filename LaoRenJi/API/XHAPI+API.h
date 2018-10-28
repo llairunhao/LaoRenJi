@@ -10,12 +10,33 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+
 @interface XHAPI (API)
 
 + (NSURLSessionDataTask *)loginWithAccount: (NSString *)account
                                   password: (NSString *)password
                                    xgToken: (NSString *)xgToken
                                    handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)registerWithAccount: (NSString *)account
+                                     password: (NSString *)password
+                                     nickname: (NSString *)nickname
+                                         code: (NSString *)code
+                                      handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)resetPasswordWithAccount: (NSString *)account
+                                         password: (NSString *)password
+                                             code: (NSString *)code
+                                          handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)bindDeviceByToken:(NSString *)token
+                                    simMark:(NSString *)simMark
+                                 deviceName:(NSString *)deviceName
+                                    handler:(XHAPIResultHandler)handler ;
+
++ (NSURLSessionDataTask *)getVerificationCodeByPhone:(NSString *)phone
+                                               handler:(nullable XHAPIResultHandler)handler;
 
 + (NSURLSessionDataTask *)listOfDevicesByToken: (NSString *)token
                                        handler: (nullable XHAPIResultHandler)handler;
@@ -100,6 +121,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSURLSessionDataTask *)updateAudioReadStateById: (NSUInteger)audioId
                                            handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)locateDeviceByToken: (NSString *)token
+                                       status: (XHLocationStatus)status
+                                     duration: (NSUInteger)duration
+                                        count: (NSUInteger)count
+                                     accuracy: (XHLocationAccuracy)accuracy
+                                           handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)getDeviceFenceByToken: (NSString *)token
+                                        handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)setDeviceFenceByToken: (NSString *)token
+                                      longitude: (CGFloat)longitude
+                                        latitude: (CGFloat)latitude
+                                         radius: (NSUInteger)radius
+                                           name: (NSString *)name
+                                        handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)listOfLocationsByToken: (NSString *)token
+                                       startTime: (NSString *)startTime
+                                         endTime: (NSString *)endTime
+                                         handler: (nullable XHAPIResultHandler)handler;
 @end
 
 NS_ASSUME_NONNULL_END

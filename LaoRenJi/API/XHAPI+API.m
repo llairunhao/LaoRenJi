@@ -25,8 +25,52 @@
     return [self GET:urlString parameters:parameters handler:handler];
 }
 
-+ (NSURLSessionDataTask *)getVerificationCodeWithPhone:(NSString *)phone
-                                               handler:(nullable XHAPIResultHandler)handler{
++ (NSURLSessionDataTask *)registerWithAccount: (NSString *)account
+                                  password: (NSString *)password
+                                     nickname: (NSString *)nickname
+                                   code: (NSString *)code
+                                   handler: (nullable XHAPIResultHandler)handler {
+    
+    NSString *urlString = [self urlStringByPath:@"regeditInterface"];
+    NSDictionary *parameters = @{
+                                 @"account"    : account,
+                                 @"passWord"   : password,
+                                 @"nickName"   : nickname,
+                                 @"smsCode"    : code,
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)resetPasswordWithAccount: (NSString *)account
+                                         password: (NSString *)password
+                                         code: (NSString *)code
+                                      handler: (nullable XHAPIResultHandler)handler {
+    
+    NSString *urlString = [self urlStringByPath:@"retrievePasswordInterface"];
+    NSDictionary *parameters = @{
+                                 @"account"    : account,
+                                 @"passWord"   : password,
+                                 @"smsCode"    : code,
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)bindDeviceByToken:(NSString *)token
+                                    simMark:(NSString *)simMark
+                                 deviceName:(NSString *)deviceName
+                                    handler:(XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"bindingMobileInterface"];
+    NSDictionary *parameters = @{
+                                 @"token"    : token,
+                                 @"simMark"   : simMark,
+                                 @"mobileName" : deviceName,
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
+
++ (NSURLSessionDataTask *)getVerificationCodeByPhone:(NSString *)phone
+                                            handler:(nullable XHAPIResultHandler)handler{
     NSString *urlString = [self urlStringByPath:@"sendCodeInterface"];
     NSDictionary *parameters = @{ @"phone" : phone };
     return [self GET:urlString parameters:parameters handler:handler];
@@ -37,7 +81,7 @@
                         toDeviceToken: (NSString *)deviceToken
                               handler:(nullable XHAPIResultHandler)handler{
     
-    NSString *urlString = [self urlStringByPath:@"sendCodeInterface"];
+    NSString *urlString = [self urlStringByPath:@"phshMsgAccountInterface"];
     NSDictionary *parameters = @{ @"token" : deviceToken, @"content" : deviceToken };
     return [self GET:urlString parameters:parameters handler:handler];
 }
@@ -253,6 +297,59 @@
     return [self GET:urlString parameters:parameters handler:handler];
 }
 
++ (NSURLSessionDataTask *)locateDeviceByToken: (NSString *)token
+                                       status: (XHLocationStatus)status
+                                     duration: (NSUInteger)duration
+                                        count: (NSUInteger)count
+                                     accuracy: (XHLocationAccuracy)accuracy
+                                      handler: (nullable XHAPIResultHandler)handler {
+    
+    NSString *urlString = [self urlStringByPath:@"onOrOffLocationInterface"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"status" : status,
+                                 @"count" : @(count),
+                                 @"type" : @(accuracy),
+                                 @"dur" : @(duration)
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
 
++ (NSURLSessionDataTask *)getDeviceFenceByToken: (NSString *)token
+                                        handler: (nullable XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"getEnclosureInterface"];
+    NSDictionary *parameters = @{ @"token" : token };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)setDeviceFenceByToken:(NSString *)token
+                                      longitude:(CGFloat)longitude
+                                        latitude:(CGFloat)latitude
+                                         radius:(NSUInteger)radius
+                                           name:(NSString *)name
+                                        handler:(XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"addEnclosureInterface"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"longitude":@(longitude),
+                                 @"latitude":@(latitude),
+                                 @"radius":@(radius),
+                                 @"enclosureName" : name
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
++ (NSURLSessionDataTask *)listOfLocationsByToken:(NSString *)token
+                                       startTime:(NSString *)startTime
+                                         endTime:(NSString *)endTime
+                                         handler:(XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"getNavigationByMaxMinTimeInterface"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"startTime": startTime,
+                                 @"endTime":endTime,
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
 
 @end

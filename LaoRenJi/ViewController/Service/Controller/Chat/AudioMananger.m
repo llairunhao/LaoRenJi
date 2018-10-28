@@ -118,6 +118,11 @@
     }
 }
 
+- (float)currentPeakPower {
+    [self.recorder updateMeters];
+    return [self.recorder peakPowerForChannel:0];
+}
+
 - (void)stopRecord {
     if ([self.recorder isRecording]) {
         [self.recorder stop];
@@ -133,6 +138,13 @@
         [manager removeItemAtPath:self.wavPath error:nil];
         [self.delegate recordingDidFinish:self.amrPath];
         [manager removeItemAtPath:self.amrPath error:nil];
+    }
+}
+
+- (void)cancelRecord {
+    if (_recorder.isRecording) {
+        [_recorder stop];
+        [[NSFileManager defaultManager] removeItemAtPath:self.wavPath error:nil];
     }
 }
 
