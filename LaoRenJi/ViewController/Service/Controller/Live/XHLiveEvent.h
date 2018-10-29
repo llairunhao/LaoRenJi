@@ -10,7 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol XHLiveEventDelegate <NSObject>
+
+-(void)OnEvent:(NSString*)sAction
+          data:(NSString*)sData
+        render:(NSString*)sRender;
+
+@end
+
 @interface XHLiveEvent : pgLibLiveEvent
+
+@property (nonatomic, weak)id<XHLiveEventDelegate>delegate;
 
 @end
 

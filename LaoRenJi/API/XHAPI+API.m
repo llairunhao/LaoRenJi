@@ -352,4 +352,17 @@
     return [self GET:urlString parameters:parameters handler:handler];
 }
 
++ (NSURLSessionDataTask *)startLiveByToken: (NSString *)token
+                                  liveType: (XHLiveType)liveType
+                                cameraType: (XHCameraType)cameraType
+                                   handler: (nullable XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"startMonitorInterface"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"type": @(liveType),
+                                 @"cameraId" : @(cameraType)
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
 @end

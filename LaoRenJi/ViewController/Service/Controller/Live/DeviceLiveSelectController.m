@@ -9,7 +9,7 @@
 #import "DeviceLiveSelectController.h"
 #import "DeviceLiveSelectButton.h"
 #import "UIViewController+ChildController.h"
-
+#import "XHLiveViewController.h"
 
 @interface DeviceLiveSelectController ()
 {
@@ -65,13 +65,17 @@
     [button setImage:[UIImage imageNamed:@"video_selected"] forState:UIControlStateHighlighted];
     [button setTitle:@"视频监控" forState:UIControlStateNormal];
     [contentView addSubview:button];
+    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    button.tag = XHLiveTypeVideo;
     _videoButton = button;
     
     button = [DeviceLiveSelectButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"audio_normal"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"audio_selected"] forState:UIControlStateHighlighted];
     [button setTitle:@"语音监控" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:button];
+    button.tag = XHLiveTypeAudio;
     _audioButton = button;
     
     UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -136,6 +140,13 @@
             [self removeSelf];
         }
     }];
+}
+
+- (void)buttonClick: (UIButton *)button {
+    XHLiveViewController *controller = [[XHLiveViewController alloc] init];
+    controller.type = button.tag;
+    [self.parentViewController presentViewController:controller animated:true completion:nil];
+    [self hideSelf];
 }
 
 @end

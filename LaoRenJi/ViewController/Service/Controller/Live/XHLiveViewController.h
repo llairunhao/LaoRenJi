@@ -6,11 +6,14 @@
 //  Copyright © 2018年 西汉科技. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "XHNavigationBarController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface XHLiveViewController : UIViewController
+
+@interface XHLiveViewController : XHNavigationBarController
+
+@property (nonatomic, assign)XHLiveType type;
 
 @end
 

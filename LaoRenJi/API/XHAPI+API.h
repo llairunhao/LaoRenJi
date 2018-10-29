@@ -143,6 +143,11 @@ NS_ASSUME_NONNULL_BEGIN
                                        startTime: (NSString *)startTime
                                          endTime: (NSString *)endTime
                                          handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)startLiveByToken: (NSString *)token
+                                  liveType: (XHLiveType)liveType
+                                cameraType: (XHCameraType)cameraType
+                                   handler: (nullable XHAPIResultHandler)handler;
 @end
 
 NS_ASSUME_NONNULL_END

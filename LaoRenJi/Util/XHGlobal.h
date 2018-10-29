@@ -25,6 +25,17 @@ typedef NS_ENUM(NSInteger, XHLocationAccuracy) {
     XHLocationAccuracyGPS
 };
 
+typedef NS_ENUM(NSInteger, XHLiveType) {
+    XHLiveTypeVideo,
+    XHLiveTypeAudio,
+};
+
+typedef NS_ENUM(NSInteger, XHCameraType) {
+    XHCameraTypeFront,
+    XHCameraTypeRear
+};
+
+
 
 typedef void(^VoidHandler)(void);
 typedef void(^TextHandler)(NSString *text);

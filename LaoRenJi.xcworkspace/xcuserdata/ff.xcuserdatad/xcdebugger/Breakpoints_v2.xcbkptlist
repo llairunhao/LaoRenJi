@@ -17,6 +17,38 @@
             endingLineNumber = "156"
             landmarkName = "-recvLoginNoti:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__56-[LeftViewController tableView:didSelectRowAtIndexPath:]_block_invoke"
+                  moduleName = "LaoRenJi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ff/Desktop/iOS/LaoRenJi/LaoRenJi/ViewController/Service/LeftViewController.m"
+                  timestampString = "562496502.4913321"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "476">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.139"
+                  moduleName = "LaoRenJi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ff/Desktop/iOS/LaoRenJi/LaoRenJi/ViewController/Service/LeftViewController.m"
+                  timestampString = "562496502.492964"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
