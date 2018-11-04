@@ -74,6 +74,10 @@
 		385C558E21858DBB000B4A00 /* FenceRadiusSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C558D21858DBB000B4A00 /* FenceRadiusSlider.m */; };
 		385C559121858E04000B4A00 /* FenceRadiusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C559021858E04000B4A00 /* FenceRadiusLabel.m */; };
 		385C559521859E8D000B4A00 /* XHFence.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C559421859E8D000B4A00 /* XHFence.m */; };
+		385C559B218D9020000B4A00 /* XHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C559A218D9020000B4A00 /* XHLocation.m */; };
+		385C559F218D9A95000B4A00 /* DevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C559E218D9A95000B4A00 /* DevicesViewController.m */; };
+		385C55A2218D9CD0000B4A00 /* DeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C55A1218D9CD0000B4A00 /* DeviceInfoViewController.m */; };
+		385C55A5218DA68B000B4A00 /* ModifyPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 385C55A4218DA68B000B4A00 /* ModifyPasswordViewController.m */; };
 		A513503F2187002200D69E06 /* XHLiveEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = A513503B2187002100D69E06 /* XHLiveEvent.mm */; };
 		A51350402187002200D69E06 /* XHLiveViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A513503D2187002200D69E06 /* XHLiveViewController.mm */; };
 		A533B2952179A7FB00C790F9 /* XHDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2942179A7FB00C790F9 /* XHDevice.m */; };
@@ -229,6 +233,14 @@
 		385C559021858E04000B4A00 /* FenceRadiusLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FenceRadiusLabel.m; sourceTree = "<group>"; };
 		385C559321859E8D000B4A00 /* XHFence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHFence.h; sourceTree = "<group>"; };
 		385C559421859E8D000B4A00 /* XHFence.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHFence.m; sourceTree = "<group>"; };
+		385C5599218D9020000B4A00 /* XHLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHLocation.h; sourceTree = "<group>"; };
+		385C559A218D9020000B4A00 /* XHLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHLocation.m; sourceTree = "<group>"; };
+		385C559D218D9A95000B4A00 /* DevicesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevicesViewController.h; sourceTree = "<group>"; };
+		385C559E218D9A95000B4A00 /* DevicesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevicesViewController.m; sourceTree = "<group>"; };
+		385C55A0218D9CD0000B4A00 /* DeviceInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceInfoViewController.h; sourceTree = "<group>"; };
+		385C55A1218D9CD0000B4A00 /* DeviceInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceInfoViewController.m; sourceTree = "<group>"; };
+		385C55A3218DA68B000B4A00 /* ModifyPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyPasswordViewController.h; sourceTree = "<group>"; };
+		385C55A4218DA68B000B4A00 /* ModifyPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyPasswordViewController.m; sourceTree = "<group>"; };
 		5A5EA02D0F9606AB53E3E352 /* Pods-LaoRenJi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaoRenJi.release.xcconfig"; path = "Pods/Target Support Files/Pods-LaoRenJi/Pods-LaoRenJi.release.xcconfig"; sourceTree = "<group>"; };
 		73A3D4BB73DDFD25E392F70B /* Pods-LaoRenJi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaoRenJi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LaoRenJi/Pods-LaoRenJi.debug.xcconfig"; sourceTree = "<group>"; };
 		A513503B2187002100D69E06 /* XHLiveEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XHLiveEvent.mm; sourceTree = "<group>"; };
@@ -613,6 +625,7 @@
 		385C555D218449BC000B4A00 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				385C559C218D9A61000B4A00 /* Controller */,
 				385C555E21844A22000B4A00 /* ProfileViewController.h */,
 				385C555F21844A22000B4A00 /* ProfileViewController.m */,
 				385C556121844A71000B4A00 /* ProfileCell.h */,
@@ -666,8 +679,23 @@
 			children = (
 				385C559321859E8D000B4A00 /* XHFence.h */,
 				385C559421859E8D000B4A00 /* XHFence.m */,
+				385C5599218D9020000B4A00 /* XHLocation.h */,
+				385C559A218D9020000B4A00 /* XHLocation.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		385C559C218D9A61000B4A00 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				385C559D218D9A95000B4A00 /* DevicesViewController.h */,
+				385C559E218D9A95000B4A00 /* DevicesViewController.m */,
+				385C55A0218D9CD0000B4A00 /* DeviceInfoViewController.h */,
+				385C55A1218D9CD0000B4A00 /* DeviceInfoViewController.m */,
+				385C55A3218DA68B000B4A00 /* ModifyPasswordViewController.h */,
+				385C55A4218DA68B000B4A00 /* ModifyPasswordViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		6919D69A537A4906DD19AB14 /* Pods */ = {
@@ -984,6 +1012,7 @@
 				385C555C21844431000B4A00 /* HistoryCell.m in Sources */,
 				385C559521859E8D000B4A00 /* XHFence.m in Sources */,
 				385C553C217C4A5D000B4A00 /* AlarmTimeCell.m in Sources */,
+				385C559F218D9A95000B4A00 /* DevicesViewController.m in Sources */,
 				385C552C217B419E000B4A00 /* AlarmViewController.m in Sources */,
 				385C5548217C7A71000B4A00 /* AlarmRepeatDayController.m in Sources */,
 				385C5527217B4125000B4A00 /* ServiceTextFieldContainer.m in Sources */,
@@ -995,6 +1024,7 @@
 				385C54D3217B40D5000B4A00 /* UIButton+Landing.m in Sources */,
 				385C556021844A22000B4A00 /* ProfileViewController.m in Sources */,
 				385C5519217B4125000B4A00 /* DeviceLiveSelectController.m in Sources */,
+				385C559B218D9020000B4A00 /* XHLocation.m in Sources */,
 				385C551B217B4125000B4A00 /* DevicePhoneViewController.m in Sources */,
 				385C553F217C543D000B4A00 /* AlarmButton.m in Sources */,
 				385C5528217B4125000B4A00 /* LeftHeaderView.m in Sources */,
@@ -1002,9 +1032,11 @@
 				385C5524217B4125000B4A00 /* LeftViewDeviceCell.m in Sources */,
 				385C558421846AB4000B4A00 /* XHSearchTextField.m in Sources */,
 				385C5545217C72EC000B4A00 /* AlarmTextEditController.m in Sources */,
+				385C55A5218DA68B000B4A00 /* ModifyPasswordViewController.m in Sources */,
 				385C5530217B41AF000B4A00 /* AboutViewController.m in Sources */,
 				385C558E21858DBB000B4A00 /* FenceRadiusSlider.m in Sources */,
 				A5E1F817216B30CD007F398E /* AppDelegate.m in Sources */,
+				385C55A2218D9CD0000B4A00 /* DeviceInfoViewController.m in Sources */,
 				385C558121846997000B4A00 /* SerchPositionController.m in Sources */,
 				385C5525217B4125000B4A00 /* LeftViewController.m in Sources */,
 				385C5423217B16CA000B4A00 /* XHContact.m in Sources */,

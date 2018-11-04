@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)actionButtonClick: (UIButton *)button;
 
+- (BOOL)codeButtonHidden;
+
 @end
 
 NS_ASSUME_NONNULL_END

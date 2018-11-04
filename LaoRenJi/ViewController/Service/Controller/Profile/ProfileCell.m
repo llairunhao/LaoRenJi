@@ -43,11 +43,11 @@
     
     rect = self.bounds;
     rect.origin.x = 12.f;
-    rect.size.width = 100.f;
+    rect.size.width = self.leftWidth;
     self.textLabel.frame = rect;
     
-    rect.origin.x = CGRectGetMaxY(rect) + 12;
-    rect.size.width = CGRectGetMinX(_arrowView.frame) - CGRectGetMaxY(self.textLabel.frame) - 24.f;
+    rect.origin.x = CGRectGetMaxX(rect) + 12;
+    rect.size.width = CGRectGetMinX(_arrowView.frame) - CGRectGetMaxX(self.textLabel.frame) - 24.f;
     _contentLabel.frame = rect;
 }
 

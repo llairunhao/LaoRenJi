@@ -31,6 +31,10 @@
     return _textFields;
 }
 
+- (BOOL)codeButtonHidden {
+    return false;
+}
+
 - (void)actionButtonClick: (UIButton *)button {
     for (NSInteger i = 0; i < _textFields.count; i++) {
         if (_textFields[i].text.length == 0) {
@@ -65,7 +69,9 @@
 #pragma mark-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"注册";
+    if (!self.title) {
+        self.title = @"注册";
+    }
     [self setupSubviews];
     
     if (@available(iOS 11.0, *)) {
@@ -107,14 +113,18 @@
     size.width = MIN(size.width, CGRectGetWidth(self.view.bounds) - 24.f);
     [_scrollView addSubview:actionButton];
     
-    UIButton *codeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [codeButton setTitleColor:[UIColor EC1] forState:UIControlStateNormal];
-    [codeButton setTitleColor:[UIColor C3] forState:UIControlStateDisabled];
-    codeButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    UIButton *codeButton;
+    if (![self codeButtonHidden]) {
+        codeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [codeButton setTitleColor:[UIColor EC1] forState:UIControlStateNormal];
+        [codeButton setTitleColor:[UIColor C3] forState:UIControlStateDisabled];
+        codeButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    }
+    
     
     NSArray *placeholders = self.placeholders;
-    NSMutableArray *textFields = [NSMutableArray arrayWithCapacity:5];
+    NSMutableArray *textFields = [NSMutableArray arrayWithCapacity:self.placeholders.count];
     CGRect rect = self.view.bounds;
     rect.size = size;
     rect.origin.x = (CGRectGetWidth(bounds) - size.width) / 2.f;
@@ -128,7 +138,8 @@
             rect.origin.y = CGRectGetMaxY(rect) + 20.f;
         }
         textField.frame = rect;
-        if (i == placeholders.count - 1) {
+        
+        if (i == placeholders.count - 1 && codeButton) {
             CGSize size = [codeButton sizeThatFits:CGSizeZero];
             CGRect rect = textField.bounds;
             rect.origin.x = CGRectGetWidth(rect) - size.width - 8.f;

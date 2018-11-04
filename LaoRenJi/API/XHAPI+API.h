@@ -26,17 +26,26 @@ NS_ASSUME_NONNULL_BEGIN
                                       handler: (nullable XHAPIResultHandler)handler;
 
 + (NSURLSessionDataTask *)resetPasswordWithAccount: (NSString *)account
-                                         password: (NSString *)password
-                                             code: (NSString *)code
-                                          handler: (nullable XHAPIResultHandler)handler;
+                                          password: (NSString *)password
+                                              code: (NSString *)code
+                                           handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)resetPasswordWithToken: (NSString *)token
+                                     oldPassword: (NSString *)oldPassword
+                                     newPassword: (NSString *)newPassword
+                                         handler: (nullable XHAPIResultHandler)handler;
 
 + (NSURLSessionDataTask *)bindDeviceByToken:(NSString *)token
                                     simMark:(NSString *)simMark
                                  deviceName:(NSString *)deviceName
                                     handler:(XHAPIResultHandler)handler ;
 
++ (NSURLSessionDataTask *)unbindDeviceByToken:(NSString *)token
+                                   appAccount:(NSString *)appAccount
+                                      handler:(XHAPIResultHandler)handler ;
+
 + (NSURLSessionDataTask *)getVerificationCodeByPhone:(NSString *)phone
-                                               handler:(nullable XHAPIResultHandler)handler;
+                                             handler:(nullable XHAPIResultHandler)handler;
 
 + (NSURLSessionDataTask *)listOfDevicesByToken: (NSString *)token
                                        handler: (nullable XHAPIResultHandler)handler;
@@ -127,14 +136,14 @@ NS_ASSUME_NONNULL_BEGIN
                                      duration: (NSUInteger)duration
                                         count: (NSUInteger)count
                                      accuracy: (XHLocationAccuracy)accuracy
-                                           handler: (nullable XHAPIResultHandler)handler;
+                                      handler: (nullable XHAPIResultHandler)handler;
 
 + (NSURLSessionDataTask *)getDeviceFenceByToken: (NSString *)token
                                         handler: (nullable XHAPIResultHandler)handler;
 
 + (NSURLSessionDataTask *)setDeviceFenceByToken: (NSString *)token
                                       longitude: (CGFloat)longitude
-                                        latitude: (CGFloat)latitude
+                                       latitude: (CGFloat)latitude
                                          radius: (NSUInteger)radius
                                            name: (NSString *)name
                                         handler: (nullable XHAPIResultHandler)handler;
@@ -151,4 +160,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
 

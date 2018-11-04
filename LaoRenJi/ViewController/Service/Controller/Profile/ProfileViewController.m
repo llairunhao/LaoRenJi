@@ -27,7 +27,7 @@
     [self setupSubviews];
 }
 - (void)setupSubviews {
-    
+    self.title = @"个人中心";
     CGRect rect = self.view.bounds;
     UIButton *button = [UIButton landingButtonWithTitle:@"退出登陆" target:self action:@selector(buttonClick:)];
     CGSize size = [button sizeThatFits:CGSizeZero];
@@ -77,6 +77,7 @@
     ProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bind"];
     if (!cell) {
         cell = [[ProfileCell alloc] initWithReuseIdentifier:@"bind"];
+        cell.leftWidth = indexPath.row == 3 ? 200.f : 50.f;
     }
     cell.textLabel.text = titles[indexPath.row];
     cell.contentLabel.text = contents[indexPath.row];
@@ -87,6 +88,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView  deselectRowAtIndexPath:indexPath animated:true];
     
+    if (indexPath.row == 3) {
+        UIViewController *controller = [[NSClassFromString(@"DevicesViewController") alloc] init];
+        [self.navigationController pushViewController:controller animated:true];
+    }else if (indexPath.row == 1) {
+        
+        UIViewController *controller = [[NSClassFromString(@"ModifyPasswordViewController") alloc] init];
+        [self.navigationController pushViewController:controller animated:true];
+    }
 }
 
 - (void)buttonClick: (UIButton *)button {

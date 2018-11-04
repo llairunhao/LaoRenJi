@@ -23,5 +23,6 @@
     self.name       =   [JSON JSONForKey:@"mobileName"].stringValue;
     self.admin      =   [JSON JSONForKey:@"isAdmin"].boolValue;
     self.simMark    =   [JSON JSONForKey:@"simMark"].stringValue;
+    self.appAccount =   [JSON JSONForKey:@"appAccount"].stringValue;
 }
 @end

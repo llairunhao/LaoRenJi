@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) UIImageView *arrowView;
 
 
+@property (nonatomic, assign) CGFloat leftWidth;
+
 @end
 
 NS_ASSUME_NONNULL_END

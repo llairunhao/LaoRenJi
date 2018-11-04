@@ -55,6 +55,19 @@
     return [self GET:urlString parameters:parameters handler:handler];
 }
 
++ (NSURLSessionDataTask *)resetPasswordWithToken: (NSString *)token
+                                     oldPassword: (NSString *)oldPassword
+                                     newPassword: (NSString *)newPassword
+                                         handler: (nullable XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"updatePasswordInterface"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"newPassWord" : newPassword,
+                                 @"oldPassWord" : oldPassword,
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
 + (NSURLSessionDataTask *)bindDeviceByToken:(NSString *)token
                                     simMark:(NSString *)simMark
                                  deviceName:(NSString *)deviceName
@@ -68,6 +81,16 @@
     return [self GET:urlString parameters:parameters handler:handler];
 }
 
++ (NSURLSessionDataTask *)unbindDeviceByToken:(NSString *)token
+                                    appAccount:(NSString *)appAccount
+                                    handler:(XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"untieMobileInterface"];
+    NSDictionary *parameters = @{
+                                 @"token"    : token,
+                                 @"appAccount"   : appAccount
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
 
 + (NSURLSessionDataTask *)getVerificationCodeByPhone:(NSString *)phone
                                             handler:(nullable XHAPIResultHandler)handler{

@@ -11,13 +11,14 @@
 #import "XHLiveEvent.h"
 #import "XHAPI+API.h"
 #import "XHUser.h"
+#import "XHDevice.h"
 
 @interface XHLiveViewController ()<XHLiveEventDelegate>
 
 @property (nonatomic, strong) pgLibLive *live;
 @property (nonatomic, strong) XHLiveEvent *liveEvent;
 @property (nonatomic, strong) UIView *liveView;
-
+@property (nonatomic, assign) XHCameraType camera;
 @end
 
 @implementation XHLiveViewController
@@ -25,19 +26,68 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"监控";
+    self.title = self.type == XHLiveTypeAudio ?  @"音频监控" : @"视频监控";
     self.view.backgroundColor = [UIColor whiteColor];
+    self.camera = XHCameraTypeRear;
+    [self refreshData];
+    self.navigationBar.backButton.hidden = true;
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"live_close"] forState:UIControlStateNormal];
+    [self.view addSubview:button];
+    [button addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    CGRect rect = self.view.bounds;
+    CGSize size = CGSizeMake(100, 100);
+    rect.origin.y = CGRectGetHeight(self.view.bounds) - size.height - [UIView bottomSafeAreaHeight] - 24.f;
+    rect.origin.x = (CGRectGetWidth(self.view.bounds) - size.width)  / 2;
+    rect.size = size;
+    button.frame = rect;
     
+    if (self.type == XHLiveTypeAudio) {
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.image = [UIImage imageNamed:@"live_audio"];
+        [self.view addSubview:imageView];
+        
+        rect = self.view.bounds;
+        size = CGSizeMake(240, 240);
+        rect.origin.y = [UIView topSafeAreaHeight] + 48.f;
+        rect.origin.x = (CGRectGetWidth(self.view.bounds) - size.width)  / 2;
+        rect.size = size;
+        imageView.frame = rect;
+    }else {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setTitle:@"切换摄像头" forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        [self.view addSubview:button];
+        [self.navigationBar addRigthItem:button];
+        [button addTarget:self action:@selector(cameraBttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+- (void)closeButtonClick: (UIButton *) button{
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)cameraBttonClick: (UIButton *)button {
+    if (self.camera == XHCameraTypeRear) {
+        self.camera = XHCameraTypeFront;
+    }else {
+        self.camera = XHCameraTypeRear;
+    }
+    [self refreshData];
+}
+
+- (void)refreshData {
     [self showLoadingHUD];
     WEAKSELF;
-    
     XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
         [weakSelf hideAllHUD];
         if (result.isSuccess) {
-            [weakSelf.view addSubview:weakSelf.liveView];
+            
             if (weakSelf.type == XHLiveTypeAudio) {
                 [weakSelf startAudioLive];
             }else{
+                [weakSelf.view addSubview:weakSelf.liveView];
                 [weakSelf startVideoLive];
             }
         }else {
@@ -47,14 +97,8 @@
     
     [XHAPI startLiveByToken:[XHUser currentUser].token
                    liveType:self.type
-                 cameraType:XHCameraTypeRear
+                 cameraType:self.camera
                     handler:handler];
-    
-    self.navigationBar.backHandler = ^{
-        [weakSelf stopLive];
-        [weakSelf dismissViewControllerAnimated:true completion:nil];
-    };
-
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -74,7 +118,7 @@
         _live = [[pgLibLive alloc] init:self.liveEvent];
         NSString *serverAddress = @"connect.peergine.com:7781";
         BOOL result = [self.live InitializeEx:pgLibLiveModeRender
-                                         user:@"ios_test"
+                                         user:@"xhkj071201"
                                          pass:@""
                                       svrAddr:serverAddress
                                     relayAddr:@""
@@ -94,21 +138,22 @@
         _liveView = [self.live WndCreate:0
                                        y:[UIView topSafeAreaHeight]
                                        w:CGRectGetWidth(self.view.bounds)
-                                       h:240];
+                                       h:280];
+        _liveView.backgroundColor = [UIColor blackColor];
     }
     return _liveView;
 }
 
 
 - (void)startAudioLive {
-    [_live Start:@"xhkj071201"];
-    [_live AudioStart];
-    [_live AudioSyncDelay];
+    [self.live Start:[XHUser currentUser].currentDevice.simMark];
+    [self.live AudioStart];
+    [self.live AudioSyncDelay];
 }
 
 - (void)startVideoLive {
     [self startAudioLive];
-    [_live VideoStart];
+    [self.live VideoStart];
 }
 
 

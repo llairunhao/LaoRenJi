@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *simMark;
+@property (nonatomic, copy) NSString *appAccount;
 @property (nonatomic, assign) BOOL online;
 
 

@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<XHChat *>*)listOfChats;
 
 
+- (void)saveCurrentDeviceLocusState: (BOOL)open;
+- (BOOL)getCurrentDeviceLocusState;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

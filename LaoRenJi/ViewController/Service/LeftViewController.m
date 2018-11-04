@@ -138,6 +138,7 @@
     if (indexPath.section == 1) {
         QRScanningViewController *controller = [[QRScanningViewController alloc] init];
         [self.navigationController pushViewController:controller animated:true];
+        [self hideAnimation];
         return;
     }
     

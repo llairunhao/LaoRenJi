@@ -10,6 +10,7 @@
 #import "DeviceSettingCell.h"
 #import "XHAPI+API.h"
 #import "XHUser.h"
+#import "DBManager.h"
 
 @interface LocusViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -60,7 +61,7 @@
     UIButton *button = [cell viewWithTag:1024];
     if (indexPath.row == 0) {
         if (!button) {
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button = [UIButton buttonWithType:UIButtonTypeCustom];
             [cell.contentView addSubview:button];
             [button setImage:[UIImage imageNamed:@"SWITCH"] forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:@"SWITCHON"] forState:UIControlStateSelected];
@@ -73,9 +74,9 @@
             button.frame = rect;
             button.tag = 1024;
         }
-       
+        button.selected = [[DBManager sharedInstance] getCurrentDeviceLocusState];
     }
-    button.hidden = indexPath.row == 0;
+    button.hidden = indexPath.row > 0;
     cell.textLabel.text = titles[indexPath.row];
     cell.arrowView.hidden = indexPath.row == 0;
     return cell;
@@ -102,14 +103,15 @@
     XHLocationStatus status = !button.selected ? XHLocationStop : XHLocationOpen;
     [XHAPI locateDeviceByToken:[XHUser currentUser].token
                         status:status
-                      duration:20
-                         count:100
+                      duration:60
+                         count:99999
                       accuracy:XHLocationAccuracyBest
                        handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
                            [weakSelf hideAllHUD];
                            if (result.isSuccess) {
-                                [weakSelf toast:result.message];
+                               [weakSelf toast:result.message];
                                weakButton.selected = !weakButton.selected;
+                               [[DBManager sharedInstance] saveCurrentDeviceLocusState:weakButton.selected];
                            }else {
                                [weakSelf toast:result.message];
                            }

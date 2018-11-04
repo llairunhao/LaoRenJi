@@ -68,7 +68,7 @@
         [array addObject:dict];
     }
     
-   
+    
     [[NSUserDefaults standardUserDefaults] setObject:[array copy] forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -91,5 +91,31 @@
     }
     return [chats copy];
 }
+
+- (void)saveCurrentDeviceLocusState:(BOOL)open {
+    XHUser *user = [XHUser currentUser];
+    XHDevice *device = user.currentDevice;
+    if (!device) {
+        return;
+    }
+    NSString *key = [NSString stringWithFormat:@"%@_%@_locus",user.account, device.simMark];
+    [[NSUserDefaults standardUserDefaults] setBool:open forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%@", @([self getCurrentDeviceLocusState]));
+}
+
+- (BOOL)getCurrentDeviceLocusState {
+    XHUser *user = [XHUser currentUser];
+    XHDevice *device = user.currentDevice;
+    if (!device) {
+        return false;
+    }
+    NSString *key = [NSString stringWithFormat:@"%@_%@_locus",user.account, device.simMark];
+    BOOL result = [[NSUserDefaults standardUserDefaults] boolForKey:key];
+    NSLog(@"%@", @(result));
+    return result;
+}
+
+
 
 @end

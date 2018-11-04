@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSURL *avatarURL;
 
 - (void)logout;
+- (void)login;
+- (void)removeDevice: (XHDevice *)device;
 
 @end
 

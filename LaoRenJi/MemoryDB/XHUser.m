@@ -23,6 +23,7 @@
     self = [super init];
     if (self) {
         [self setupWithJSON:JSON];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvLoginNoti:) name:XHUserDidLoginNotification object:nil];
     }
     return self;
 }
@@ -54,6 +55,31 @@
     self.avatarURLString    =   @"";
     self.devices            =   @[];
     self.currentDevice      =   nil;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@{
+                                                       @"account": self.account
+                                                       } forKey:@"dashabi"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)login {
+    [[NSUserDefaults standardUserDefaults] setObject:@{@"account": self.account,
+                                                       @"password" : self.password
+                                                       } forKey:@"dashabi"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)removeDevice:(XHDevice *)device {
+    NSMutableArray *array = [ NSMutableArray arrayWithArray:_devices];
+    [array removeObject:device];
+    self.devices = array;
+    if (!self.currentDevice) {
+        self.currentDevice = array.firstObject;
+    }
+}
+
+- (void)recvLoginNoti: (NSNotification *)noti {
+    [self login];
 }
 
 @end
