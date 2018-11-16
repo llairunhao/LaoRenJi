@@ -31,8 +31,9 @@ typedef NS_ENUM(NSInteger, XHLiveType) {
 };
 
 typedef NS_ENUM(NSInteger, XHCameraType) {
+    XHCameraTypeRear,
     XHCameraTypeFront,
-    XHCameraTypeRear
+
 };
 
 

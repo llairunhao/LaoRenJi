@@ -16,4 +16,5 @@ target 'LaoRenJi' do
    pod 'AMap3DMap'
    pod 'AMapSearch'
    pod 'AMapLocation'
+   pod 'QQ_XGPush'
 end

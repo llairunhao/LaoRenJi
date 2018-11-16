@@ -19,6 +19,8 @@
 @property (nonatomic, strong) XHLiveEvent *liveEvent;
 @property (nonatomic, strong) UIView *liveView;
 @property (nonatomic, assign) XHCameraType camera;
+@property (nonatomic, assign) BOOL running;
+
 @end
 
 @implementation XHLiveViewController
@@ -62,9 +64,13 @@
         [self.navigationBar addRigthItem:button];
         [button addTarget:self action:@selector(cameraBttonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
+//    [self.view addSubview:self.liveView];
+//    [self startVideoLive];
 }
 
 - (void)closeButtonClick: (UIButton *) button{
+    [self stopLive];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
@@ -83,18 +89,19 @@
     XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
         [weakSelf hideAllHUD];
         if (result.isSuccess) {
-            
-            if (weakSelf.type == XHLiveTypeAudio) {
-                [weakSelf startAudioLive];
-            }else{
-                [weakSelf.view addSubview:weakSelf.liveView];
-                [weakSelf startVideoLive];
+            if (!weakSelf.running) {
+                if (weakSelf.type == XHLiveTypeAudio) {
+                    [weakSelf startAudioLive];
+                }else{
+                    [weakSelf.view addSubview:weakSelf.liveView];
+                    [weakSelf startVideoLive];
+                }
             }
         }else {
             [weakSelf toast:result.message];
         }
     };
-    
+
     [XHAPI startLiveByToken:[XHUser currentUser].token
                    liveType:self.type
                  cameraType:self.camera
@@ -103,12 +110,13 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self stopLive];
+    
 }
 
 - (XHLiveEvent *)liveEvent {
     if (!_liveEvent) {
         _liveEvent = [[XHLiveEvent alloc] init];
+        _liveEvent.delegate = self;
     }
     return _liveEvent;
 }
@@ -118,8 +126,8 @@
         _live = [[pgLibLive alloc] init:self.liveEvent];
         NSString *serverAddress = @"connect.peergine.com:7781";
         BOOL result = [self.live InitializeEx:pgLibLiveModeRender
-                                         user:@"xhkj071201"
-                                         pass:@""
+                                         user:@"ANDROID_DEMO"
+                                         pass:@"1234"
                                       svrAddr:serverAddress
                                     relayAddr:@""
                                    p2pTryTime:2
@@ -139,21 +147,25 @@
                                        y:[UIView topSafeAreaHeight]
                                        w:CGRectGetWidth(self.view.bounds)
                                        h:280];
-        _liveView.backgroundColor = [UIColor blackColor];
+       // _liveView.backgroundColor = [UIColor blackColor];
     }
     return _liveView;
 }
 
 
 - (void)startAudioLive {
-    [self.live Start:[XHUser currentUser].currentDevice.simMark];
+    [self.live Start:@"xhkj071203"];
     [self.live AudioStart];
     [self.live AudioSyncDelay];
 }
 
 - (void)startVideoLive {
-    [self startAudioLive];
+  //  [self startAudioLive];
+    [self.live Start:@"xhkj071203"];
     [self.live VideoStart];
+    [self.live AudioStart];
+    [self.live AudioSyncDelay];
+  
 }
 
 
@@ -164,7 +176,7 @@
 }
 
 - (void)OnEvent:(NSString *)sAction data:(NSString *)sData render:(NSString *)sRender {
-      NSLog(@"Action:%@, Data:%@, sRender:%@", sAction, sData, sRender);
+      NSLog(@"-------》Action:%@, Data:%@, sRender:%@", sAction, sData, sRender);
     if ([sAction isEqualToString:@"Login"]) {
         // Login reply
         if ([sData isEqualToString:@"0"]) {
@@ -175,8 +187,26 @@
             NSString* sInfo = [NSString stringWithFormat:@"Login failed, error=%@", sData];
               [self toast:sInfo];
         }
-    }if ([sAction isEqualToString:@"Logout"] ) {
+    }else if ([sAction isEqualToString:@"Logout"] ) {
         NSString* sInfo = @"Logout";
+        [self toast:sInfo];
+    }else if ([sAction isEqualToString:@"Offline"]) {
+        // The capture is offline.
+        NSString* sInfo = @"设备离线状态";
+        [self toast:sInfo];
+    }else if ([sAction isEqualToString:@"Connect"] ) {
+        // Connect to capture
+        NSString* sInfo = @"Connect to capture";
+        [self toast:sInfo];
+    }
+    else if ([sAction isEqualToString:@"Disconnect"] ) {
+        // Disconnect from capture
+        NSString* sInfo = @"Disconnect from capture";
+        [self toast:sInfo];
+    }
+    else if ([sAction isEqualToString:@"Offline"]) {
+        // The capture is offline.
+        NSString* sInfo = @"The capture is offline";
         [self toast:sInfo];
     }
 }

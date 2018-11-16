@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "FHTRootContainer.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
+#import <QQ_XGPush/XGPush.h>
 
 @interface AppDelegate ()
 
@@ -25,6 +26,8 @@
     
     [AMapServices sharedServices].apiKey = @"c8f3f6f0dc8606ed66aee6b9686e6a68";
     [AMapServices sharedServices].enableHTTPS = YES;
+    
+    [XGPush startApp:1234567890 appKey:@"ABCDEFGHIJKLMN"];
     return YES;
 }
 
