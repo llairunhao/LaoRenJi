@@ -38,7 +38,7 @@
     [XHUser currentUser].password = password;
     [self showLoadingHUD: @"登录中..."];
     WEAKSELF;
-    [XHAPI loginWithAccount:account password:password xgToken:@"token" handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+    [XHAPI loginWithAccount:account password:password xgToken:[XHUser currentUser].xgToken handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
         if (result.isSuccess) {
             [[XHUser currentUser] setupWithJSON:JSON];
             [XHUser currentUser].account = account;
@@ -152,17 +152,17 @@
     rect.origin.x = (CGRectGetWidth(bounds) - size2.width ) / 2;
     rect.size = size2;
     
-    NSDictionary *user = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"dashabi"];
+ 
  
     UITextField *textField = [self textFieldWithPlaceholder:@"请输入账号"];
-    textField.text = user[@"account"];// @"17665368506";
+    textField.text = [XHUser currentUser].account;// @"17665368506";
     _accountTF = textField;
     rect.origin.y = originY;
     textField.frame = rect;
     
     textField = [self textFieldWithPlaceholder:@"请输入密码"];
     textField.secureTextEntry = true;
-    textField.text = user[@"password"];
+    textField.text = [XHUser currentUser].password;
     _passwordTF = textField;
     rect.origin.y = CGRectGetMaxY(rect) + padding;
     textField.frame = rect;

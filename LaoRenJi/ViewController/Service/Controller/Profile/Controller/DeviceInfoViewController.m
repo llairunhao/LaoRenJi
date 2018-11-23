@@ -58,7 +58,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [XHUser currentUser].devices.count;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -122,6 +122,24 @@
 }
 
 - (void)updateDeviceName: (NSString *)text {
-
+    [self showLoadingHUD];
+    
+    XHUser *user = [XHUser currentUser];
+    XHDevice *device = user.currentDevice;
+    
+    WEAKSELF;
+    [XHAPI updateCurrentDeviceName:text
+                             token:user.token
+                           simMark:device.simMark
+                           handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+                               [weakSelf hideAllHUD];
+                               if (result.isSuccess) {
+                                   [weakSelf toast:@"修改成功"];
+                                   device.name = text;
+                                   [weakSelf.tableView reloadData];
+                               }else {
+                                   [weakSelf toast:result.message];
+                               }
+                           }];
 }
 @end

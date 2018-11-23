@@ -9,11 +9,15 @@
 #import "HistoryViewController.h"
 #import "HistoryCell.h"
 #import "UIButton+Landing.h"
+#import "XHUser.h"
+#import "XHDevice.h"
+#import "DBManager.h"
 
 @interface HistoryViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) UITableView *tableView;
-
+@property (nonatomic, strong) NSArray *source;
+@property (nonatomic, weak)UILabel *emptyLabel;
 @end
 
 @implementation HistoryViewController
@@ -22,6 +26,13 @@
     [super viewDidLoad];
     self.title = @"历史";
     [self setupSubviews];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:XHNewDeviceLogNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupSubviews {
@@ -47,6 +58,24 @@
     [self.view addSubview:tableView];
     tableView.tableFooterView = [[UIView alloc] init];
     _tableView = tableView;
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:rect];
+    label.textColor = [UIColor C3];
+    label.text = @"无提醒记录";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:20];
+    [self.view addSubview:label];
+    self.emptyLabel = label;
+    
+    self.source = [[DBManager sharedInstance] listOfCurrentDeviceLogs];
+    label.hidden = self.source.count > 0;
+}
+
+- (void)reloadData {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.source = [[DBManager sharedInstance] listOfCurrentDeviceLogs];
+        self.emptyLabel.hidden = self.source.count > 0;
+    });
 }
 
 
@@ -56,7 +85,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return self.source.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -65,9 +94,18 @@
     if (!cell) {
         cell = [[HistoryCell alloc] initWithReuseIdentifier:@"bind"];
     }
-    cell.textLabel.text = @"爸爸";
-    cell.detailTextLabel.text = @"2018-12-12   09:30";
-    cell.historyType = indexPath.row;
+    NSDictionary *dict = self.source[indexPath.row];
+    cell.textLabel.text = [XHUser currentUser].currentDevice.name;
+    
+    static NSDateFormatter *formatter;
+    if (!formatter) {
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd hh:mm";
+    }
+    NSTimeInterval interval = [dict[@"timeSp"] doubleValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+    cell.detailTextLabel.text = [formatter stringFromDate:date];
+    cell.historyType = [dict[@"type"] integerValue];
     return cell;
 }
 
@@ -78,7 +116,10 @@
 
 
 - (void)buttonClick: (UIButton *)button {
-    
+    [[DBManager sharedInstance] removeCurrentDeviceAllLogs];
+    self.source = @[];
+    [self.tableView reloadData];
+    self.emptyLabel.hidden = false;
 }
 
 @end

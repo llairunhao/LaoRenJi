@@ -14,5 +14,8 @@ NSString * const XHUserDidLogoutNotification = @"com.xh.userDidLogout";
 NSString * const XHCurrentDeviceDidChangeNotification = @"com.xh.deviceDidChange";
 NSString * const XHDevicesDidChangeNotification = @"com.xh.devicesDidChange";
 
+NSString * const XHDeviceDidReadyMonitorNotification = @"com.xh.deviceDidReadyMonitor";
+NSString * const XHNewDeviceLogNotification = @"com.xh.newDeivceLog";
+
 XHLocationStatus const XHLocationOpen = @"startLocation";
 XHLocationStatus const XHLocationStop = @"stopLocation";

@@ -17,11 +17,14 @@
                                    handler:(XHAPIResultHandler)handler {
     
     NSString *urlString = [self urlStringByPath:@"loginInterface"];
-    NSDictionary *parameters = @{
+    NSMutableDictionary *parameters = [@{
                                  @"account"    : account,
                                  @"passWord"   : password,
-                                 @"xgToken"    : xgToken
-                                };
+                                 @"xgType"     : @"iOS"
+                                } mutableCopy];
+    if (xgToken) {
+        parameters[@"xgToken"] = xgToken;
+    }
     return [self GET:urlString parameters:parameters handler:handler];
 }
 
@@ -387,5 +390,21 @@
                                  };
     return [self GET:urlString parameters:parameters handler:handler];
 }
+
+
++ (NSURLSessionDataTask *)updateCurrentDeviceName: (NSString *)deviceName
+                                            token: (NSString *)token
+                                          simMark: (NSString *)simMark
+                                          handler: (nullable XHAPIResultHandler)handler {
+    NSString *urlString = [self urlStringByPath:@"updateMobileNameInterface"];
+    NSDictionary *parameters = @{
+                                 @"token" : token,
+                                 @"simMark" : simMark,
+                                 @"mobileName" : deviceName
+                                 };
+    return [self GET:urlString parameters:parameters handler:handler];
+}
+
+
 
 @end

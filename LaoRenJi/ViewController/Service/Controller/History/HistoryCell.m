@@ -55,29 +55,29 @@
 
 }
 
-- (void)setHistoryType:(HistoryType)historyType {
+- (void)setHistoryType:(XHDeviceLogType)historyType {
     NSString *desc;
     NSString *imageName;
     switch (historyType) {
-        case HistoryTypeFall:
+        case XHDeviceLogTypeFall:
         {
             desc = @"跌倒";
             imageName = @"跌倒";
         }
             break;
-        case HistoryTypeLeave:
+        case XHDeviceLogTypeLeaveFence:
         {
             desc = @"跨越围栏";
             imageName = @"跨越围栏";
         }
             break;
-        case HistoryTypeMessage:
+        case XHDeviceLogTypeMessage:
         {
             desc = @"留言";
             imageName = @"留言2";
         }
             break;
-        case HistoryTypeLowPower:
+        case XHDeviceLogTypeLowPower:
         {
             desc = @"低电报警";
             imageName = @"低电报警";

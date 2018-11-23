@@ -16,6 +16,10 @@ extern NSString * const XHUserDidLogoutNotification;
 extern NSString * const XHCurrentDeviceDidChangeNotification;
 extern NSString * const XHDevicesDidChangeNotification;
 
+extern NSString * const XHDeviceDidReadyMonitorNotification;
+extern NSString * const XHNewDeviceLogNotification;
+
+
 extern XHLocationStatus const XHLocationOpen;
 extern XHLocationStatus const XHLocationStop;
 
@@ -36,6 +40,18 @@ typedef NS_ENUM(NSInteger, XHCameraType) {
 
 };
 
+
+typedef NS_ENUM(NSInteger, XHMonitorStatus) {
+    XHMonitorStatusFailed,
+    XHMonitorStatusReady
+};
+
+typedef NS_ENUM(NSInteger, XHDeviceLogType) {
+    XHDeviceLogTypeLowPower,
+    XHDeviceLogTypeLeaveFence,
+    XHDeviceLogTypeFall,
+    XHDeviceLogTypeMessage
+};
 
 
 typedef void(^VoidHandler)(void);

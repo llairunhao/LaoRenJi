@@ -24,34 +24,32 @@
 
 - (NSString *)getCurrentDevicePhone {
     XHUser *user = [XHUser currentUser];
-    XHDevice *device = user.currentDevice;
-    if (!device) {
-        return nil;
+    NSString *simMark = user.currentSimMark;
+    if (!simMark) {
+        return @"";
     }
-    NSString *key = [NSString stringWithFormat:@"%@_%@",user.account, device.simMark];
+    NSString *key = [NSString stringWithFormat:@"%@_%@",user.account, simMark];
     return [[NSUserDefaults standardUserDefaults] stringForKey:key];
 }
 
 - (void)setCurrentDevicePhone:(NSString *)phone {
     XHUser *user = [XHUser currentUser];
-    XHDevice *device = user.currentDevice;
-    if (!device) {
+    NSString *simMark = user.currentSimMark;
+    if (!simMark) {
         return;
     }
-    NSString *key = [NSString stringWithFormat:@"%@_%@",user.account, device.simMark];
+    NSString *key = [NSString stringWithFormat:@"%@_%@",user.account, simMark];
     [[NSUserDefaults standardUserDefaults] setObject:phone forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)saveChats:(NSArray<XHChat *> *)chats {
     XHUser *user = [XHUser currentUser];
-    XHDevice *device = user.currentDevice;
-    
-    
-    if (!device) {
+    NSString *simMark = user.currentSimMark;
+    if (!simMark) {
         return;
     }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_chats",user.account, device.simMark];
+    NSString *key = [NSString stringWithFormat:@"%@_%@_chats",user.account, simMark];
     if (chats.count == 0) {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -75,11 +73,11 @@
 
 - (NSArray<XHChat *>*)listOfChats {
     XHUser *user = [XHUser currentUser];
-    XHDevice *device = user.currentDevice;
-    if (!device) {
+    NSString *simMark = user.currentSimMark;
+    if (!simMark) {
         return @[];
     }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_chats",user.account, device.simMark];
+    NSString *key = [NSString stringWithFormat:@"%@_%@_chats",user.account, simMark];
     NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
     NSMutableArray *chats = [NSMutableArray arrayWithCapacity:array.count];
     for (NSDictionary *dict in array) {
@@ -94,11 +92,11 @@
 
 - (void)saveCurrentDeviceLocusState:(BOOL)open {
     XHUser *user = [XHUser currentUser];
-    XHDevice *device = user.currentDevice;
-    if (!device) {
+    NSString *simMark = user.currentSimMark;
+    if (!simMark) {
         return;
     }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_locus",user.account, device.simMark];
+    NSString *key = [NSString stringWithFormat:@"%@_%@_locus",user.account, simMark];
     [[NSUserDefaults standardUserDefaults] setBool:open forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
     NSLog(@"%@", @([self getCurrentDeviceLocusState]));
@@ -106,16 +104,62 @@
 
 - (BOOL)getCurrentDeviceLocusState {
     XHUser *user = [XHUser currentUser];
-    XHDevice *device = user.currentDevice;
-    if (!device) {
+    NSString *simMark = user.currentSimMark;
+    if (!simMark) {
         return false;
     }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_locus",user.account, device.simMark];
+    NSString *key = [NSString stringWithFormat:@"%@_%@_locus",user.account, simMark];
     BOOL result = [[NSUserDefaults standardUserDefaults] boolForKey:key];
     NSLog(@"%@", @(result));
     return result;
 }
 
+
+- (void)saveCurrentDeviceLog:(NSInteger)type timeSp:(NSTimeInterval)timeSp {
+    XHUser *user = [XHUser currentUser];
+    NSString *simMark = user.currentSimMark;
+    if (!simMark) {
+        return;
+    }
+    NSString *key = [NSString stringWithFormat:@"%@_%@_log",user.account, simMark];
+    NSDictionary *value = @{@"type": @(type), @"timeSp": @(timeSp)};
+    NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
+    if (!array) {
+        array = @[value];
+    }else {
+        NSMutableArray *array2 = [NSMutableArray arrayWithArray:array];
+        [array2 insertObject:value atIndex:0];
+        array = [array2 copy];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:array forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+- (NSArray<NSDictionary *> *)listOfCurrentDeviceLogs {
+    XHUser *user = [XHUser currentUser];
+    NSString *simMark = user.currentSimMark;
+    if (!simMark) {
+        return @[];
+    }
+    NSString *key = [NSString stringWithFormat:@"%@_%@_log",user.account, simMark];
+    NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
+    if (!array) {
+        return @[];
+    }
+    return array;
+}
+
+- (void)removeCurrentDeviceAllLogs {
+    XHUser *user = [XHUser currentUser];
+    NSString *simMark = user.currentSimMark;
+    if (!simMark) {
+        return;
+    }
+    NSString *key = [NSString stringWithFormat:@"%@_%@_log",user.account, simMark];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 
 @end

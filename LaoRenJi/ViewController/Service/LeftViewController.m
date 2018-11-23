@@ -77,6 +77,7 @@
     _headerView = headerView;
     UNSAFESELF;
     headerView.clickHandler = ^{
+        [unsafeSelf hideAnimation];
         ProfileViewController *controller = [[ProfileViewController alloc] init];
         [unsafeSelf.navigationController pushViewController:controller animated:true];
     };
@@ -151,7 +152,8 @@
         if (result.isSuccess) {
             weakSelf.selectedIndex = indexPath.row;
             [XHUser currentUser].currentDevice = device;
-            [tableView reloadData];
+            [weakSelf.tableView reloadData];
+            [weakSelf hideAnimation];
         }else {
             [weakSelf toast:result.message];
         }

@@ -25,7 +25,7 @@
         HUD.backgroundView.style = MBProgressHUDBackgroundStyleSolidColor;
     }
     HUD.label.text = title;
-    self.view.userInteractionEnabled = false;
+   // self.view.userInteractionEnabled = false;
 }
 
 - (void)hideAllHUD {

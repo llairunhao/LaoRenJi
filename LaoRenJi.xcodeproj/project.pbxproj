@@ -90,6 +90,7 @@
 		A533B2C7217D863000C790F9 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = A533B2C1217D862F00C790F9 /* amrFileCodec.mm */; };
 		A533B2CA217DA1A700C790F9 /* AudioMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = A533B2C9217DA1A700C790F9 /* AudioMananger.m */; };
 		A5353AA3217825D200D8A6B9 /* XHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A5353AA2217825D200D8A6B9 /* XHUser.m */; };
+		A5D08CE321A52819009C8B0F /* XHRemoteNotificationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D08CE221A52819009C8B0F /* XHRemoteNotificationHelper.m */; };
 		A5E1F817216B30CD007F398E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E1F816216B30CD007F398E /* AppDelegate.m */; };
 		A5E1F81F216B30D8007F398E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E1F81E216B30D8007F398E /* Assets.xcassets */; };
 		A5E1F822216B30D8007F398E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1F820216B30D8007F398E /* LaunchScreen.storyboard */; };
@@ -269,6 +270,9 @@
 		A533B2C9217DA1A700C790F9 /* AudioMananger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioMananger.m; sourceTree = "<group>"; };
 		A5353AA1217825D200D8A6B9 /* XHUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHUser.h; sourceTree = "<group>"; };
 		A5353AA2217825D200D8A6B9 /* XHUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHUser.m; sourceTree = "<group>"; };
+		A5D08CE021A4FEA8009C8B0F /* LaoRenJi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LaoRenJi.entitlements; sourceTree = "<group>"; };
+		A5D08CE121A52819009C8B0F /* XHRemoteNotificationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XHRemoteNotificationHelper.h; sourceTree = "<group>"; };
+		A5D08CE221A52819009C8B0F /* XHRemoteNotificationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHRemoteNotificationHelper.m; sourceTree = "<group>"; };
 		A5E1F812216B30CD007F398E /* LaoRenJi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaoRenJi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5E1F815216B30CD007F398E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A5E1F816216B30CD007F398E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -789,6 +793,8 @@
 				A533B2922179A7E700C790F9 /* Model */,
 				A5353AA1217825D200D8A6B9 /* XHUser.h */,
 				A5353AA2217825D200D8A6B9 /* XHUser.m */,
+				A5D08CE121A52819009C8B0F /* XHRemoteNotificationHelper.h */,
+				A5D08CE221A52819009C8B0F /* XHRemoteNotificationHelper.m */,
 			);
 			path = MemoryDB;
 			sourceTree = "<group>";
@@ -814,6 +820,7 @@
 		A5E1F814216B30CD007F398E /* LaoRenJi */ = {
 			isa = PBXGroup;
 			children = (
+				A5D08CE021A4FEA8009C8B0F /* LaoRenJi.entitlements */,
 				385C548B217B40D5000B4A00 /* ViewController */,
 				385C5411217AF5B3000B4A00 /* DB */,
 				A5353AA0217825AA00D8A6B9 /* MemoryDB */,
@@ -864,6 +871,14 @@
 				TargetAttributes = {
 					A5E1F811216B30CD007F398E = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -969,6 +984,7 @@
 				385C558721846ABC000B4A00 /* XHNavigationSearchBar.m in Sources */,
 				385C555221834F7E000B4A00 /* DeviceCodeInputViewController.m in Sources */,
 				385C53D02173167D000B4A00 /* UIViewController+ChildController.m in Sources */,
+				A5D08CE321A52819009C8B0F /* XHRemoteNotificationHelper.m in Sources */,
 				385C5520217B4125000B4A00 /* ContactEditController.m in Sources */,
 				385C53C221730197000B4A00 /* XHJSON.m in Sources */,
 				385C54D4217B40D5000B4A00 /* UITextField+Landing.m in Sources */,
@@ -1176,8 +1192,9 @@
 			baseConfigurationReference = 73A3D4BB73DDFD25E392F70B /* Pods-LaoRenJi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6QL8778DJ3;
+				CODE_SIGN_ENTITLEMENTS = LaoRenJi/LaoRenJi.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = BBTJ56ZMNL;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LaoRenJi/Util/PrefixHeader.pch";
@@ -1191,8 +1208,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LaoRenJi/Util/AudioConverter/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xh.LaoRenJi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cqjpp.laorenji;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = laorenji_dev_profile;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1202,8 +1220,10 @@
 			baseConfigurationReference = 5A5EA02D0F9606AB53E3E352 /* Pods-LaoRenJi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6QL8778DJ3;
+				CODE_SIGN_ENTITLEMENTS = LaoRenJi/LaoRenJi.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = BBTJ56ZMNL;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LaoRenJi/Util/PrefixHeader.pch";
@@ -1217,8 +1237,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LaoRenJi/Util/AudioConverter/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xh.LaoRenJi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cqjpp.laorenji;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = laorenji;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

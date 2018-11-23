@@ -10,10 +10,9 @@
 
 @implementation XHLiveEvent
 
--(void)OnEvent:(NSString*)sAction
-          data:(NSString*)sData
-        render:(NSString*)sRender {
-    [self.delegate OnEvent:sAction data:sData render:sRender];
+
+-(void)OnEvent:(NSString *)sAction data:(NSString *)sData capid:(NSString *)sCapID {
+    [self.delegate OnEvent:sAction data:sData capid:sCapID];
 }
 
 @end

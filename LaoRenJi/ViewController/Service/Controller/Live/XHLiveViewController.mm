@@ -12,10 +12,11 @@
 #import "XHAPI+API.h"
 #import "XHUser.h"
 #import "XHDevice.h"
+#import "UIViewController+HUD.h"
 
 @interface XHLiveViewController ()<XHLiveEventDelegate>
 
-@property (nonatomic, strong) pgLibLive *live;
+@property (nonatomic, strong) pgLibLiveMultiRender *live;
 @property (nonatomic, strong) XHLiveEvent *liveEvent;
 @property (nonatomic, strong) UIView *liveView;
 @property (nonatomic, assign) XHCameraType camera;
@@ -65,12 +66,17 @@
         [button addTarget:self action:@selector(cameraBttonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-//    [self.view addSubview:self.liveView];
-//    [self startVideoLive];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMonitorReadyNoti:) name:XHDeviceDidReadyMonitorNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)closeButtonClick: (UIButton *) button{
     [self stopLive];
+   // [XHAPI stopLiveByToken:[XHUser currentUser].token handler:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
@@ -84,21 +90,19 @@
 }
 
 - (void)refreshData {
-    [self showLoadingHUD];
+    self.navigationBar.userInteractionEnabled = false;
+    [self showLoadingHUD: @"发起监控请求..."];
     WEAKSELF;
     XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
-        [weakSelf hideAllHUD];
         if (result.isSuccess) {
-            if (!weakSelf.running) {
-                if (weakSelf.type == XHLiveTypeAudio) {
-                    [weakSelf startAudioLive];
-                }else{
-                    [weakSelf.view addSubview:weakSelf.liveView];
-                    [weakSelf startVideoLive];
-                }
-            }
+            [weakSelf showLoadingHUD:@"等待设备响应..."];
         }else {
+            weakSelf.navigationBar.userInteractionEnabled = true;
+            [weakSelf hideAllHUD];
             [weakSelf toast:result.message];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf.navigationController popViewControllerAnimated:true];
+            });
         }
     };
 
@@ -121,63 +125,124 @@
     return _liveEvent;
 }
 
-- (pgLibLive *)live {
+- (pgLibLiveMultiRender *)live {
     if (!_live) {
-        _live = [[pgLibLive alloc] init:self.liveEvent];
-        NSString *serverAddress = @"connect.peergine.com:7781";
-        BOOL result = [self.live InitializeEx:pgLibLiveModeRender
-                                         user:@"ANDROID_DEMO"
-                                         pass:@"1234"
-                                      svrAddr:serverAddress
-                                    relayAddr:@""
-                                   p2pTryTime:2
-                                    initParam:@""
-                                   videoParam:@"(MaxStream){0}"
-                                   audioParam:@""];
-        if (!result) {
-            NSLog(@"Initialize failed! Please check the details from the log info.");
-        }
+        _live = [[pgLibLiveMultiRender alloc] init:self.liveEvent];
     }
     return _live;
 }
 
 - (UIView *)liveView {
     if (!_liveView) {
-        _liveView = [self.live WndCreate:0
-                                       y:[UIView topSafeAreaHeight]
-                                       w:CGRectGetWidth(self.view.bounds)
-                                       h:280];
-       // _liveView.backgroundColor = [UIColor blackColor];
+        _liveView = [pgLibLiveMultiView Get:@"View0"];
+        CGRect rect = self.view.bounds;
+        rect.origin.y = [UIView topSafeAreaHeight];
+        rect.size.height = 240.f / 320.f * CGRectGetWidth(rect);
+        _liveView.frame = rect;
+        _liveView.backgroundColor = [UIColor blackColor];
     }
     return _liveView;
 }
 
 
+- (void)recvMonitorReadyNoti: (NSNotification *)noti {
+    NSInteger status = [noti.object integerValue];
+    if (status == XHMonitorStatusReady) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showLoadingHUD:@"准备开始监控..."];
+        });
+        [self stopLive];
+        [self startLive];
+    }else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideAllHUD];
+            [self toast:[NSString stringWithFormat:@"终端返回异常:%@", @(status)]];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:true];
+            });
+        });
+    }
+}
+
+- (BOOL)connect {
+    NSString *serverAddress = @"connect.peergine.com:7781";
+    NSString* sInitParam = @"(Debug){1}";
+    
+    int iErr = [self.live Initialize:@"ios_test"
+                            pass:@""
+                         svrAddr:serverAddress
+                       relayAddr:@""
+                      p2pTryTime:1
+                       initParam:sInitParam];
+    if (iErr != 0) {
+        NSLog(@"pgLibLiveMulti: initialize failed! iErr=%d", iErr);
+        NSString* sInfo = [NSString stringWithFormat:@"Initialize failed! iErr=%d", iErr];
+        [self toast:sInfo];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:true];
+        });
+        return false;
+    }
+    return true;
+}
+
+- (void)startLive {
+    if (!_running) {
+        if ([self connect]) {
+            if (self.type == XHLiveTypeAudio) {
+                [self startAudioLive];
+            }else{
+                [self.view addSubview:self.liveView];
+                [self startVideoLive];
+            }
+        }
+        _running = true;
+    }
+}
+
 - (void)startAudioLive {
-    [self.live Start:@"xhkj071203"];
-    [self.live AudioStart];
-    [self.live AudioSyncDelay];
+    [self.live Connect:@"xhkj071203"];
+    [self.live AudioStart:@"xhkj071203" audioID:0 param:@""];
+    [self.live AudioSyncDelay:@"xhkj071203" audioID:0 videoID:0];
 }
 
 - (void)startVideoLive {
   //  [self startAudioLive];
-    [self.live Start:@"xhkj071203"];
-    [self.live VideoStart];
-    [self.live AudioStart];
-    [self.live AudioSyncDelay];
+    [self.live Connect:@"xhkj071203"];
+    [self.live VideoStart:@"xhkj071203" videoID:0 param:@"" nodeView:self.liveView];
+    [self.live AudioStart:@"xhkj071203" audioID:0 param:@""];
+    [self.live AudioSyncDelay:@"xhkj071203" audioID:0 videoID:0];
   
+}
+
+- (void)disconnect {
+    
+    [_live AudioStop:@"xhkj071203" audioID:0];
+    if (self.type == XHLiveTypeVideo) {
+        [_live VideoStop:@"xhkj071203" videoID:0];
+    }
+    [_live Disconnect:@"xhkj071203"];
 }
 
 
 - (void)stopLive {
-    [_live AudioStop];
-    [_live VideoStop];
-    [_live Stop];
+    [self disconnect];
+    if (_liveView) {
+        [_liveView removeFromSuperview];
+        [pgLibLiveMultiView Release:_liveView];
+        _liveView = nil;
+    }
+    [_live Clean];
+    _running = false;
 }
 
-- (void)OnEvent:(NSString *)sAction data:(NSString *)sData render:(NSString *)sRender {
-      NSLog(@"-------》Action:%@, Data:%@, sRender:%@", sAction, sData, sRender);
-    if ([sAction isEqualToString:@"Login"]) {
+-(void)OnEvent:(NSString *)sAction data:(NSString *)sData capid:(NSString *)sCapID; {
+    NSLog(@"-------》Action:%@, Data:%@, sCapID:%@", sAction, sData, sCapID);
+   
+    if ([sAction isEqualToString:@"VideoStatus"]) {
+        // Video status report
+    }
+    else if ([sAction isEqualToString:@"Login"]) {
         // Login reply
         if ([sData isEqualToString:@"0"]) {
             NSString* sInfo = @"Login success";
@@ -185,24 +250,24 @@
         }
         else {
             NSString* sInfo = [NSString stringWithFormat:@"Login failed, error=%@", sData];
-              [self toast:sInfo];
+            [self toast:sInfo];
         }
-    }else if ([sAction isEqualToString:@"Logout"] ) {
+    }
+    else if ([sAction isEqualToString:@"Logout"] ) {
+        // Logout
         NSString* sInfo = @"Logout";
         [self toast:sInfo];
-    }else if ([sAction isEqualToString:@"Offline"]) {
-        // The capture is offline.
-        NSString* sInfo = @"设备离线状态";
-        [self toast:sInfo];
-    }else if ([sAction isEqualToString:@"Connect"] ) {
+    }
+    else if ([sAction isEqualToString:@"Connect"] ) {
         // Connect to capture
-        NSString* sInfo = @"Connect to capture";
-        [self toast:sInfo];
+//        NSString* sInfo = @"Connect to capture";
+//        [self toast:sInfo];
+        [self hideAllHUD];
     }
     else if ([sAction isEqualToString:@"Disconnect"] ) {
         // Disconnect from capture
-        NSString* sInfo = @"Disconnect from capture";
-        [self toast:sInfo];
+//        NSString* sInfo = @"Disconnect from capture";
+//        [self toast:sInfo];
     }
     else if ([sAction isEqualToString:@"Offline"]) {
         // The capture is offline.

@@ -10,8 +10,15 @@
 #import "FHTRootContainer.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <QQ_XGPush/XGPush.h>
+#import "XHUser.h"
+#import "XHRemoteNotificationHelper.h"
 
-@interface AppDelegate ()
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+#import <UserNotifications/UserNotifications.h>
+#endif
+
+
+@interface AppDelegate ()<XGPushDelegate>
 
 @end
 
@@ -27,7 +34,10 @@
     [AMapServices sharedServices].apiKey = @"c8f3f6f0dc8606ed66aee6b9686e6a68";
     [AMapServices sharedServices].enableHTTPS = YES;
     
-    [XGPush startApp:1234567890 appKey:@"ABCDEFGHIJKLMN"];
+    [self setupXGPush: launchOptions];
+    
+    
+    
     return YES;
 }
 
@@ -56,6 +66,105 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"[XGDemo] register APNS fail.\n[XGDemo] reason : %@", error);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"registerDeviceFailed" object:nil];
+}
+
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"didReceiveRemoteNotification: %@",userInfo);
+}
+
+/**
+ 收到通知消息的回调，通常此消息意味着有新数据可以读取（iOS 7.0+）
+ 
+ @param application  UIApplication 实例
+ @param userInfo 推送时指定的参数
+ @param completionHandler 完成回调
+ */
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"[XGDemo] receive slient Notification");
+    NSLog(@"[XGDemo] userinfo %@", userInfo);
+    [XHRemoteNotificationHelper handleNotificaion: userInfo];
+    [[XGPush defaultManager] reportXGNotificationInfo:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+#pragma mark-
+- (void)setupXGPush: (NSDictionary *)launchOptions{
+    [[XGPush defaultManager] setEnableDebug:YES];
+    [[XGPush defaultManager] startXGWithAppID:2200318371 appKey:@"I356GTHM4C4M" delegate:self];
+    [[XGPush defaultManager] setXgApplicationBadgeNumber:0];
+    [[XGPush defaultManager] reportXGNotificationInfo:launchOptions];
+}
+
+#pragma mark - XGPushDelegate
+- (void)xgPushDidFinishStart:(BOOL)isSuccess error:(NSError *)error {
+    NSLog(@"%s, result %@, error %@", __FUNCTION__, isSuccess?@"OK":@"NO", error);
+    
+}
+
+- (void)xgPushDidFinishStop:(BOOL)isSuccess error:(NSError *)error {
+    
+}
+
+- (void)xgPushDidRegisteredDeviceToken:(NSString *)deviceToken error:(NSError *)error {
+    NSLog(@"%s, result %@, error %@", __FUNCTION__, error?@"NO":@"OK", error);
+    [XHUser currentUser].xgToken = deviceToken;
+    [[FHTRootContainer rootContainer] relogin];
+}
+
+// iOS 10 新增 API
+// iOS 10 会走新 API, iOS 10 以前会走到老 API
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+// App 用户点击通知
+// App 用户选择通知中的行为
+// App 用户在通知中心清除消息
+// 无论本地推送还是远程推送都会走这个回调
+- (void)xgPushUserNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler  API_AVAILABLE(ios(10.0)){
+//    NSLog(@"[XGDemo] click notification");
+//    if ([response.actionIdentifier isEqualToString:@"xgaction001"]) {
+//        NSLog(@"click from Action1");
+//    } else if ([response.actionIdentifier isEqualToString:@"xgaction002"]) {
+//        NSLog(@"click from Action2");
+//    }
+//
+     NSLog(@"didReceiveNotificationResponse :%@", response);
+    [[XGPush defaultManager] reportXGNotificationResponse:response];
+    
+    completionHandler();
+   
+}
+
+//App 在前台弹通知需要调用这个接口
+- (void)xgPushUserNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler  API_AVAILABLE(ios(10.0)){
+    [[XGPush defaultManager] reportXGNotificationInfo:notification.request.content.userInfo];
+    completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
+}
+#endif
+
+- (void)xgPushDidReceiveRemoteNotification:(id)notification withCompletionHandler:(void (^)(NSUInteger))completionHandler {
+    if ([notification isKindOfClass:[NSDictionary class]]) {
+        [[XGPush defaultManager] reportXGNotificationInfo:(NSDictionary *)notification];
+        completionHandler(UIBackgroundFetchResultNewData);
+    } else if (@available(iOS 10.0, *)) {
+        if ([notification isKindOfClass:[UNNotification class]]) {
+            [[XGPush defaultManager] reportXGNotificationInfo:((UNNotification *)notification).request.content.userInfo];
+          //  completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
+            
+            NSLog(@"10----->xgPushDidReceiveRemoteNotification: %@", ((UNNotification *)notification).request.content.userInfo);
+        }
+    } else {
+        // Fallback on earlier versions
+    }
+   
+}
+
+- (void)xgPushDidSetBadge:(BOOL)isSuccess error:(NSError *)error {
+    NSLog(@"%s, result %@, error %@", __FUNCTION__, error?@"NO":@"OK", error);
 }
 
 

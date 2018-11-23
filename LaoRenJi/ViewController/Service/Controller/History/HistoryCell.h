@@ -10,18 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, HistoryType) {
-    HistoryTypeFall,
-    HistoryTypeLeave,
-    HistoryTypeMessage,
-    HistoryTypeLowPower
-};
+
 
 @interface HistoryCell : UITableViewCell
 
 - (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier;
 
-@property (nonatomic, assign) HistoryType historyType;
+@property (nonatomic, assign) XHDeviceLogType historyType;
 
 @end
 

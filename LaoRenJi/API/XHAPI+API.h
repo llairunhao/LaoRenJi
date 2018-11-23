@@ -157,6 +157,11 @@ NS_ASSUME_NONNULL_BEGIN
                                   liveType: (XHLiveType)liveType
                                 cameraType: (XHCameraType)cameraType
                                    handler: (nullable XHAPIResultHandler)handler;
+
++ (NSURLSessionDataTask *)updateCurrentDeviceName: (NSString *)deviceName
+                                            token: (NSString *)token
+                                          simMark: (NSString *)simMark
+                                          handler: (nullable XHAPIResultHandler)handler;
 @end
 
 NS_ASSUME_NONNULL_END

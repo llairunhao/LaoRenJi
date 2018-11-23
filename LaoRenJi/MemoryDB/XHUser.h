@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "XHAPI+API.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,17 +22,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *nickname;
 @property (nonatomic, copy, nullable) NSString *avatarURLString;
 @property (nonatomic, copy, nullable) NSString *token;
-
+@property (nonatomic, copy, nullable) NSString *xgToken;
 
 @property (nonatomic, strong) NSArray<XHDevice *> *devices;
 @property (nonatomic, weak) XHDevice *currentDevice;
-
+@property (nonatomic, readonly, nullable) NSString *currentSimMark;
+@property (nonatomic, readonly) BOOL isLogin;
+@property (nonatomic, readonly) BOOL autoLoginEnable;
 
 @property (nonatomic, readonly) NSURL *avatarURL;
 
 - (void)logout;
 - (void)login;
 - (void)removeDevice: (XHDevice *)device;
+- (BOOL)reloginHandler: (XHAPIResultHandler)handler;
 
 @end
 

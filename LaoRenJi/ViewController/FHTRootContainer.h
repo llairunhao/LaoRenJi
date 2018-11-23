@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (FHTRootContainer *)rootContainer;
 
+- (void)relogin;
 
 @end
 

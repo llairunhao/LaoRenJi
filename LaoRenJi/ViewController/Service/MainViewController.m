@@ -151,6 +151,9 @@
 
 - (void)refreshDataIfNeed {
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    XHDevice *device = [XHUser currentUser].currentDevice;
+    NSString *text = [NSString stringWithFormat:@"%@（%@）", device.name, device.online ? @"在线": @"离线"];
+    [self.groupButton setTitle:text forState: UIControlStateNormal];
     if (now - self.lastUpdateTime > 60) {
         [self refreshData];
     }
