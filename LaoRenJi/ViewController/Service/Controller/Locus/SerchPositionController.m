@@ -97,12 +97,12 @@
 - (void)searchText:(NSString *)text {
     AMapPOIKeywordsSearchRequest *request = [[AMapPOIKeywordsSearchRequest alloc] init];
     request.keywords            = text;
-    request.city                = @"深圳";
-    request.types               = @"住宅";
+    request.city                = self.city;
+//    request.types               = @"住宅";
     request.requireExtension    = YES;
     
     /*  搜索SDK 3.2.0 中新增加的功能，只搜索本城市的POI。*/
-    request.cityLimit           = YES;
+//    request.cityLimit           = YES;
     request.requireSubPOIs      = YES;
     
     [self.search AMapPOIKeywordsSearch:request];
@@ -115,7 +115,6 @@
     {
         return;
     }
-    NSLog(@"%@", response.pois);
     self.pois = response.pois;
     [self.tableView reloadData];
     //解析response获取POI信息，具体解析见 Demo

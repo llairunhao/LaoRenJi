@@ -31,7 +31,7 @@
     self.window.rootViewController = [FHTRootContainer rootContainer];
     [self.window makeKeyAndVisible];
     
-    [AMapServices sharedServices].apiKey = @"c8f3f6f0dc8606ed66aee6b9686e6a68";
+    [AMapServices sharedServices].apiKey = @"d31a63b706c0987305d663fab59f09eb";
     [AMapServices sharedServices].enableHTTPS = YES;
     
     [self setupXGPush: launchOptions];
@@ -153,7 +153,7 @@
     } else if (@available(iOS 10.0, *)) {
         if ([notification isKindOfClass:[UNNotification class]]) {
             [[XGPush defaultManager] reportXGNotificationInfo:((UNNotification *)notification).request.content.userInfo];
-          //  completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
+            completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
             
             NSLog(@"10----->xgPushDidReceiveRemoteNotification: %@", ((UNNotification *)notification).request.content.userInfo);
         }

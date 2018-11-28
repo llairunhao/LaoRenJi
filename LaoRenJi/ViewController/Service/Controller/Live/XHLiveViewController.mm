@@ -21,7 +21,7 @@
 @property (nonatomic, strong) UIView *liveView;
 @property (nonatomic, assign) XHCameraType camera;
 @property (nonatomic, assign) BOOL running;
-
+@property (nonatomic, weak) UIButton *cameraButton;
 @end
 
 @implementation XHLiveViewController
@@ -59,11 +59,12 @@
         imageView.frame = rect;
     }else {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:@"切换摄像头" forState:UIControlStateNormal];
+        [button setTitle:@"前置摄像头" forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         [self.view addSubview:button];
         [self.navigationBar addRigthItem:button];
         [button addTarget:self action:@selector(cameraBttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        _cameraButton = button;
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMonitorReadyNoti:) name:XHDeviceDidReadyMonitorNotification object:nil];
@@ -83,8 +84,10 @@
 - (void)cameraBttonClick: (UIButton *)button {
     if (self.camera == XHCameraTypeRear) {
         self.camera = XHCameraTypeFront;
+        [button setTitle:@"前置摄像头" forState:UIControlStateNormal];
     }else {
         self.camera = XHCameraTypeRear;
+        [button setTitle:@"后置摄像头" forState:UIControlStateNormal];
     }
     [self refreshData];
 }

@@ -44,15 +44,15 @@
     _nameTF = containter.textField;
     [self.view addSubview:containter];
     
-    rect.origin.y = CGRectGetMaxY(rect);
-    containter = [[ServiceTextFieldContainer alloc] initWithFrame:rect];
-    containter.textLabel.text = @"加密类型：";
-    containter.textField.placeholder = @"请选择加密类型";
-    _typeTF = containter.textField;
-    containter.labelWidth = labelWidth;
-    containter.textField.delegate = self;
-    containter.textField.keyboardType = UIKeyboardTypeNumberPad;
-    [self.view addSubview:containter];
+//    rect.origin.y = CGRectGetMaxY(rect);
+//    containter = [[ServiceTextFieldContainer alloc] initWithFrame:rect];
+//    containter.textLabel.text = @"加密类型：";
+//    containter.textField.placeholder = @"请选择加密类型";
+//    _typeTF = containter.textField;
+//    containter.labelWidth = labelWidth;
+//    containter.textField.delegate = self;
+//    containter.textField.keyboardType = UIKeyboardTypeNumberPad;
+//    [self.view addSubview:containter];
     
     rect.origin.y = CGRectGetMaxY(rect);
     containter = [[ServiceTextFieldContainer alloc] initWithFrame:rect];
@@ -134,10 +134,10 @@
         [self toast:@"请输入WIFI名称"];
         return;
     }
-    if (_typeTF.text.length == 0) {
-        [self toast:@"请选择加密类型"];
-        return;
-    }
+//    if (_typeTF.text.length == 0) {
+//        [self toast:@"请选择加密类型"];
+//        return;
+//    }
     if (_passwordTF.text.length == 0 && _tableView.indexPathForSelectedRow.row != 0) {
         [self toast:@"请输入WIFI密码"];
         return;
@@ -159,7 +159,7 @@
     
     [XHAPI saveDeviceWifiByToken:[XHUser currentUser].token
                         wifiName:_nameTF.text
-                            type:_tableView.indexPathForSelectedRow.row
+                            type:2
                         password:_passwordTF.text
                          handler:handler];
 }

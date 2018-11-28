@@ -10,6 +10,7 @@
 #import <MAMapKit/MAMapKit.h>
 #import "SerchPositionController.h"
 #import <AMapSearchKit/AMapSearchKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 #import "FenceRadiusSlider.h"
 #import "XHFence.h"
 #import "XHAPI+API.h"
@@ -21,6 +22,8 @@
 @property (nonatomic, weak) MAMapView *mapView;
 @property (nonatomic, strong) XHFence *fence;
 @property (nonatomic, weak) FenceRadiusSlider *slider;
+@property (nonatomic, strong) AMapLocationManager *locationManager;
+@property (nonatomic, copy) NSString *city;
 
 @end
 
@@ -30,6 +33,22 @@
     [super viewDidLoad];
     
     self.title = @"围栏";
+    self.locationManager = [[AMapLocationManager alloc] init];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.locationTimeout = 2;
+    self.locationManager.reGeocodeTimeout = 2;
+    
+    WEAKSELF;
+    [self.locationManager requestLocationWithReGeocode:true completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        if (!error) {
+            weakSelf.city = regeocode.city;
+            if (weakSelf.fence.latitude == 0 && weakSelf.fence.latitude == 0) {
+                weakSelf.fence.latitude = location.coordinate.latitude;
+                weakSelf.fence.longitude = location.coordinate.longitude;
+                [weakSelf draw];
+            }
+        }
+    }];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -42,17 +61,17 @@
     rect.size.height -= [UIView safeAreaHeight];
     MAMapView *mapView = [[MAMapView alloc] initWithFrame:rect];
     [self.view addSubview:mapView];
-    mapView.showsUserLocation = true;
-    mapView.userTrackingMode = MAUserTrackingModeFollow;
-   // [mapView setCenterCoordinate:mapView.userLocation.coordinate];
+   // mapView.showsUserLocation = true;
+   // mapView.userTrackingMode = MAUserTrackingModeFollow;
+    [mapView setCenterCoordinate:mapView.userLocation.coordinate];
     mapView.delegate = self;
     _mapView = mapView;
     
     rect.size.height = 80;
     rect.origin.y = CGRectGetHeight(self.view.bounds) - [UIView bottomSafeAreaHeight] - CGRectGetHeight(rect);
     FenceRadiusSlider *slider = [[FenceRadiusSlider alloc] initWithFrame:rect];
-    slider.minValue = 500;
-    slider.maxValue = 2000;
+    slider.minValue = 20;
+    slider.maxValue = 5000;
     _slider = slider;
     UNSAFESELF;;
     slider.handler = ^(NSInteger i) {
@@ -63,12 +82,16 @@
     [self.view addSubview:slider];
     
     [self showLoadingHUD];
-    WEAKSELF;
     XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
         [weakSelf hideAllHUD];
         if (result.isSuccess) {
             weakSelf.fence = [[XHFence alloc] initWithJSON:JSON];
             weakSelf.slider.value = weakSelf.fence.radius;
+            if (weakSelf.fence.radius < weakSelf.slider.minValue) {
+                weakSelf.fence.radius = weakSelf.slider.minValue;
+            }else if (weakSelf.fence.radius > weakSelf.slider.maxValue) {
+                weakSelf.fence.radius = weakSelf.slider.maxValue;
+            }
             [weakSelf draw];
         }else {
             [weakSelf toast:result.message];
@@ -118,7 +141,7 @@
     MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
     pointAnnotation.coordinate = coordinate;
     [self.mapView setCenterCoordinate:pointAnnotation.coordinate];
-    
+
     MACircle *circle = [MACircle circleWithCenterCoordinate:pointAnnotation.coordinate radius:_fence.radius];
     [self.mapView addOverlay: circle];
     self.mapView.zoomLevel = 14;
@@ -170,11 +193,13 @@
 
 - (void)searchButtonClick: (UIButton *)button {
     SerchPositionController *searchController = [[SerchPositionController alloc] init];
+    searchController.city = self.city;
     UNSAFESELF;
     searchController.selectHandler = ^(AMapPOI * _Nonnull poi) {
         unsafeSelf.fence.longitude = poi.location.longitude;
         unsafeSelf.fence.latitude = poi.location.latitude;
         [unsafeSelf draw];
+        [unsafeSelf updateFence];
     };
     [self presentViewController:searchController animated:true completion:nil];
 }

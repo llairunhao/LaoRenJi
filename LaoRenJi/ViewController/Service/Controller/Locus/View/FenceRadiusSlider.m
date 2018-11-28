@@ -94,6 +94,7 @@
 }
 
 - (void)setValue:(NSInteger)value {
+   
     _value = value;
     CGFloat padding = (value - _minValue );
     CGFloat total = (_maxValue - _minValue);

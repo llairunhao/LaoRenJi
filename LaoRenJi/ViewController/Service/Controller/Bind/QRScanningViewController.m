@@ -162,8 +162,8 @@
                     [weakSelf moveScanLine];
                 });
             });
+            dispatch_resume(_timer);
         }
-        dispatch_resume(_timer);
     }
 }
 
@@ -171,7 +171,8 @@
     if (self.session.isRunning) {
         [self.session stopRunning];
         if (_timer) {
-            dispatch_suspend(_timer);
+            dispatch_source_cancel(_timer);
+            _timer = nil;
         }
     }
 }

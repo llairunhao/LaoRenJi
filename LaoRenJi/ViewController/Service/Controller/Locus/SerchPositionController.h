@@ -18,6 +18,8 @@ typedef void(^SelectHandler)(AMapPOI *poi);
 
 @property (nonatomic, copy)SelectHandler selectHandler;
 
+@property (nonatomic, copy) NSString *city;
+
 @end
 
 NS_ASSUME_NONNULL_END

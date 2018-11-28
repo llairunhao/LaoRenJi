@@ -152,17 +152,22 @@
 - (void)refreshDataIfNeed {
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     XHDevice *device = [XHUser currentUser].currentDevice;
-    NSString *text = [NSString stringWithFormat:@"%@（%@）", device.name, device.online ? @"在线": @"离线"];
-    [self.groupButton setTitle:text forState: UIControlStateNormal];
-    if (now - self.lastUpdateTime > 60) {
-        [self refreshData];
+    NSString *text;
+    if (device) {
+         text = [NSString stringWithFormat:@"%@（%@）", device.name, device.online ? @"在线": @"离线"];
+        if (now - self.lastUpdateTime > 60) {
+            [self refreshData];
+        }
+    }else {
+        text = @"请先绑定设备";
     }
+    [self.groupButton setTitle:text forState: UIControlStateNormal];
+   
 }
 
 - (void)refreshData {
     NSString *token = [XHUser currentUser].token;
-    if (token.length == 0) {
-        [_groupButton setTitle:@"请先绑定设备" forState:UIControlStateNormal];
+    if (token.length == 0 || [XHUser currentUser].currentDevice == nil) {
         return;
     }
 
@@ -171,7 +176,12 @@
         if (result.isSuccess) {
             [XHUser currentUser].currentDevice.online = JSON.boolValue;
             XHDevice *device = [XHUser currentUser].currentDevice;
-            NSString *text = [NSString stringWithFormat:@"%@（%@）", device.name, device.online ? @"在线": @"离线"];
+            NSString *text;
+            if (device) {
+                text = [NSString stringWithFormat:@"%@（%@）", device.name, device.online ? @"在线": @"离线"];
+            }else {
+                text = @"请先绑定设备";
+            }
             [weakSelf.groupButton setTitle:text forState: UIControlStateNormal];
             self.lastUpdateTime = [[NSDate date] timeIntervalSince1970];
         }else {
