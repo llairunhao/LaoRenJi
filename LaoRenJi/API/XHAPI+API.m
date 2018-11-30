@@ -20,7 +20,7 @@
     NSMutableDictionary *parameters = [@{
                                  @"account"    : account,
                                  @"passWord"   : password,
-                                 @"xgType"     : @"iOS"
+                                 @"xgType"     : @"IOS"
                                 } mutableCopy];
     if (xgToken) {
         parameters[@"xgToken"] = xgToken;

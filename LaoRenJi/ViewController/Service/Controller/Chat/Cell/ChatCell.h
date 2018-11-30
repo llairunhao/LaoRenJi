@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier;
 
+@property (nonatomic, readonly) UIView *redPoint;
 
 @end
 

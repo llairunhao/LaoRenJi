@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopRecord;
 - (void)cancelRecord;
 - (float)currentPeakPower;
-- (void)playAudioFromUrlString: (NSString *)urlString;
+- (BOOL)playAudioFromUrlString: (NSString *)urlString;
 
 @end
 

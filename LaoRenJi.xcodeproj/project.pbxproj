@@ -95,6 +95,7 @@
 		A5E1F81F216B30D8007F398E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E1F81E216B30D8007F398E /* Assets.xcassets */; };
 		A5E1F822216B30D8007F398E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E1F820216B30D8007F398E /* LaunchScreen.storyboard */; };
 		A5E1F825216B30D8007F398E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E1F824216B30D8007F398E /* main.m */; };
+		A5EFBB6F21B0CA9500302D5F /* DBManager+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EFBB6E21B0CA9500302D5F /* DBManager+Chat.m */; };
 		F1506B918B40F8A332AECDA1 /* libPods-LaoRenJi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4298DB4C4A4E59D63E661D /* libPods-LaoRenJi.a */; };
 /* End PBXBuildFile section */
 
@@ -280,6 +281,8 @@
 		A5E1F821216B30D8007F398E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5E1F823216B30D8007F398E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5E1F824216B30D8007F398E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A5EFBB6D21B0CA9500302D5F /* DBManager+Chat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DBManager+Chat.h"; sourceTree = "<group>"; };
+		A5EFBB6E21B0CA9500302D5F /* DBManager+Chat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DBManager+Chat.m"; sourceTree = "<group>"; };
 		EA4298DB4C4A4E59D63E661D /* libPods-LaoRenJi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaoRenJi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -363,6 +366,8 @@
 			children = (
 				385C5412217AF5C5000B4A00 /* DBManager.h */,
 				385C5413217AF5C5000B4A00 /* DBManager.m */,
+				A5EFBB6D21B0CA9500302D5F /* DBManager+Chat.h */,
+				A5EFBB6E21B0CA9500302D5F /* DBManager+Chat.m */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -1027,6 +1032,7 @@
 				385C53D3217318C9000B4A00 /* UIView+Space.m in Sources */,
 				385C555C21844431000B4A00 /* HistoryCell.m in Sources */,
 				385C559521859E8D000B4A00 /* XHFence.m in Sources */,
+				A5EFBB6F21B0CA9500302D5F /* DBManager+Chat.m in Sources */,
 				385C553C217C4A5D000B4A00 /* AlarmTimeCell.m in Sources */,
 				385C559F218D9A95000B4A00 /* DevicesViewController.m in Sources */,
 				385C552C217B419E000B4A00 /* AlarmViewController.m in Sources */,

@@ -33,9 +33,10 @@
 }
 
 - (void)setupWithJSON:(XHJSON *)JSON {
+    self.fenceId    =   [JSON JSONForKey:@"id"].integerValue;
     self.longitude  =   [JSON JSONForKey:@"longitude"].doubleValue;
     self.latitude   =   [JSON JSONForKey:@"latitude"].doubleValue;
     self.radius     =   [JSON JSONForKey:@"radius"].unsignedIntegerValue;
- 
+    self.name       =   [JSON JSONForKey:@"enclosureName"].stringValue;
 }
 @end

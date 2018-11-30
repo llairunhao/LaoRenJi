@@ -43,6 +43,8 @@
         }else if ([cmd isEqualToString:@"GoOnline"] || [cmd isEqualToString:@"OffLine"]) {
             //设备上下线
             [[NSNotificationCenter defaultCenter] postNotificationName:XHCurrentDeviceDidChangeNotification object:nil];
+        }else if ([cmd isEqualToString:@"messageBoard"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:XHNewMessageNotification object:nil];
         }
     }else {
         cmd = [JSON JSONForKey:@"status"].stringValue;

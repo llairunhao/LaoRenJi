@@ -9,6 +9,9 @@
 #import "ChatCell.h"
 
 @implementation ChatCell
+{
+    __weak UIView *_redPoint;
+}
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
@@ -19,6 +22,12 @@
         self.detailTextLabel.textAlignment = NSTextAlignmentCenter;
         self.detailTextLabel.numberOfLines = 0;
         
+        
+        UIView *point = [[UIView alloc] init];
+        point.backgroundColor = [UIColor redColor];
+        point.layer.cornerRadius = 4;
+        [self.contentView addSubview:point];
+        _redPoint = point;
     }
     return self;
 }
@@ -43,8 +52,15 @@
     rect.size = size;
     self.imageView.frame = rect;
     
-   
     
+    rect.size = CGSizeMake(8, 8);
+    rect.origin.x = CGRectGetMaxX(self.imageView.frame) + 4;
+    rect.origin.y = (CGRectGetHeight(self.bounds) - 8 ) / 2;
+    _redPoint.frame = rect;
+}
+
+- (UIView *)redPoint {
+    return _redPoint;
 }
 
 @end

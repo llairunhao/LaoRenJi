@@ -148,9 +148,9 @@
     }
 }
 
-- (void)playAudioFromUrlString:(NSString *)urlString {
+- (BOOL)playAudioFromUrlString:(NSString *)urlString {
     if (self.player.isPlaying) {
-        return;
+        return false;
     }
     
     NSString *filename = urlString.lastPathComponent;
@@ -165,7 +165,7 @@
             if (err) {
                 [self.delegate failedToPlayFileUrlString:urlString error:err];
             }
-            return;
+            return false;
         }
      
         if ([manager fileExistsAtPath:amrPath]) {
@@ -174,11 +174,9 @@
             if (err) {
                 [self.delegate failedToPlayFileUrlString:urlString error:err];
             }
-            return;
         }
-        
         [self.delegate downloadRecordFileFromUrlString:urlString toFilePath:amrPath];
-        return;
+        return true;
     }
 
     
@@ -189,9 +187,9 @@
         if (err) {
             [self.delegate failedToPlayFileUrlString:urlString error:err];
         }
-        return;
     }
     [self.delegate downloadRecordFileFromUrlString:urlString toFilePath:path];
+    return true;
 }
 
 

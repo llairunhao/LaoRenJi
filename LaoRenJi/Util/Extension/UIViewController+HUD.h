@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AlertActionHandler)(UIAlertAction * _Nonnull action);
+
 @interface UIViewController (HUD)
 
 - (void)showLoadingHUD: (NSString *)title;
@@ -17,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hideAllHUD;
 
 - (void)toast: (NSString *)text;
+
+- (void)destructiveAlertWithTitle: (nullable NSString *)title
+                          message: (nullable NSString *)message
+                   confirmHandler: (nullable AlertActionHandler) confirmHandler;
 
 @end
 

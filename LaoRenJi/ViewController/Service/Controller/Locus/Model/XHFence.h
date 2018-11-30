@@ -12,10 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XHFence : NSObject<XHJSONObjectDelegate>
 
+@property (nonatomic, assign) NSInteger fenceId;
 @property (nonatomic, assign) CGFloat longitude;
 @property (nonatomic, assign) CGFloat latitude;
 @property (nonatomic, assign) NSInteger radius;
-
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, readonly) BOOL isValid;
 
 @end

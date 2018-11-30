@@ -9,6 +9,7 @@
 #import "XHUser.h"
 #import <QQ_XGPush/XGPush.h>
 #import "XHDevice.h"
+#import "DBManager.h"
 
 @implementation XHUser
 
@@ -87,6 +88,7 @@
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"dashabi_deviceToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[XGPush defaultManager] stopXGNotification];
+    [[DBManager sharedInstance] close];
 }
 
 - (BOOL)autoLoginEnable {

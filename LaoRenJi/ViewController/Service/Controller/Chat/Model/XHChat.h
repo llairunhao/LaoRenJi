@@ -10,12 +10,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface XHChat : NSObject
+@interface XHChat : NSObject<XHJSONObjectDelegate>
 
 @property (nonatomic, copy) NSString *fromNickname;
+@property (nonatomic, copy) NSString *fromAccount;
+
 @property (nonatomic, copy) NSString *dateString;
 @property (nonatomic, copy) NSString *videoUrlString;
+
+
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, assign) NSUInteger chatId;
+
+@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, assign) NSTimeInterval timeSp;
+
 @end
 
 NS_ASSUME_NONNULL_END

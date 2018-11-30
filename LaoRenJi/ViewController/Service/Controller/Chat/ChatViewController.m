@@ -14,7 +14,7 @@
 #import "ChatHUD.h"
 #import "XHChat.h"
 #import "ChatCell.h"
-#import "DBManager.h"
+#import "DBManager+Chat.h"
 
 @interface ChatViewController ()<AudioManangerDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -35,7 +35,12 @@
     self.title = @"留言";
     
     CGRect rect = self.view.bounds;
-    UIButton *button = [UIButton landingButtonWithTitle:@"按住留言" target:self action:@selector(stopRecord)];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.titleLabel.font = [UIFont systemFontOfSize:14];
+    [button setBackgroundImage:[UIImage imageNamed:@"RoundedRectangle7"] forState:UIControlStateNormal];
+    [button setTitle:@"按住说话" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(stopRecord) forControlEvents:UIControlEventTouchUpInside];
     [button addTarget:self action:@selector(startRecord) forControlEvents:UIControlEventTouchDown];
     [button addTarget:self action:@selector(willCancelRecord) forControlEvents:UIControlEventTouchDragExit];
     [button addTarget:self action:@selector(resumeRecord) forControlEvents:UIControlEventTouchDragEnter];
@@ -43,11 +48,13 @@
     
     CGSize size = [button sizeThatFits:CGSizeZero];
     size.width = MIN(size.width, CGRectGetWidth(self.view.bounds) - 24.f);
-    rect.origin.y = CGRectGetHeight(rect) - size.height - 12.f - [UIView bottomSafeAreaHeight];
+    rect.origin.y = CGRectGetHeight(rect) - size.height * 2 - 8.f - 12.f - [UIView bottomSafeAreaHeight];
     rect.origin.x = (CGRectGetWidth(rect) - size.width ) / 2;
     rect.size = size;
     button.frame = rect;
     [self.view addSubview:button];
+    
+
     
     rect = self.view.bounds;
     rect.origin.y = [UIView topSafeAreaHeight];
@@ -64,9 +71,22 @@
     self.manager = [[AudioMananger alloc] init];
     self.manager.delegate = self;
     
-    [XHAPI listOfAudiosByToken:[XHUser currentUser].token handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
-        
-    }];
+    [self showLoadingHUD];
+    [self refreshData];
+    
+    rect = button.frame;
+    button = [UIButton landingButtonWithTitle:@"清空" target:self action:@selector(clearButtonClick:)];
+    button.titleLabel.font = [UIFont systemFontOfSize:14];
+    rect.origin.y = CGRectGetMaxY(rect) + 8.f;
+    button.frame = rect;
+    [self.view addSubview:button];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvNewMessageNoti:) name:XHNewMessageNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (ChatHUD *)HUD {
@@ -86,13 +106,41 @@
     return _HUD;
 }
 
-- (NSMutableArray<XHChat *> *)chats {
-    if (!_chats) {
-        _chats = [[[DBManager sharedInstance] listOfChats] mutableCopy];
-    }
-    return _chats;
+- (void)recvNewMessageNoti: (NSNotification *)noti {
+    [self refreshData];
 }
 
+- (void)refreshData {
+    WEAKSELF;
+    [XHAPI listOfAudiosByToken:[XHUser currentUser].token handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+        [weakSelf hideAllHUD];
+        if (result.isSuccess) {
+            NSInteger chatId = [DBManager sharedInstance].lastChatId;
+            NSArray *jsons = JSON.JSONArrayValue;
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:jsons.count];
+            for (XHJSON *json in jsons) {
+                XHChat *chat = [[XHChat alloc] initWithJSON:json];
+                if (chatId >= chat.chatId) {
+                    continue;
+                }
+                [array addObject:chat];
+            }
+            if (array.count > 0) {
+                [[DBManager sharedInstance] saveChats:array];
+            }
+            [weakSelf reloadData];
+        }else {
+            [weakSelf toast:result.message];
+        }
+    }];
+}
+
+- (void)reloadData {
+    _chats = [[[DBManager sharedInstance] listOfChats] mutableCopy];
+    [self.tableView reloadData];
+}
+
+#pragma mark-
 - (void)startRecord {
    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(0, 0));
     dispatch_source_set_timer(_timer, DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
@@ -110,7 +158,6 @@
     self.HUD.hidden = true;
     [self stopTimer];
     [self.manager stopRecord];
-    
 }
 
 - (void)willCancelRecord{
@@ -164,6 +211,18 @@
     }
 }
 
+- (void)clearButtonClick: (UIButton *)button {
+    [self destructiveAlertWithTitle:@"清空留言？" message:nil confirmHandler:^(UIAlertAction * _Nonnull action) {
+        if (self.chats.count > 0) {
+            XHChat *chat = self.chats.firstObject;
+            [[DBManager sharedInstance] synchronizeLastChatId:chat.chatId];
+        }
+        [[DBManager sharedInstance] removeAllChats];
+        [self.chats removeAllObjects];
+        [self.tableView reloadData];
+    }];
+}
+
 #pragma mark- AudioManangerDelegate
 - (void)recordingDidFinish:(NSString *)amrPath {
     NSData *data = [NSData dataWithContentsOfFile:amrPath];
@@ -172,11 +231,13 @@
         if (result.isSuccess && weakSelf) {
             XHChat *chat = [[XHChat alloc] init];
             chat.videoUrlString = JSON.stringValue;
-            chat.fromNickname = [XHUser currentUser].nickname;
+            chat.fromNickname = @"我";
+            chat.status = 1;
+            chat.fromAccount = [XHUser currentUser].account;
             chat.date = [NSDate date];
             [weakSelf.chats insertObject:chat atIndex:0];
             [weakSelf.tableView reloadData];
-            [[DBManager sharedInstance] saveChats:weakSelf.chats];
+            [[DBManager sharedInstance] saveChat:chat];
         }else {
             [weakSelf toast:result.message];
         }
@@ -214,13 +275,23 @@
     XHChat *chat = self.chats[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@：", chat.fromNickname];
     cell.detailTextLabel.text = chat.dateString;
+    cell.redPoint.hidden = chat.status == 1;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     XHChat *chat = self.chats[indexPath.row];
-    [self.manager playAudioFromUrlString:chat.videoUrlString];
+    if ([self.manager playAudioFromUrlString:chat.videoUrlString]) {
+        if (chat.chatId > 0 && chat.status == 0) {
+            [XHAPI updateAudioReadStateById:chat.chatId handler:nil];
+            [[DBManager sharedInstance] updateChatStatusById:chat.chatId];
+        }
+        chat.status = 1;
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -45,4 +45,25 @@
 }
 
 
+- (void)destructiveAlertWithTitle: (nullable NSString *)title
+                          message: (nullable NSString *)message
+                   confirmHandler: (nullable AlertActionHandler) confirmHandler {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消"
+                                                     style: UIAlertActionStyleCancel
+                                                   handler:nil];
+    [alertController addAction:action];
+    
+    action = [UIAlertAction actionWithTitle:@"确定"
+                                      style: UIAlertActionStyleDestructive
+                                    handler:confirmHandler];
+    [alertController addAction:action];
+    [self presentViewController:alertController animated:true completion:nil];
+}
+
+
 @end

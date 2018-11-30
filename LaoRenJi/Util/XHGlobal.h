@@ -18,7 +18,7 @@ extern NSString * const XHDevicesDidChangeNotification;
 
 extern NSString * const XHDeviceDidReadyMonitorNotification;
 extern NSString * const XHNewDeviceLogNotification;
-
+extern NSString * const XHNewMessageNotification;
 
 extern XHLocationStatus const XHLocationOpen;
 extern XHLocationStatus const XHLocationStop;

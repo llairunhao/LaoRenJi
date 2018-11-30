@@ -10,6 +10,7 @@
 #import "XHUser.h"
 #import "XHDevice.h"
 #import "XHChat.h"
+#import <FMDB/FMDB.h>
 
 @implementation DBManager
 
@@ -20,6 +21,21 @@
         sharedInstance = [[DBManager alloc] init];
     });
     return sharedInstance;
+}
+
+- (FMDatabaseQueue *)chatDBQueue {
+    if (!_chatDBQueue) {
+        XHUser *user = [XHUser currentUser];
+        NSString *dbName = [NSString stringWithFormat:@"%@.sqlite",user.account];
+        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
+        NSString *sqlFilePath = [path stringByAppendingPathComponent:dbName];
+        _chatDBQueue = [FMDatabaseQueue databaseQueueWithPath:sqlFilePath];
+        WEAKSELF;
+        [_chatDBQueue inDatabase:^(FMDatabase * _Nonnull db) {
+            [weakSelf createChatTable:db];
+        }];
+    }
+    return _chatDBQueue;
 }
 
 - (NSString *)getCurrentDevicePhone {
@@ -43,52 +59,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)saveChats:(NSArray<XHChat *> *)chats {
-    XHUser *user = [XHUser currentUser];
-    NSString *simMark = user.currentSimMark;
-    if (!simMark) {
-        return;
-    }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_chats",user.account, simMark];
-    if (chats.count == 0) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        return;
-    }
-    
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:chats.count];
-    for (XHChat *chat in chats) {
-        NSDictionary *dict = @{
-                               @"video" : chat.videoUrlString,
-                               @"from" : chat.fromNickname,
-                               @"date" : chat.dateString
-                               };
-        [array addObject:dict];
-    }
-    
-    
-    [[NSUserDefaults standardUserDefaults] setObject:[array copy] forKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
 
-- (NSArray<XHChat *>*)listOfChats {
-    XHUser *user = [XHUser currentUser];
-    NSString *simMark = user.currentSimMark;
-    if (!simMark) {
-        return @[];
-    }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_chats",user.account, simMark];
-    NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
-    NSMutableArray *chats = [NSMutableArray arrayWithCapacity:array.count];
-    for (NSDictionary *dict in array) {
-        XHChat *chat = [[XHChat alloc] init];
-        chat.videoUrlString = dict[@"video"];
-        chat.fromNickname = dict[@"from"];
-        chat.dateString = dict[@"date"];
-        [chats addObject:chat];
-    }
-    return [chats copy];
-}
 
 - (void)saveCurrentDeviceLocusState:(BOOL)open {
     XHUser *user = [XHUser currentUser];
@@ -161,5 +132,40 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+
+
+- (void)createChatTable: (nonnull FMDatabase *)db {
+    NSString *sql = @"CREATE TABLE IF NOT EXISTS t_chat \
+    (\
+    id INTEGER PRIMARY KEY AUTOINCREMENT,\
+    chat_id INTEGER,\
+    url VARCHAR(255) NOT NULL UNIQUE,\
+    sim_mark VARCHAR(255) NOT NULL,\
+    from_account VARCHAR(255) NOT NULL,\
+    status TINYINT DEFAULT 0,\
+    chat_type TINYINT DEFAULT 0,\
+    timeSp timestamp DEFAULT 0\
+    );";
+    
+    BOOL success = [db executeUpdate:sql];
+    if (success) {
+        success = [db executeUpdate:@"CREATE UNIQUE INDEX uk_url ON t_chat (url);"];
+        if (success) {
+            NSLog(@"创建索引成功");
+        }else {
+            NSLog(@"创建索引失败");
+        }
+        
+    } else {
+        NSLog(@"创建表失败");
+    }
+}
+
+- (void)close {
+    if (_chatDBQueue) {
+        [_chatDBQueue close];
+        _chatDBQueue = nil;
+    }
+}
 
 @end

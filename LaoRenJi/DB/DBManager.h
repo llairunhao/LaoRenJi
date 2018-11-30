@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class XHChat;
+@class FMDatabaseQueue;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,12 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nonnull DBManager * )sharedInstance;
 
+@property (nonatomic, strong, nullable) FMDatabaseQueue *chatDBQueue;
+
+- (void)close;
+
 
 - (nullable NSString *)getCurrentDevicePhone;
 - (void)setCurrentDevicePhone: (NSString *)phone;
 
-- (void)saveChats: (NSArray<XHChat *> *)chats;
-- (NSArray<XHChat *>*)listOfChats;
 
 
 - (void)saveCurrentDeviceLocusState: (BOOL)open;

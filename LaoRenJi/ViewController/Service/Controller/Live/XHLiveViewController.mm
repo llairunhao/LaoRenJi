@@ -59,7 +59,7 @@
         imageView.frame = rect;
     }else {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:@"前置摄像头" forState:UIControlStateNormal];
+        [button setTitle:@"后置摄像头" forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         [self.view addSubview:button];
         [self.navigationBar addRigthItem:button];
@@ -93,7 +93,7 @@
 }
 
 - (void)refreshData {
-    self.navigationBar.userInteractionEnabled = false;
+    _cameraButton.userInteractionEnabled = false;
     [self showLoadingHUD: @"发起监控请求..."];
     WEAKSELF;
     XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
@@ -195,7 +195,7 @@
             if (self.type == XHLiveTypeAudio) {
                 [self startAudioLive];
             }else{
-                [self.view addSubview:self.liveView];
+                [self.view insertSubview:self.liveView atIndex:0];
                 [self startVideoLive];
             }
         }
@@ -266,6 +266,7 @@
 //        NSString* sInfo = @"Connect to capture";
 //        [self toast:sInfo];
         [self hideAllHUD];
+        _cameraButton.userInteractionEnabled = true;
     }
     else if ([sAction isEqualToString:@"Disconnect"] ) {
         // Disconnect from capture
