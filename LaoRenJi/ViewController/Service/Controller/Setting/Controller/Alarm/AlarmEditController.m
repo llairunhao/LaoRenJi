@@ -82,6 +82,7 @@
     AlarmPickerFlowLayout *layout = [[AlarmPickerFlowLayout alloc] init];
     _hourLayout = layout;
     layout.itemSize = rect.size;
+    layout.hour = self.alarm.hour;
     layout.minimumLineSpacing = CGFLOAT_MIN;
     layout.minimumInteritemSpacing = CGFLOAT_MIN;
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -96,6 +97,7 @@
     rect.origin.x = CGRectGetMaxX(rect);
     layout = [[AlarmPickerFlowLayout alloc] init];
     _minuteLayout = layout;
+    layout.minute = self.alarm.minute;
     layout.itemSize = rect.size;
     layout.minimumLineSpacing = CGFLOAT_MIN;
     layout.minimumInteritemSpacing = CGFLOAT_MIN;
@@ -204,19 +206,20 @@
         return;
     }
     
+
+    [self updateAlarm];
+}
+
+
+
+- (void) updateAlarm{
+    
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitYear |NSCalendarUnitMonth |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:self.alarm.alarmDate];
-    NSInteger value;
-    if (_hourLayout.tareget > 0) {
-        value = _hourLayout.tareget / CGRectGetHeight(_hourView.frame);
-        components.hour = (value % 24);
-    }
-    if (_minuteLayout.tareget > 0) {
-        value = _minuteLayout.tareget / CGRectGetHeight(_minuteView.frame);
-        components.minute = (value % 60);
-    }
+    components.hour = _hourLayout.hour;
+    components.minute = _minuteLayout.minute;
+
     NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:components];
     self.alarm.alarmDate = date;
-    
     [self showLoadingHUD];
     
     WEAKSELF;
@@ -235,17 +238,8 @@
     
     NSString *token = [XHUser currentUser].token;
     if (self.alarm.alarmId > 0) {
-         [XHAPI updateAlarmClockById:self.alarm.alarmId
-                               token:token
-                           eventName:self.alarm.eventName
-                        eventContent:self.alarm.eventContent
-                           eventTime:self.alarm.eventTime
-                        timeInterval:self.alarm.timeInterval
-                              enable:self.alarm.enable
-                             simMark:self.alarm.simMark
-                             handler:handler];
-    }else {
-        [XHAPI saveAlarmClockByToken:token
+        [XHAPI updateAlarmClockById:self.alarm.alarmId
+                              token:token
                           eventName:self.alarm.eventName
                        eventContent:self.alarm.eventContent
                           eventTime:self.alarm.eventTime
@@ -253,8 +247,16 @@
                              enable:self.alarm.enable
                             simMark:self.alarm.simMark
                             handler:handler];
+    }else {
+        [XHAPI saveAlarmClockByToken:token
+                           eventName:self.alarm.eventName
+                        eventContent:self.alarm.eventContent
+                           eventTime:self.alarm.eventTime
+                        timeInterval:self.alarm.timeInterval
+                              enable:self.alarm.enable
+                             simMark:self.alarm.simMark
+                             handler:handler];
     }
-   
 }
 
 @end

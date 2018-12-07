@@ -11,7 +11,7 @@
 #import "UIButton+Landing.h"
 #import "XHUser.h"
 #import "XHDevice.h"
-#import "DBManager.h"
+#import "DBManager+DeviceLog.h"
 
 @interface HistoryViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -73,6 +73,7 @@
 
 - (void)reloadData {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [[DBManager sharedInstance] updateAllCurrentDeviceLogStatus];
         self.source = [[DBManager sharedInstance] listOfCurrentDeviceLogs];
         self.emptyLabel.hidden = self.source.count > 0;
     });

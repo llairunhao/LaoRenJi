@@ -27,7 +27,7 @@
     XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
         [weakSelf hideAllHUD];
         if (result.isSuccess) {
-            [weakSelf toast:@"注册成功，返回登陆页面"];
+            [weakSelf toast:@"注册成功，返回登录页面"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [weakSelf.navigationController popToRootViewControllerAnimated:true];
             });

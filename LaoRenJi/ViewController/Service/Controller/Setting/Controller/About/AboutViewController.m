@@ -16,17 +16,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.title = @"关于";
+   
+
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *bulid = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *str = [NSString stringWithFormat:@"版本号：V%@ bulid:%@", version, bulid];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12, [UIView topSafeAreaHeight], CGRectGetWidth(self.view.bounds), 60)];
+    label.font = [UIFont systemFontOfSize:17];
+    label.textColor = [UIColor C1];
+    label.text = str;
+    [self.view addSubview:label];
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

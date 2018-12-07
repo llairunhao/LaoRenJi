@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LaoRenJi/API/XHAPI+API.m"
-            timestampString = "565258526.981367"
+            filePath = "LaoRenJi/ViewController/Service/Controller/Live/XHLiveViewController.mm"
+            timestampString = "565671419.056502"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
-            landmarkName = "+saveAlarmClockByToken:eventName:eventContent:eventTime:timeInterval:enable:simMark:handler:"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-cameraBttonClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LaoRenJi/ViewController/Service/Controller/Live/XHLiveViewController.mm"
-            timestampString = "565166719.793111"
+            filePath = "LaoRenJi/ViewController/Service/Controller/Setting/Controller/Contact/ContactEditController.m"
+            timestampString = "565591895.88482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "-cameraBttonClick:"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "-buttonClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

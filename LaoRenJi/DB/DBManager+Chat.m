@@ -21,7 +21,7 @@
     NSString *simMark = [XHUser currentUser].currentSimMark;
     NSMutableArray *array = [NSMutableArray array];
     [self.chatDBQueue inDatabase:^(FMDatabase * _Nonnull db) {
-        NSString *sql = @"SELECT * FROM t_chat WHERE sim_mark = ? ORDER BY timeSp DESC;";
+        NSString *sql = @"SELECT * FROM t_chat WHERE sim_mark = ? AND status < 2 ORDER BY timeSp DESC;";
         FMResultSet *rs = [db executeQuery:sql, simMark];
         while ([rs next]) {
             XHChat *chat = [[XHChat alloc] init];
@@ -94,12 +94,11 @@
     if (!self.chatDBQueue) {
         return;
     }
+    XHUser *user = [XHUser currentUser];
+    NSString *simMark = user.currentSimMark;
     [self.chatDBQueue inDatabase:^(FMDatabase * _Nonnull db) {
-         NSString *sql = @"DELETE t_chat;";
-        BOOL result = [db executeUpdate:sql];
-        if (result) {
-            NSLog(@"删除成功");
-        }
+        NSString *sql = @"UPDATE t_chat SET status = 2 WHERE sim_mark = ?;";
+        [db executeUpdate:sql, simMark];
     }];
 }
 
@@ -130,22 +129,9 @@
         }
         [rs close];
     }];
-    if (chatId == 0) {
-        NSString *key = [NSString stringWithFormat:@"%@_%@_lastChatId",user.account, simMark];
-        return [[NSUserDefaults standardUserDefaults] integerForKey:key];
-    }
     return chatId;
 }
 
-- (void)synchronizeLastChatId:(NSInteger)chatId {
-    XHUser *user = [XHUser currentUser];
-    NSString *simMark = user.currentSimMark;
-    if (!simMark) {
-        return;
-    }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_lastChatId",user.account, simMark];
-    [[NSUserDefaults standardUserDefaults] setObject:@(chatId) forKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+
 
 @end

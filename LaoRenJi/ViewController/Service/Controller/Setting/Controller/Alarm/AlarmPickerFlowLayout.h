@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AlarmPickerFlowLayout : UICollectionViewFlowLayout
 
 @property (nonatomic, assign) NSInteger tareget;
-
+@property (nonatomic, assign) NSInteger hour;
+@property (nonatomic, assign) NSInteger minute;
 @end
 
 NS_ASSUME_NONNULL_END

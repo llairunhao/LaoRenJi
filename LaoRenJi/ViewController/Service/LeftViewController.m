@@ -147,6 +147,7 @@
     WEAKSELF;
     [self showLoadingHUD];
     XHDevice *device = [XHUser currentUser].devices[indexPath.row];
+    NSLog(@"%@", device.simMark);
     XHAPIResultHandler handler = ^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
         [weakSelf hideAllHUD];
         if (result.isSuccess) {

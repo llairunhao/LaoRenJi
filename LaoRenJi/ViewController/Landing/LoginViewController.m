@@ -104,7 +104,7 @@
     CGRect rect = bounds;
     rect.origin.y = 698.f / 1920.f * CGRectGetHeight(bounds) + 12.f;
     UILabel *label = [[UILabel alloc] init];
-    label.text = @"登陆";
+    label.text = @"登录";
     label.font = [UIFont systemFontOfSize:20];
     label.textAlignment = NSTextAlignmentCenter;
     [scrollView addSubview:label];
@@ -140,7 +140,7 @@
     [forgetButton setAttributedTitle:att forState:UIControlStateNormal];
     [scrollView addSubview:forgetButton];
     
-    UIButton *button = [self buttonWithTitle:@"登陆"];
+    UIButton *button = [self buttonWithTitle:@"登录"];
     
     CGSize size1 = [forgetButton sizeThatFits:CGSizeZero];
     CGSize size2 = [button sizeThatFits:CGSizeZero];

@@ -32,7 +32,7 @@
         button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:button];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
-        [button  setTitle:@"未登陆" forState: UIControlStateNormal];
+        [button  setTitle:@"未登录" forState: UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         _nameButton = button;
         

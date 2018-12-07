@@ -12,10 +12,11 @@
 #import "UIViewController+ChildController.h"
 
 @interface AlarmTextEditController ()<UITextFieldDelegate>
-
+{
+    __weak UITextField *_textField;
+}
 @property (nonatomic, weak) UIView *bgView;
 @property (nonatomic, weak) UIView *contentView;
-@property (nonatomic, weak) UITextField *textField;
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, strong) XHKeyboardObserver *observer;
 @end
@@ -148,6 +149,9 @@
     [self hideSelf];
 }
 
+- (UITextField *)textField {
+    return _textField;
+}
 
 
 @end

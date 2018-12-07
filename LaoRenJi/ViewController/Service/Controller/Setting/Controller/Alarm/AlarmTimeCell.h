@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier;
 
-@property (nonatomic, assign) NSUInteger time;
+@property (nonatomic, assign) NSInteger time;
 
 @end
 

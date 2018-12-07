@@ -115,6 +115,7 @@
                            if (!result.isSuccess) {
                                [weakSelf toast:result.message];
                            }else {
+                               
                                [[XHUser currentUser] removeDevice:weakSelf.device];
                                [weakSelf.navigationController popViewControllerAnimated:true];
                            }

@@ -33,6 +33,7 @@
         WEAKSELF;
         [_chatDBQueue inDatabase:^(FMDatabase * _Nonnull db) {
             [weakSelf createChatTable:db];
+            [weakSelf createDeviceLogTable:db];
         }];
     }
     return _chatDBQueue;
@@ -45,7 +46,11 @@
         return @"";
     }
     NSString *key = [NSString stringWithFormat:@"%@_%@",user.account, simMark];
-    return [[NSUserDefaults standardUserDefaults] stringForKey:key];
+    NSString *phone = [[NSUserDefaults standardUserDefaults] stringForKey:key];
+    if (!phone) {
+        return @"";
+    }
+    return phone;
 }
 
 - (void)setCurrentDevicePhone:(NSString *)phone {
@@ -86,51 +91,51 @@
 }
 
 
-- (void)saveCurrentDeviceLog:(NSInteger)type timeSp:(NSTimeInterval)timeSp {
-    XHUser *user = [XHUser currentUser];
-    NSString *simMark = user.currentSimMark;
-    if (!simMark) {
-        return;
-    }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_log",user.account, simMark];
-    NSDictionary *value = @{@"type": @(type), @"timeSp": @(timeSp)};
-    NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
-    if (!array) {
-        array = @[value];
-    }else {
-        NSMutableArray *array2 = [NSMutableArray arrayWithArray:array];
-        [array2 insertObject:value atIndex:0];
-        array = [array2 copy];
-    }
-    [[NSUserDefaults standardUserDefaults] setObject:array forKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-
-- (NSArray<NSDictionary *> *)listOfCurrentDeviceLogs {
-    XHUser *user = [XHUser currentUser];
-    NSString *simMark = user.currentSimMark;
-    if (!simMark) {
-        return @[];
-    }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_log",user.account, simMark];
-    NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
-    if (!array) {
-        return @[];
-    }
-    return array;
-}
-
-- (void)removeCurrentDeviceAllLogs {
-    XHUser *user = [XHUser currentUser];
-    NSString *simMark = user.currentSimMark;
-    if (!simMark) {
-        return;
-    }
-    NSString *key = [NSString stringWithFormat:@"%@_%@_log",user.account, simMark];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+//- (void)saveCurrentDeviceLog:(NSInteger)type timeSp:(NSTimeInterval)timeSp {
+//    XHUser *user = [XHUser currentUser];
+//    NSString *simMark = user.currentSimMark;
+//    if (!simMark) {
+//        return;
+//    }
+//    NSString *key = [NSString stringWithFormat:@"%@_%@_log",user.account, simMark];
+//    NSDictionary *value = @{@"type": @(type), @"timeSp": @(timeSp)};
+//    NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
+//    if (!array) {
+//        array = @[value];
+//    }else {
+//        NSMutableArray *array2 = [NSMutableArray arrayWithArray:array];
+//        [array2 insertObject:value atIndex:0];
+//        array = [array2 copy];
+//    }
+//    [[NSUserDefaults standardUserDefaults] setObject:array forKey:key];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
+//
+//
+//- (NSArray<NSDictionary *> *)listOfCurrentDeviceLogs {
+//    XHUser *user = [XHUser currentUser];
+//    NSString *simMark = user.currentSimMark;
+//    if (!simMark) {
+//        return @[];
+//    }
+//    NSString *key = [NSString stringWithFormat:@"%@_%@_log",user.account, simMark];
+//    NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
+//    if (!array) {
+//        return @[];
+//    }
+//    return array;
+//}
+//
+//- (void)removeCurrentDeviceAllLogs {
+//    XHUser *user = [XHUser currentUser];
+//    NSString *simMark = user.currentSimMark;
+//    if (!simMark) {
+//        return;
+//    }
+//    NSString *key = [NSString stringWithFormat:@"%@_%@_log",user.account, simMark];
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
 
 
 
@@ -160,6 +165,31 @@
         NSLog(@"创建表失败");
     }
 }
+
+- (void)createDeviceLogTable: (nonnull FMDatabase *)db {
+    NSString *sql = @"CREATE TABLE IF NOT EXISTS t_device_log \
+    (\
+    id INTEGER PRIMARY KEY AUTOINCREMENT,\
+    sim_mark VARCHAR(255) NOT NULL,\
+    log_type TINYINT DEFAULT 0,\
+    status TINYINT DEFAULT 0,\
+    timeSp timestamp DEFAULT 0\
+    );";
+    
+    BOOL success = [db executeUpdate:sql];
+    if (success) {
+        success = [db executeUpdate:@"CREATE INDEX idx_sim_mark ON t_device_log (sim_mark);"];
+        if (success) {
+            NSLog(@"创建索引成功");
+        }else {
+            NSLog(@"创建索引失败");
+        }
+        
+    } else {
+        NSLog(@"创建表失败");
+    }
+}
+
 
 - (void)close {
     if (_chatDBQueue) {

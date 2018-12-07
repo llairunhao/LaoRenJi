@@ -122,6 +122,14 @@
         [self toast:@"请先绑定设备"];
         return;
     }
+    if (button.tag == 0) {
+        NSString *phone = [[DBManager sharedInstance] getCurrentDevicePhone];
+        if (phone.length > 0) {
+            NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"tel:%@", phone]];
+            [[UIApplication sharedApplication] openURL:url];
+            return;
+        }
+    }
 
     NSArray *classes = @[@"DevicePhoneViewController",
                          @"DeviceLiveSelectController",
@@ -150,14 +158,15 @@
 }
 
 - (void)refreshDataIfNeed {
-    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+//    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     XHDevice *device = [XHUser currentUser].currentDevice;
     NSString *text;
     if (device) {
          text = [NSString stringWithFormat:@"%@（%@）", device.name, device.online ? @"在线": @"离线"];
-        if (now - self.lastUpdateTime > 60) {
-            [self refreshData];
-        }
+         [self refreshData];
+//        if (now - self.lastUpdateTime > 60) {
+//            [self refreshData];
+//        }
     }else {
         text = @"请先绑定设备";
     }
@@ -174,6 +183,7 @@
     WEAKSELF;
     [XHAPI getCurrentDeviceStateByToken:token handler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
         if (result.isSuccess) {
+            NSLog(@"%@", result.message);
             [XHUser currentUser].currentDevice.online = JSON.boolValue;
             XHDevice *device = [XHUser currentUser].currentDevice;
             NSString *text;

@@ -8,7 +8,7 @@
 
 #import "XHRemoteNotificationHelper.h"
 #import <UserNotifications/UserNotifications.h>
-#import "DBManager.h"
+#import "DBManager+DeviceLog.h"
 
 @implementation XHRemoteNotificationHelper
 

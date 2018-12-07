@@ -159,7 +159,7 @@
     
     [XHAPI saveDeviceWifiByToken:[XHUser currentUser].token
                         wifiName:_nameTF.text
-                            type:2
+                            type:3
                         password:_passwordTF.text
                          handler:handler];
 }

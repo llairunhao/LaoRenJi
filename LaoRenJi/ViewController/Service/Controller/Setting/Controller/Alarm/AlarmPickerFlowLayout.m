@@ -12,10 +12,17 @@
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
     
-    CGFloat height = round(proposedContentOffset.y / self.itemSize.height) *  self.itemSize.height;
+    NSInteger index =  round(proposedContentOffset.y / self.itemSize.height);
+//    NSLog(@"targetContentOffsetForProposedContentOffset--->%@ | %@ | %@", @(index), @(index % 24), @(index % 60));
+    
+    self.hour = index % 24;
+    self.minute = index % 60;
+    CGFloat height = index *  self.itemSize.height;
     self.tareget = height;
+    
     return CGPointMake(0, height);
 }
+
 
 
 @end

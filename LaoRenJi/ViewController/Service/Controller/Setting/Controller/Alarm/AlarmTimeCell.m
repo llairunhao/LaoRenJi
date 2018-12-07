@@ -60,9 +60,18 @@
     _right.frame = rect;
 }
 
-- (void)setTime:(NSUInteger)time {
+- (void)setTime:(NSInteger)time {
+    _time = time;
+  
+    if (time < 0) {
+        return;
+    }
     _right.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@", @(time % 10)]];
     _left.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@", @(time / 10)]];
+}
+
+- (void)prepareForReuse {
+    self.time = -1;
 }
 
 @end

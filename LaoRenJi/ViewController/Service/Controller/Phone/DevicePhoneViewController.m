@@ -46,11 +46,11 @@
     button.frame = rect;
     [self.view addSubview:button];
     
-    button = [UIButton landingButtonWithTitle:@"呼叫" target:self action:@selector(buttonClick:)];
-    button.tag = 1;
-    rect.origin.y = CGRectGetMaxY(rect) + 12.f;
-    button.frame = rect;
-    [self.view addSubview:button];
+//    button = [UIButton landingButtonWithTitle:@"呼叫" target:self action:@selector(buttonClick:)];
+//    button.tag = 1;
+//    rect.origin.y = CGRectGetMaxY(rect) + 12.f;
+//    button.frame = rect;
+//    [self.view addSubview:button];
 }
 
 - (void)buttonClick: (UIButton *)button {

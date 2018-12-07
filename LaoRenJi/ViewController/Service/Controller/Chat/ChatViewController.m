@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSString *playUrlString;
 @property (nonatomic, strong) dispatch_source_t timer;
 @property (nonatomic, strong) NSMutableArray<XHChat *> *chats;
-
+@property (nonatomic, weak)UILabel *emptyLabel;
 @end
 
 @implementation ChatViewController
@@ -53,9 +53,7 @@
     rect.size = size;
     button.frame = rect;
     [self.view addSubview:button];
-    
 
-    
     rect = self.view.bounds;
     rect.origin.y = [UIView topSafeAreaHeight];
     rect.size.height = CGRectGetMinY(button.frame) - 12.f - [UIView topSafeAreaHeight];
@@ -82,6 +80,14 @@
     [self.view addSubview:button];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvNewMessageNoti:) name:XHNewMessageNotification object:nil];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:self.tableView.bounds];
+    label.textColor = [UIColor C3];
+    label.text = @"无留言信息";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:20];
+    [self.view addSubview:label];
+    self.emptyLabel = label;
 }
 
 - (void)dealloc
@@ -117,9 +123,11 @@
         if (result.isSuccess) {
             NSInteger chatId = [DBManager sharedInstance].lastChatId;
             NSArray *jsons = JSON.JSONArrayValue;
+            NSString *simMark = [XHUser currentUser].currentSimMark;
             NSMutableArray *array = [NSMutableArray arrayWithCapacity:jsons.count];
             for (XHJSON *json in jsons) {
                 XHChat *chat = [[XHChat alloc] initWithJSON:json];
+                chat.fromAccount = simMark;
                 if (chatId >= chat.chatId) {
                     continue;
                 }
@@ -138,6 +146,7 @@
 - (void)reloadData {
     _chats = [[[DBManager sharedInstance] listOfChats] mutableCopy];
     [self.tableView reloadData];
+    self.emptyLabel.hidden = _chats.count > 0;
 }
 
 #pragma mark-
@@ -213,13 +222,10 @@
 
 - (void)clearButtonClick: (UIButton *)button {
     [self destructiveAlertWithTitle:@"清空留言？" message:nil confirmHandler:^(UIAlertAction * _Nonnull action) {
-        if (self.chats.count > 0) {
-            XHChat *chat = self.chats.firstObject;
-            [[DBManager sharedInstance] synchronizeLastChatId:chat.chatId];
-        }
         [[DBManager sharedInstance] removeAllChats];
         [self.chats removeAllObjects];
         [self.tableView reloadData];
+        self.emptyLabel.hidden = false;
     }];
 }
 
@@ -238,6 +244,7 @@
             [weakSelf.chats insertObject:chat atIndex:0];
             [weakSelf.tableView reloadData];
             [[DBManager sharedInstance] saveChat:chat];
+            self.emptyLabel.hidden = true;
         }else {
             [weakSelf toast:result.message];
         }

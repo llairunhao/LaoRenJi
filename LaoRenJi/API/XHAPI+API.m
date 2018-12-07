@@ -232,7 +232,7 @@
                                  @"contactPhone" : phone,
                                  @"isUrgent" : isUrgent ? @(1) : @(0),
                                  @"urgentLevel" : @(urgentLevel),
-                                 @"IsAutoAnswer" : isAutoAnswer ? @(1) : @(0)
+                                 @"isAutoAnswer" : isAutoAnswer ? @(1) : @(0)
                                  };
     return [self GET:urlString parameters:parameters handler:handler];
 }
@@ -369,6 +369,7 @@
                                        startTime:(NSString *)startTime
                                          endTime:(NSString *)endTime
                                          handler:(XHAPIResultHandler)handler {
+    NSLog(@"%@-%@", startTime, endTime);
     NSString *urlString = [self urlStringByPath:@"getNavigationByMaxMinTimeInterface"];
     NSDictionary *parameters = @{
                                  @"token" : token,

@@ -219,14 +219,15 @@
         [self toast:@"请输入正确设备编号"];
         return false;
     }
-    AlarmTextEditController *editController = [[AlarmTextEditController alloc] init];
-    editController.placeholder = @"请输入设备昵称";
-    editController.title = @"设备昵称";
-    UNSAFESELF;
-    editController.textHandler = ^(NSString *text) {
-        [unsafeSelf bindDeviceCode:code deviceName:text controller:controller];
-    };
-    [controller addController:editController];
+    [self bindDeviceCode:code deviceName:code controller:controller];
+//    AlarmTextEditController *editController = [[AlarmTextEditController alloc] init];
+//    editController.placeholder = @"请输入设备昵称";
+//    editController.title = @"设备昵称";
+//    UNSAFESELF;
+//    editController.textHandler = ^(NSString *text) {
+//        [unsafeSelf bindDeviceCode:code deviceName:text controller:controller];
+//    };
+//    [controller addController:editController];
     return true;
     
 }

@@ -30,9 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)getCurrentDeviceLocusState;
 
 
-- (NSArray<NSDictionary *> *)listOfCurrentDeviceLogs;
-- (void)saveCurrentDeviceLog: (NSInteger)type timeSp: (NSTimeInterval)timeSp;
-- (void)removeCurrentDeviceAllLogs;
+
 
 @end
 

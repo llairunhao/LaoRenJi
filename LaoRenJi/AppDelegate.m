@@ -12,7 +12,7 @@
 #import <QQ_XGPush/XGPush.h>
 #import "XHUser.h"
 #import "XHRemoteNotificationHelper.h"
-
+#import <Bugly/Bugly.h>
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 #import <UserNotifications/UserNotifications.h>
@@ -34,6 +34,15 @@
     
     [AMapServices sharedServices].apiKey = @"d31a63b706c0987305d663fab59f09eb";
     [AMapServices sharedServices].enableHTTPS = YES;
+    
+    BuglyConfig * config = [[BuglyConfig alloc] init];
+    // 设置自定义日志上报的级别，默认不上报自定义日志
+    config.reportLogLevel = BuglyLogLevelInfo;
+    config.debugMode = false;
+    config.blockMonitorEnable = true;
+    config.unexpectedTerminatingDetectionEnable = true;
+    config.channel = @"XHKJ";
+    [Bugly startWithAppId:@"b0a9dc1637" config:config];
     
     [self setupXGPush: launchOptions];
     
@@ -61,7 +70,11 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if ([XHUser currentUser].token.length > 0) {
+        [[XHUser currentUser] reloginHandler:^(XHAPIResult * _Nonnull result, XHJSON * _Nonnull JSON) {
+            
+        }];
+    }
 }
 
 

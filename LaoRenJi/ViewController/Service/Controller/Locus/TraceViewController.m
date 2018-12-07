@@ -107,11 +107,28 @@
         MAPolyline *commonPolyline = [MAPolyline polylineWithCoordinates:commonPolylineCoords count:array.count];
         //在地图上添加折线对象
         [weakSelf.mapView addOverlay: commonPolyline];
+        [weakSelf.mapView setCenterCoordinate:commonPolylineCoords[0]];
     };
     [XHAPI listOfLocationsByToken:[XHUser currentUser].token
                         startTime:self.startDateString
                           endTime:self.endDateString
                           handler:handler];
+}
+
+- (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id <MAOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[MAPolyline class]])
+    {
+        MAPolylineRenderer *polylineRenderer = [[MAPolylineRenderer alloc] initWithPolyline:overlay];
+        
+        polylineRenderer.lineWidth    = 6.f;
+        polylineRenderer.strokeColor  = [UIColor EC1];
+        polylineRenderer.lineJoinType = kMALineJoinRound;
+        polylineRenderer.lineCapType  = kMALineCapRound;
+        
+        return polylineRenderer;
+    }
+    return nil;
 }
 
 - (NSDate *)endDate {
@@ -131,7 +148,7 @@
     static NSDateFormatter *kFormatter;
     if (!kFormatter) {
         kFormatter = [[NSDateFormatter alloc] init];
-        kFormatter.dateFormat = @"yyyy-MM-dd HH:mm";
+        kFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     }
     return kFormatter;
 }

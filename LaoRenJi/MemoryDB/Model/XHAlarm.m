@@ -73,7 +73,6 @@ static NSDateFormatter *kFormatter;
 }
 
 - (NSString *)repeatDay {
-    NSLog(@"%@", self.repeatDays);
     if (![self.repeatDays containsObject:@(1)]) {
         return @"只响一次";
     }

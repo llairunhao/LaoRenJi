@@ -13,7 +13,9 @@
 #import "XHUser.h"
 #import "LoginViewController.h"
 #import "XHNavigationController.h"
-
+#import "DBManager.h"
+#import "AlarmTextEditController.h"
+#import "UIViewController+ChildController.h"
 
 @interface ProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -30,7 +32,7 @@
 - (void)setupSubviews {
     self.title = @"个人中心";
     CGRect rect = self.view.bounds;
-    UIButton *button = [UIButton landingButtonWithTitle:@"退出登陆" target:self action:@selector(buttonClick:)];
+    UIButton *button = [UIButton landingButtonWithTitle:@"退出登录" target:self action:@selector(buttonClick:)];
     CGSize size = [button sizeThatFits:CGSizeZero];
     size.width = MIN(size.width, CGRectGetWidth(self.view.bounds) - 24.f);
     rect.origin.x = (CGRectGetWidth(self.view.bounds) - size.width ) / 2;
@@ -66,19 +68,20 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *titles = @[@"账号", @"密码", @"昵称", @"设备管理"];
+    NSArray *titles = @[@"账号", @"密码", @"昵称", @"设备管理", @"终端号码"];
     NSArray *contents = @[[XHUser currentUser].account,
                           @"********",
                           [XHUser currentUser].nickname,
-                          @""];
+                          @"",
+                          [[DBManager sharedInstance] getCurrentDevicePhone]];
     ProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bind"];
     if (!cell) {
         cell = [[ProfileCell alloc] initWithReuseIdentifier:@"bind"];
-        cell.leftWidth = indexPath.row == 3 ? 200.f : 50.f;
+        cell.leftWidth = indexPath.row == 3 ? 200.f : 90.f;
     }
     cell.textLabel.text = titles[indexPath.row];
     cell.contentLabel.text = contents[indexPath.row];
@@ -93,9 +96,20 @@
         UIViewController *controller = [[NSClassFromString(@"DevicesViewController") alloc] init];
         [self.navigationController pushViewController:controller animated:true];
     }else if (indexPath.row == 1) {
-        
         UIViewController *controller = [[NSClassFromString(@"ModifyPasswordViewController") alloc] init];
         [self.navigationController pushViewController:controller animated:true];
+    }else if (indexPath.row == 4) {
+        AlarmTextEditController *editController = [[AlarmTextEditController alloc] init];
+        editController.placeholder = @"请输入设备号码";
+        editController.title = @"设备号码";
+        editController.text = [[DBManager sharedInstance] getCurrentDevicePhone];
+        UNSAFESELF;
+        editController.textHandler = ^(NSString *text) {
+            [[DBManager sharedInstance] setCurrentDevicePhone:text];
+            [unsafeSelf.tableView reloadData];
+        };
+        [self addController:editController];
+        editController.textField.keyboardType = UIKeyboardTypeNumberPad;
     }
 }
 
