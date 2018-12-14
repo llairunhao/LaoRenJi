@@ -120,13 +120,17 @@
     imageView.frame = rect;
     [scrollView addSubview:imageView];
     
-//    imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LOGO"]];
-//    size = [imageView sizeThatFits:CGSizeZero];
-//    rect.size = size;
-//    rect.origin.x = (CGRectGetWidth(bounds) - size.width ) / 2;
-//    rect.origin.y = 223.f / 1920.f * CGRectGetHeight(bounds);
-//    imageView.frame = rect;
-//    [self.view addSubview:imageView];
+    imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LOGO"]];
+    
+    imageView.layer.masksToBounds = true;
+    CGFloat logoWH = 503.f / 1624.f * CGRectGetWidth(self.view.bounds);
+    size = CGSizeMake(logoWH, logoWH);
+    imageView.layer.cornerRadius = size.width / 2;
+    rect.size = size;
+    rect.origin.x = (CGRectGetWidth(bounds) - size.width ) / 2 - 2;
+    rect.origin.y = 335.f / 2882.f * CGRectGetHeight(bounds) + 2;
+    imageView.frame = rect;
+    [self.view addSubview:imageView];
     
     NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.f],
                            NSForegroundColorAttributeName: RGBA(75, 174, 174, 1),
